@@ -1,19 +1,16 @@
-[toolchain]
-package_manager = "yarn"
-
 [features]
-resolution = true
+seeds = false
 skip-lint = false
 
-[programs.localnet]
+[programs.devnet]
 meraki_contract = "GyCiLswm3XZTHKMSpj1nzFEEit8qp5kAWX7bszHd2pBE"
 
 [registry]
-url = "https://api.apr.dev"
+url = "https://api.devnet.solana.com"
 
 [provider]
-cluster = "localnet"
+cluster = "devnet"
 wallet = "~/.config/solana/id.json"
 
 [scripts]
-test = "yarn run mocha -t 1000000 tests/"
+test = "node tests/meraki_contract.js"
