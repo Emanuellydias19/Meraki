@@ -1,7 +1,7 @@
 use anchor_lang::prelude::*; //importa as coisas daquele famework anchor (atalho em solana para código de baixo nível)
 use anchor_spl::token::{self, Mint, MintTo, Token, TokenAccount, Transfer}; //importa o padrão de tokens da solana e precisa disso para realizar todas as transações
 
-declare_id!("GyCiLswm3XZTHKMSpj1nzFEEit8qp5kAWX7bszHd2pBE"); // id público da solana, tipo o cpf que eu vou usar depois para conectar com o back e o front.
+declare_id!("CYAznAeDJm4wrRFfbMbv4DQTcJ45co2zGBCLtpRdLoMm"); // id público da solana, tipo o cpf que eu vou usar depois para conectar com o back e o front.
  
 
 #[program]
@@ -128,6 +128,57 @@ pub struct MintNFT<'info> {
     /// CHECK: autoridade de mint
     pub mint_authority: AccountInfo<'info>,
     pub token_program: Program<'info, Token>,
+}
+
+// Coloque isso **após os structs de Accounts** (Invest e RecordRevenue), antes de qualquer `impl` do programa.
+
+impl<'info> Invest<'info> {
+    pub fn transfer_to_meraki_ctx(&self) -> CpiContext<'_, '_, '_, 'info, token::Transfer<'info>> {
+        let cpi_accounts = token::Transfer {
+            from: self.investor.to_account_info(), // ou a conta de token correta se for diferente
+            to: self.meraki_token_account.to_account_info(),
+            authority: self.investor.to_account_info(),
+        };
+        CpiContext::new(self.token_program.to_account_info(), cpi_accounts)
+    }
+
+    pub fn transfer_to_contract_vault_ctx(&self) -> CpiContext<'_, '_, '_, 'info, token::Transfer<'info>> {
+        let cpi_accounts = token::Transfer {
+            from: self.investor.to_account_info(), // ou a conta de token correta
+            to: self.vault_account.to_account_info(),
+            authority: self.investor.to_account_info(),
+        };
+        CpiContext::new(self.token_program.to_account_info(), cpi_accounts)
+    }
+}
+
+impl<'info> RecordRevenue<'info> {
+    pub fn transfer_to_meraki_ctx(&self) -> CpiContext<'_, '_, '_, 'info, token::Transfer<'info>> {
+        let cpi_accounts = token::Transfer {
+            from: self.payer.to_account_info(), // ou a conta de token correta
+            to: self.meraki_token_account.to_account_info(),
+            authority: self.payer.to_account_info(),
+        };
+        CpiContext::new(self.token_program.to_account_info(), cpi_accounts)
+    }
+
+    pub fn transfer_to_investor_ctx(&self) -> CpiContext<'_, '_, '_, 'info, token::Transfer<'info>> {
+        let cpi_accounts = token::Transfer {
+            from: self.payer.to_account_info(), // ou a conta de token correta
+            to: self.investor_token_account.to_account_info(),
+            authority: self.payer.to_account_info(),
+        };
+        CpiContext::new(self.token_program.to_account_info(), cpi_accounts)
+    }
+
+    pub fn transfer_to_startup_ctx(&self) -> CpiContext<'_, '_, '_, 'info, token::Transfer<'info>> {
+        let cpi_accounts = token::Transfer {
+            from: self.payer.to_account_info(), // ou a conta de token correta
+            to: self.startup_token_account.to_account_info(),
+            authority: self.payer.to_account_info(),
+        };
+        CpiContext::new(self.token_program.to_account_info(), cpi_accounts)
+    }
 }
 
 
