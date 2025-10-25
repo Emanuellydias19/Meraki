@@ -1,34 +1,35 @@
-use anchor_lang::prelude::*;
-use anchor_spl::token::{self, Mint, MintTo, Token, TokenAccount, Transfer};
+use anchor_lang::prelude::*; //importa as coisas daquele famework anchor (atalho em solana para código de baixo nível)
+use anchor_spl::token::{self, Mint, MintTo, Token, TokenAccount, Transfer}; //importa o padrão de tokens da solana e precisa disso para realizar todas as transações
 
-declare_id!("GyCiLswm3XZTHKMSpj1nzFEEit8qp5kAWX7bszHd2pBE");
+declare_id!("GyCiLswm3XZTHKMSpj1nzFEEit8qp5kAWX7bszHd2pBE"); // id público da solana, tipo o cpf que eu vou usar depois para conectar com o back e o front.
+ 
 
 #[program]
-pub mod meraki_contract {
-    use super::*;
+pub mod meraki_contract { //aqui começa as instruções do contrato e cada uma delas (pub fn), é executada como uma transação na solana.  
+use super::*; //essa parte importa tudo do escopo anterior (no caso as dependências que a gente importou ali em cima)
 
     // 1. Inicializa o contrato de investimento
     pub fn initialize_contract(
-        ctx: Context<InitializeContract>,
-        amount: u64,
-        investor_return_percent: u8,
-        duration_days: u64,
+        ctx: Context<InitializeContract>, //aqui ele abre a conta e o contrato entre investidor e startup
+        amount: u64,//dado fornecido pelo investidor
+        investor_return_percent: u8, //dado forncecido pelo investidor
+        duration_days: u64, //esse u64 é aquele negócio de "tipo de dado na solana"
     ) -> Result<()> {
-        let contract = &mut ctx.accounts.investment_contract;
-        contract.investor = ctx.accounts.investor.key();
-        contract.startup = ctx.accounts.startup.key();
-        contract.amount = amount;
-        contract.investor_return_percent = investor_return_percent;
-        contract.duration_days = duration_days;
-        contract.start_time = Clock::get()?.unix_timestamp;
-        contract.is_active = true;
+        let contract = &mut ctx.accounts.investment_contract; //pega a conta de contrato que estão armazenados on-chain e cria uma referência mutável, pois vamos alterá-la (&mut)
+        contract.investor = ctx.accounts.investor.key(); //define a chave pública do investidor
+        contract.startup = ctx.accounts.startup.key(); //define a chave pública da startup
+        contract.amount = amount; //armazena um parâmetro passado
+        contract.investor_return_percent = investor_return_percent; //armazena um parâmetro criado
+        contract.duration_days = duration_days; //armazena um parâmetro passado
+        contract.start_time = Clock::get()?.unix_timestamp; //acessa o relógio da solana
+        contract.is_active = true; //define o contrato como ativo
         contract.total_revenue = 0;
-        contract.total_distributed = 0;
+        contract.total_distributed = 0; //esse valor 0 é o inicial, mas ele vai crescendo ao longo do contrato.
         Ok(())
     }
 
     // 2. Realiza o investimento inicial
-    pub fn invest(ctx: Context<Invest>) -> Result<()> {
+    pub fn invest(ctx: Context<Invest>) -> Result<()> { //aqui é quando o investidor manda o dinheiro em tokens
         let total = ctx.accounts.investment_contract.amount;
         let meraki_fee = total / 200; // 0.5%
         let startup_amount = total - meraki_fee;
@@ -37,14 +38,14 @@ pub mod meraki_contract {
         token::transfer(ctx.accounts.transfer_to_contract_vault_ctx(), startup_amount)?;
 
         ctx.accounts.investment_contract.is_invested = true;
-        Ok(())
+        Ok(()) //realiza as duas transferências e marca que o investimento foi feito
     }
 
     // 3. Registra receita da startup (modelo trustless)
-    pub fn record_revenue(ctx: Context<RecordRevenue>, revenue_amount: u64) -> Result<()> {
-        let contract = &mut ctx.accounts.investment_contract;
+    pub fn record_revenue(ctx: Context<RecordRevenue>, revenue_amount: u64) -> Result<()> { //função chamada toda a vez que a startup gera receita
+        let contract = &mut ctx.accounts.investment_contract; //esse modelo faz com que toda a receita que essa startup receba caia nessa lógica.
 
-        // Atualiza total recebido
+        // Atualiza total recebido na conta da startup
         contract.total_revenue += revenue_amount;
 
         // Cálculo das divisões
@@ -61,34 +62,33 @@ pub mod meraki_contract {
         Ok(())
     }
 
-    // 4. Gera NFT comprovante de investimento
-    pub fn mint_investment_nft(ctx: Context<MintNFT>) -> Result<()> {
-        let cpi_ctx = CpiContext::new(
+    // 4. Gera NFT comprovante de investimento 
+    pub fn mint_investment_nft(ctx: Context<MintNFT>) -> Result<()> { // (mint: cria um NFT)
+        let cpi_ctx = CpiContext::new( //cria um contexto CPI
             ctx.accounts.token_program.to_account_info(),
-            MintTo {
+            MintTo { //define quem é o mint (token a ser criado)
                 mint: ctx.accounts.mint.to_account_info(),
-                to: ctx.accounts.investor_token_account.to_account_info(),
-                authority: ctx.accounts.mint_authority.to_account_info(),
+                to: ctx.accounts.investor_token_account.to_account_info(), //para quem vai
+                authority: ctx.accounts.mint_authority.to_account_info(), //quem tem permissão de criar
             },
         );
-        token::mint_to(cpi_ctx, 1)?;
+        token::mint_to(cpi_ctx, 1)?; //"minta" uma unidade, 1 NFT
         Ok(())
     }
 }
 
-// ==========================
-// CONTEXTOS DE EXECUÇÃO
-// ==========================
+
+// CONTEXTOS DE EXECUÇÃO: dizem quais contas on-chain precisam ser passadas em cada transação
 
 #[derive(Accounts)]
 pub struct InitializeContract<'info> {
-    #[account(init, payer = investor, space = 8 + InvestmentContract::LEN)]
+    #[account(init, payer = investor, space = 8 + InvestmentContract::LEN)] //Esse campo cria uma nova conta na solana e o investidor paga o custo dessa criação em lamports. O restante define o tamanho em bytes.
     pub investment_contract: Account<'info, InvestmentContract>,
-    #[account(mut)]
-    pub investor: Signer<'info>,
+    #[account(mut)] //conta mutável duante a transação
+    pub investor: Signer<'info>, //inidica que essa conta deve assinar a transação com cua chave privada.
     /// CHECK: conta pública da startup
-    pub startup: AccountInfo<'info>,
-    pub system_program: Program<'info, System>,
+    pub startup: AccountInfo<'info>, //aqui a startup não precisa assinar, apenas ser identificada
+    pub system_program: Program<'info, System>, //programa nativo da solana responsável por criar contas e transferir lamports.
 }
 
 #[derive(Accounts)]
@@ -130,9 +130,8 @@ pub struct MintNFT<'info> {
     pub token_program: Program<'info, Token>,
 }
 
-// ==========================
+
 // ESTRUTURA DE DADOS
-// ==========================
 
 #[account]
 pub struct InvestmentContract {
