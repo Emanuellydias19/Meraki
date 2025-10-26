@@ -1,0 +1,48 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        INSERT INTO nft_progress (investment_id, milestone_id, visual_state)\n        VALUES ($1, $2, $3)\n        ON CONFLICT (investment_id, milestone_id)\n        DO UPDATE SET visual_state = EXCLUDED.visual_state, updated_at = now()\n        RETURNING id, investment_id, milestone_id, visual_state, updated_at\n        ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "investment_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 2,
+        "name": "milestone_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 3,
+        "name": "visual_state",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 4,
+        "name": "updated_at",
+        "type_info": "Timestamptz"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Uuid",
+        "Text"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      true,
+      false
+    ]
+  },
+  "hash": "484a0bc45a0019d332c64496ec1bee6d60ab1b62a7f7f3db7828cc56cd1e00c5"
+}
