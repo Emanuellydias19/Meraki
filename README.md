@@ -17,42 +17,44 @@
 - <a href="https://www.linkedin.com/in/vict0rcarvalh0/">Vitor Carvalho</a> <br>
 <br>
 
-## Descrição
+## Description
+NodeHub is a Web3 platform built in the Solana ecosystem, designed to connect emerging startups with investors interested in supporting innovative projects in a transparent, traceable, and secure way.
+The solution comes from the need to remove bureaucracy from early-stage investments, offering a decentralized and reliable environment where startups can present their ideas and investors can safely support them, all recorded on the blockchain.
 
-O NodeHub é uma plataforma Web3 desenvolvida no ecossistema Solana, criada para conectar startups emergentes com investidores interessados em apoiar projetos inovadores de forma **transparente, rastreável e segura.**
-A solução **nasce da necessidade de eliminar a burocracia dos investimentos iniciais,** oferecendo um ambiente descentralizado e confiável, onde startups podem apresentar suas ideias e investidores podem apoiar com segurança, tudo registrado na blockchain.
-
-No NodeHub, cada investimento é feito por meio de um smart contract (contrato inteligente), e o investidor recebe um NFT de rastreamento, que funciona como prova de investimento e token de confiança. Esse NFT evolui visualmente à medida que a startup alcança suas metas, tornando o processo mais gamificado e transparente.
-
-### Principais Diferenciais
-
--  **Transparência total:** Todos os investimentos e atualizações são registrados na blockchain Solana. <br>
-- **Gamificação:** NFTs dinâmicos evoluem conforme a startup atinge marcos definidos. <br>
-- **Velocidade e baixo custo:** Transações rápidas e com taxas mínimas, graças à infraestrutura da Solana. <br>
-- **Relação direta:** Comunicação sem intermediários entre investidores e empreendedores. <br>
-
-### 🎥 Demonstração
-Vídeo de Demonstração: (link a ser inserido) 
+In NodeHub, every investment is made through a smart contract, and the investor receives a tracking NFT, which works as proof of investment and a trust token. This NFT visually evolves as the startup reaches its goals, making the process more gamified and transparent.
 
 
-## 📁 Estrutura de Pastas
+### Main Differentiators
 
-A seguir está a organização geral do repositório Meraki, contendo todos os diretórios e suas respectivas finalidades no desenvolvimento da plataforma.
+- Total transparency: All investments and updates are recorded on the Solana blockchain.
 
-### Detalhes das Principais Pastas
+- Gamification: Dynamic NFTs evolve as the startup reaches defined milestones.
 
-**docs/** → Contém toda a documentação do projeto, incluindo diagramas, manual técnico e documentação da API.
+- Speed and low cost: Fast transactions with minimal fees, thanks to Solana's infrastructure.
 
-**src/client/** → Aplicação frontend desenvolvida em Next.js, com integração ao Solana Wallet Adapter.
+- Direct connection: Communication without intermediaries between investors and entrepreneurs.
 
-**src/server/** → Backend em Node.js, responsável pela lógica da API, comunicação com o banco e autenticação.
+### 🎥 Demo
+Demo Video: (link to be added)
 
-**src/program/** → Programa on-chain construído com o Anchor Framework, contendo instruções e estados para gerenciamento dos investimentos na blockchain Solana.
 
-## 🗃 Histórico de lançamentos
+## Folder Structure
+Below is the general organization of the Meraki repository, with all directories and their purposes in the platform's development.
 
-*0.5.0 - XX/XX/2025* <br>
-*0.4.0 - XX/XX/2025* <br>
-*0.3.0 - XX/XX/2025* <br>
-*0.2.0 - XX/XX/2025* <br>
-*0.1.0 - XX/XX/2025* <br>
+### Details of Main Folders
+
+**docs/ →** Contains all project documentation, including diagrams, technical manual, and API documentation.
+
+**src/client/ →** Frontend application developed in Next.js, integrated with Solana Wallet Adapter.
+
+**src/server/ →** Backend in Node.js, responsible for API logic, database communication, and authentication.
+
+**src/program/ →** On-chain program built using the Anchor Framework, containing instructions and states for managing investments on the Solana blockchain.
+
+## 🗃 Release History
+
+0.5.0 - XX/XX/2025
+0.4.0 - XX/XX/2025
+0.3.0 - XX/XX/2025
+0.2.0 - XX/XX/2025
+0.1.0 - XX/XX/2025
