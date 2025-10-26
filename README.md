@@ -53,8 +53,8 @@ Below is the general organization of the Meraki repository, with all directories
 
 ## 🗃 Release History
 
-0.5.0 - XX/XX/2025
-0.4.0 - XX/XX/2025
-0.3.0 - XX/XX/2025
-0.2.0 - XX/XX/2025
-0.1.0 - XX/XX/2025
+0.5.0 - XX/XX/2025 <br>
+0.4.0 - XX/XX/2025 <br>
+0.3.0 - XX/XX/2025 <br>
+0.2.0 - XX/XX/2025 <br>
+0.1.0 - XX/XX/2025 <br>
