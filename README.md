@@ -1,10 +1,10 @@
-# Plataforma de Investimentos Web3 para Startups no Ecossistema Solana
+# Web3 Investment Platform for Startups in the Solana Ecosystem
 <img width="395" height="119" alt="Meraki (2)" src="https://github.com/user-attachments/assets/32069a6d-76c1-4020-9a67-564bb90b6171" />
 
 
 ## NodeHub
 
-## Integrantes:
+## Team Members:
 
 - <a href="https://www.linkedin.com/in/ana-cristina-jardim/">Ana Cristina</a>
 - <a href="https://www.linkedin.com/in/ana-júlia-ribeiro/">Ana Julia Ribeiro</a> 
@@ -12,7 +12,7 @@
 - <a href="https://www.linkedin.com/in/mirela-bianchi-608601254/">Mirela Bianchi</a>
 - <a href="https://www.linkedin.com/in/nicolezanin/">Nicole Zanin</a>
 
-### Instrutores
+### Instructors
 
 - <a href="https://www.linkedin.com/in/vict0rcarvalh0/">Vitor Carvalho</a> <br>
 <br>
