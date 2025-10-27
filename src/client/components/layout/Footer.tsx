@@ -1,11 +1,11 @@
 export function Footer() {
   return (
     <footer className="bg-gray-900 border-t border-gray-800 py-12">
-      <div className="w-[1440px] mx-auto px-8">
+      <div className="w-full mx-auto px-8">
         <div className="grid grid-cols-4 gap-12 mb-12">
           {/* Coluna 1 */}
           <div>
-            <h3 className="text-white font-bold mb-4">NodeHub</h3>
+            <h3 className="text-white font-bold mb-4">Meraki</h3>
             <p className="text-gray-400 text-sm">
               Plataforma de investimentos descentralizados em Solana
             </p>

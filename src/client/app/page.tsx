@@ -2,25 +2,20 @@
 
 import { StartupGrid } from "@/components/startup";
 import { Button } from "@/components/ui";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
 import Link from "next/link";
 
 export default function LandingPage() {
   return (
     <div className="min-h-screen bg-background">
-      <Header />
-
       {/* Hero */}
-      <section className="h-screen flex items-center justify-center bg-linear-to-b from-primary/20 to-background">
-        <div className="w-[1440px] mx-auto px-8 text-center space-y-8">
-          <h1 className="text-6xl font-bold text-white">Meet NodeHub</h1>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-            Uma plataforma Web3 desenvolvida no ecossistema Solana, criada para
-            conectar startups emergentes com investidores interessados em apoiar
-            projetos inovadores de forma transparente, rastreável e segura.
+      <section className="h-screen justify-center bg-linear-to-b from-primary/20 to-background flex items-center">
+        <div className="px-8 space-y-8 flex-1">
+          <h1 className="text-6xl font-bold text-white">Meet Meraki</h1>
+          <p className="text-xl text-gray-400 max-w-2xl">
+            A platform built on Solana that connects startups and investors in a
+            transparent and decentralized way.
           </p>
-          <div className="flex gap-4 justify-center">
+          <div className="flex gap-4">
             <Link href="/explore" passHref>
               <Button className="px-8 py-3 rounded-lg font-semibold bg-accent text-white hover:opacity-90 transition-opacity">
                 Explorar Startups
@@ -28,62 +23,97 @@ export default function LandingPage() {
             </Link>
             <Link href="/signup" passHref>
               <Button className="px-8 py-3 rounded-lg font-semibold border-2 border-accent text-accent hover:bg-accent/10 transition-colors">
-                Publicar Startup
+                Publicize your Startup
               </Button>
             </Link>
           </div>
         </div>
+
+        <div className="flex flex-1 justify-center items-center">
+          <div className="w-full max-w-md rounded-lg overflow-hidden">
+            {/* Hard-coded demo video (YouTube embed). Troque pela sua URL se desejar. */}
+            <iframe
+              className="w-full h-64 md:h-80"
+              src="https://www.youtube.com/embed/5t_Lec1VGOE?si=zNlSBgh_hmSHl2IT"
+              title="Demo video"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          </div>
+        </div>
       </section>
 
-      {/* Startups em destaque */}
-      <section className="container mx-auto py-16">
-        <h2 className="text-3xl font-bold mb-8">Startups em Destaque</h2>
-        <StartupGrid startups={[]} />
+      <section className="h-screen p-12">
+        <h2 className="text-3xl font-bold mb-8">More about Meraki</h2>
+        <p>
+          Meraki is a decentralized platform built on Solana that connects
+          innovative startups with visionary investors through transparent smart
+          contracts. Startups can showcase their projects and funding goals,
+          while investors can explore opportunities across sectors like health,
+          education, and sustainability, investing directly from their wallets.
+        </p>
+        <p>
+          When an investor agrees with a startup’s funding request, they can
+          connect their wallet and complete the payment through the Meraki
+          platform. Once the transaction is made, the smart contract
+          automatically defines the financial flow: from all revenue the startup
+          generates on the Solana network, a pre-agreed percentage is
+          continuously returned to the investor, while 0.5% of each transaction
+          goes to Meraki as a service fee. This distribution remains active for
+          the duration of the contract.
+        </p>
+        <p>
+          Each investment also generates a unique NFT that proves contribution
+          and transparently tracks fund usage on-chain, ensuring trust,
+          accountability, and transparency in every transaction.
+        </p>
+
+        <div className="flex gap-4">
+          <h6 className="text-3xl font-bold mb-8">Meraki</h6>
+          <h6 className="text-3xl font-bold mb-8">SOLANA</h6>
+        </div>
       </section>
 
       {/* Features */}
-      <section className="py-24 bg-gray-900">
-        <div className="w-[1440px] mx-auto px-8 space-y-12">
+      <section className="py-24 bg-gray-900 w-full overflow-y-auto">
+        <div className="mx-auto px-8 space-y-12">
           <h2 className="text-4xl font-bold text-white text-center">
-            Por que investir conosco?
+            Why invest with us?
           </h2>
           <div className="grid grid-cols-4 gap-8">
             {[
               {
                 icon: "🔒",
-                title: "Segurança",
-                desc: "Todos os investimentos registrados na blockchain",
+                desc: "Every investment is secured and traceable on Solana’s blockchain.",
               },
               {
                 icon: "🎮",
-                title: "Gamificação",
-                desc: "NFTs dinâmicos que evoluem com marcos",
+                desc: "Discover early-stage startups building the future of Web3.",
               },
               {
                 icon: "⚡",
-                title: "Velocidade",
                 desc: "Transações rápidas com taxas mínimas",
               },
               {
                 icon: "🤝",
-                title: "Direto",
-                desc: "Sem intermediários, relação direta",
+                desc: "Support startups that are changing industries and creating global value.",
               },
             ].map((feature, idx) => (
               <div
                 key={idx}
-                className="bg-gray-800 rounded-lg p-6 text-center space-y-4"
+                className="bg-gray-800 rounded-lg p-6 text-center space-y-4 min-w-2xs"
               >
                 <div className="text-4xl">{feature.icon}</div>
-                <h3 className="text-lg font-bold text-white">{feature.title}</h3>
+                <h3 className="text-lg font-bold text-white">
+                  {feature.title}
+                </h3>
                 <p className="text-gray-400 text-sm">{feature.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
-
-      <Footer />
     </div>
   );
 }
