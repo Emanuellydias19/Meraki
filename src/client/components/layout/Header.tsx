@@ -3,7 +3,7 @@
 "use client";
 
 import Link from "next/link";
-import { DESKTOP_CONFIG } from "@/lib/config/api";
+
 
 export function Header() {
   return (
