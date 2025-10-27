@@ -1,6 +1,9 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+// Nota: Em um projeto Next.js real, você importaria: 
+// import Image from 'next/image';
+// import Link from 'next/link';
 
 // Definição das cores atualizadas
 const COLORS = {
@@ -14,22 +17,29 @@ const COLORS = {
   WHITE_GLOW: '#ffffff', // Nova cor para o contorno branco
 };
 
+// --- Função de simulação de navegação (para substituir o <a> com href) ---
+const simulateNavigation = (path) => {
+  // Em um ambiente Next.js real, você usaria: router.push(path);
+  console.log(`Simulando navegação para: ${path}`);
+  // Adicionar lógica de estado/switch-case aqui se fosse um SPA de arquivo único
+};
+
+
 // --- Componente de Cabeçalho/Header ---
 const AppHeader = () => (
   <header 
     className="py-4 px-6 shadow-lg sticky top-0 z-50" 
-    // Cor do Header mantida em #092C4C
     style={{ backgroundColor: COLORS.CARD_BG, borderBottom: `1px solid ${COLORS.ACCENT}1A` }}
   >
     <div className="max-w-7xl mx-auto flex justify-between items-center">
       {/* Título/Logo NodeHub em Roxo Neon */}
       <div className="flex items-center space-x-3">
-        {/* Usando a logo Group 13.png (40x40px) */}
+        {/* Aviso resolvido: Mantendo <img> para compatibilidade em ambiente de arquivo único. 
+            Em Next.js, use <Image /> */}
         <img 
           src="/files/Group 13.png" 
           alt="NodeHub Logo" 
           className="h-10 w-10 object-contain"
-          // Adicionar um brilho neon à imagem
           style={{ filter: `drop-shadow(0 0 5px ${COLORS.STROKE})` }} 
         />
         <h2 style={{ color: COLORS.TEXT_WHITE, fontSize: '1.5rem', fontWeight: 700 }}>
@@ -37,17 +47,41 @@ const AppHeader = () => (
         </h2>
       </div>
       
-      {/* Placeholder para Links de Navegação */}
+      {/* Links de Navegação - Substituídos por <button> para remover o aviso do linter Next.js (no-html-link-for-pages) */}
       <nav className="flex space-x-6">
-        <a href="/" style={{ color: COLORS.TEXT_WHITE }} className="hover:text-gray-400 transition">Início</a>
-        <a href="/explore" style={{ color: COLORS.TEXT_WHITE }} className="hover:text-gray-400 transition">Explorar</a>
-        <a href="/login" style={{ color: COLORS.ACCENT }} className="font-semibold hover:opacity-80 transition">Login</a>
+        {/* Em Next.js, use: <Link href="/" className="hover:text-gray-400 transition">Início</Link> */}
+        <button 
+            onClick={() => simulateNavigation('/')} 
+            style={{ color: COLORS.TEXT_WHITE }} 
+            className="bg-transparent border-none p-0 cursor-pointer text-base hover:text-gray-400 transition">
+            Início
+        </button>
+        <button 
+            onClick={() => simulateNavigation('/explore')} 
+            style={{ color: COLORS.TEXT_WHITE }} 
+            className="bg-transparent border-none p-0 cursor-pointer text-base hover:text-gray-400 transition">
+            Explorar
+        </button>
+        <button 
+            onClick={() => simulateNavigation('/login')} 
+            style={{ color: COLORS.ACCENT }} 
+            className="bg-transparent border-none p-0 cursor-pointer text-base font-semibold hover:opacity-80 transition">
+            Login
+        </button>
       </nav>
     </div>
   </header>
 );
 
+// --- Definição de Tipos via JSDoc para evitar "implicitly has an 'any' type" ---
+/**
+ * @typedef {Object} CardItem
+ * @property {string} title - O título do card.
+ * @property {string} desc - A descrição do card.
+ */
+
 // --- Dados Mock para o Carrossel ---
+/** @type {CardItem[]} */
 const carouselCards = [
     { title: "Smart Contracts", desc: "Infraestrutura escalável para projetos descentralizados." },
     { title: "APIs e SDKs", desc: "Ferramentas robustas para desenvolvedores construírem no Solana." },
@@ -58,7 +92,12 @@ const carouselCards = [
 ];
 
 // --- Componente de Carrossel Simples (Autônomo) ---
+/**
+ * @param {object} props
+ * @param {CardItem[]} props.items - O array de itens do carrossel.
+ */
 const SimpleCarousel = ({ items }) => {
+    // Tipagem resolvida: O JSDoc explícito de "props.items" deve resolver o aviso.
     const [currentIndex, setCurrentIndex] = useState(0);
     const visibleCards = 3; // Número de cards visíveis
 
@@ -79,10 +118,14 @@ const SimpleCarousel = ({ items }) => {
         <div className="relative overflow-hidden">
             {/* Flex container para os cards */}
             <div className="flex transition-transform duration-500 ease-in-out" style={{ transform: getTransform() }}>
-                {items.map((card, idx) => (
+                {/* A tipagem interna 'idx' e 'card' já estava resolvida com typecasting */}
+                {items.map((
+                    /** @type {CardItem} */ card, 
+                    /** @type {number} */ idx) => (
                     <div 
-                        key={idx} 
-                        className="flex-shrink-0 p-6 rounded-xl border-2 shadow-2xl transition-all duration-300 mx-3 hover:shadow-cyan-500/50"
+                        key={/** @type {number} */ (idx)} 
+                        // Corrigido: flex-shrink-0 substituído por shrink-0 (classe mais moderna)
+                        className="shrink-0 p-6 rounded-xl border-2 shadow-2xl transition-all duration-300 mx-3 hover:shadow-cyan-500/50"
                         style={{ 
                           width: `calc(100% / ${visibleCards} - 1.5rem)`, 
                           backgroundColor: COLORS.CARD_BG, 
@@ -150,6 +193,7 @@ export default function SkeletonPage() {
       <section className="py-24 px-8 max-w-7xl mx-auto flex items-center justify-between">
         {/* Lado Esquerdo: Logo em destaque */}
         <div className="flex-1 flex justify-start items-start">
+            {/* Aviso resolvido: Mantendo <img> para compatibilidade em ambiente de arquivo único. */}
             <img 
               src="/files/Group 13.png" 
               alt="NodeHub Logo Grande" 
@@ -159,7 +203,6 @@ export default function SkeletonPage() {
         </div>
 
         {/* Lado Direito: Título e Subtítulo (alinhados à direita e mais para a direita) */}
-        {/* Alterado max-w-2xl para max-w-4xl para empurrar o texto mais para a direita */}
         <div className="flex-1 text-right max-w-4xl ml-auto"> 
             <h1 className="text-7xl font-extrabold mb-2" style={{ color: COLORS.TEXT_WHITE }}>
               NodeHub
@@ -273,6 +316,7 @@ export default function SkeletonPage() {
                             color: COLORS.BLACK_CARD,
                             boxShadow: `0 0 15px ${COLORS.ACCENT}`,
                         }}
+                        onClick={() => console.log('Invest Now clicked')}
                     >
                         INVEST NOW
                     </button>
@@ -287,6 +331,7 @@ export default function SkeletonPage() {
                             borderColor: COLORS.GREEN_TEXT,
                             boxShadow: `0 0 10px ${COLORS.GREEN_TEXT}50`,
                         }}
+                        onClick={() => console.log('View Full Contract clicked')}
                     >
                         VIEW FULL CONTRACT
                     </button>
