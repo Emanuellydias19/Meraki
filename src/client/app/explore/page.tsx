@@ -25,7 +25,6 @@ export default function ExplorePage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <Header />
 
       <main className="w-[1440px] mx-auto px-8 py-12 space-y-12">
         {/* Título */}
@@ -66,8 +65,6 @@ export default function ExplorePage() {
           </div>
         )}
       </main>
-
-      <Footer />
     </div>
   );
 }
