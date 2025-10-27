@@ -44,8 +44,11 @@ export default function LandingPage() {
         <h2 className="text-3xl font-bold mb-8">Startups em Destaque</h2>
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         <StartupGrid startups={[]} columns={4} />
 =======
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
         <StartupGrid startups={[]} />
@@ -94,6 +97,9 @@ export default function LandingPage() {
         </div>
 >>>>>>> eab94a8bec495dbc92177cd3005edd2ecea00618
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
