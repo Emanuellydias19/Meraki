@@ -1,6 +1,5 @@
 "use client";
 
-import { StartupGrid } from "@/components/startup";
 import { Button } from "@/components/ui";
 import Link from "next/link";
 import Slider from "react-slick";
