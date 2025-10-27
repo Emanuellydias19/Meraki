@@ -2,8 +2,8 @@ use anchor_lang::prelude::*;
 use anchor_spl::token::{self, Mint, MintTo, Token, TokenAccount, Transfer};
 
 // 🧩 ID PÚBLICO DO PROGRAMA
-// ⚠️ Este ID PRECISA ser o mesmo que está no Anchor.toml e no deploy local.
-// Confirme com `anchor keys list` e substitua aqui.
+// ⚠ Este ID PRECISA ser o mesmo que está no Anchor.toml e no deploy local.
+// Confirme com `anchor keys list` e substitua aqui, se necessário.
 declare_id!("51jdU5SpLxidhessiSTiAe3uATxh7sSHn1WKvvVVDK74");
 
 #[program]
@@ -11,7 +11,7 @@ pub mod meraki_contract {
     use super::*;
 
     // -------------------------------------------------
-    // 1️⃣ Inicializa o contrato de investimento
+    // ⿡ Inicializa o contrato de investimento
     // -------------------------------------------------
     pub fn initialize_contract(
         ctx: Context<InitializeContract>,
@@ -36,7 +36,7 @@ pub mod meraki_contract {
     }
 
     // -------------------------------------------------
-    // 2️⃣ Investir — transfere tokens do investidor para o cofre e taxa Meraki
+    // ⿢ Investir — transfere tokens do investidor para o cofre e taxa Meraki
     // -------------------------------------------------
     pub fn invest(ctx: Context<Invest>) -> Result<()> {
         let total = ctx.accounts.investment_contract.amount;
@@ -51,7 +51,7 @@ pub mod meraki_contract {
     }
 
     // -------------------------------------------------
-    // 3️⃣ Registrar receita — distribui lucros entre partes
+    // ⿣ Registrar receita — distribui lucros entre as partes
     // -------------------------------------------------
     pub fn record_revenue(ctx: Context<RecordRevenue>, revenue_amount: u64) -> Result<()> {
         let meraki_fee = revenue_amount / 200;
@@ -72,7 +72,7 @@ pub mod meraki_contract {
     }
 
     // -------------------------------------------------
-    // 4️⃣ Mintar NFT do investimento (representa participação)
+    // ⿤ Mintar NFT do investimento (representa participação)
     // -------------------------------------------------
     pub fn mint_investment_nft(ctx: Context<MintNFT>) -> Result<()> {
         let cpi_ctx = CpiContext::new(
@@ -96,10 +96,13 @@ pub mod meraki_contract {
 pub struct InitializeContract<'info> {
     #[account(init, payer = investor, space = 8 + InvestmentContract::LEN)]
     pub investment_contract: Account<'info, InvestmentContract>,
+
     #[account(mut)]
     pub investor: Signer<'info>,
-    /// CHECK: startup não precisa assinar (somente referenciada)
+
+    /// CHECK: startup é apenas uma referência, não interage com o sistema
     pub startup: AccountInfo<'info>,
+
     pub system_program: Program<'info, System>,
 }
 
@@ -107,14 +110,18 @@ pub struct InitializeContract<'info> {
 pub struct Invest<'info> {
     #[account(mut)]
     pub investment_contract: Account<'info, InvestmentContract>,
+
     #[account(mut)]
     pub investor: Signer<'info>,
-    /// CHECK: vault (conta do contrato)
+
+    /// CHECK: vault (conta do contrato) — validada logicamente durante a execução
     #[account(mut)]
     pub vault_account: AccountInfo<'info>,
-    /// CHECK: conta da Meraki
+
+    /// CHECK: conta SPL Token da Meraki — validada logicamente
     #[account(mut)]
     pub meraki_token_account: AccountInfo<'info>,
+
     pub token_program: Program<'info, Token>,
 }
 
@@ -122,26 +129,38 @@ pub struct Invest<'info> {
 pub struct RecordRevenue<'info> {
     #[account(mut)]
     pub investment_contract: Account<'info, InvestmentContract>,
+
     #[account(mut)]
     pub payer: Signer<'info>,
-    /// CHECK: contas genéricas para simulação local
+
+    /// CHECK: conta SPL do startup (genérica para teste)
     #[account(mut)]
     pub startup_token_account: AccountInfo<'info>,
+
+    /// CHECK: conta SPL do investidor — validada logicamente
     #[account(mut)]
     pub investor_token_account: AccountInfo<'info>,
+
+    /// CHECK: conta SPL da Meraki — validada logicamente
     #[account(mut)]
     pub meraki_token_account: AccountInfo<'info>,
+
     pub token_program: Program<'info, Token>,
 }
 
 #[derive(Accounts)]
 pub struct MintNFT<'info> {
+    /// CHECK: conta de mint do NFT — validada logicamente
     #[account(mut)]
     pub mint: AccountInfo<'info>,
+
+    /// CHECK: conta de token do investidor — validada logicamente
     #[account(mut)]
     pub investor_token_account: AccountInfo<'info>,
-    /// CHECK: mint authority genérica
+
+    /// CHECK: autoridade de mint — validada logicamente
     pub mint_authority: AccountInfo<'info>,
+
     pub token_program: Program<'info, Token>,
 }
 
