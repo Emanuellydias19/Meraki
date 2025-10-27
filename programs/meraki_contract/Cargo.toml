@@ -1,0 +1,12 @@
+[package]
+name = "meraki_contract"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "lib"]
+name = "meraki_contract"
+
+[dependencies]
+anchor-lang = "0.30.0"
+anchor-spl = "0.30.0"
