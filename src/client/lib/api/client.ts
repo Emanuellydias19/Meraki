@@ -1,18 +1,18 @@
 import { API_CONFIG } from "../config/api";
 
 export class ApiError extends Error {
-    constructor(
-        public status: number,
-        public message: string,
-        public data?: unknown
-    ) {
-        super(message);
-    }
+  constructor(
+    public status: number,
+    public message: string,
+    public data?: unknown
+  ) {
+    super(message);
+  }
 }
 
 export async function apiCall<T>(
-    endpoint: string,
-    options?: RequestInit
+  endpoint: string,
+  options?: RequestInit
 ): Promise<T> {
   const url = `${API_CONFIG.baseUrl}${endpoint}`;
 

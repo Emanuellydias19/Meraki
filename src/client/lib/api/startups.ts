@@ -1,4 +1,3 @@
-
 import { apiCall } from "./client";
 import { Startup, CreateStartupInput } from "../types";
 
