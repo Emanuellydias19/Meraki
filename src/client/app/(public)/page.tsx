@@ -43,8 +43,11 @@ export default function LandingPage() {
       <section className="container mx-auto py-16">
         <h2 className="text-3xl font-bold mb-8">Startups em Destaque</h2>
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         <StartupGrid startups={[]} columns={4} />
 =======
+=======
+>>>>>>> Stashed changes
         <StartupGrid startups={[]} />
 =======
       {/* Features */}
@@ -90,6 +93,9 @@ export default function LandingPage() {
           </div>
         </div>
 >>>>>>> eab94a8bec495dbc92177cd3005edd2ecea00618
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
       </section>
 
