@@ -3,6 +3,7 @@
 import { StartupGrid } from "@/components/startup";
 import { Button } from "@/components/ui";
 import Link from "next/link";
+import Slider from "react-slick";
 
 export default function LandingPage() {
   return (
@@ -76,7 +77,7 @@ export default function LandingPage() {
       </section>
 
       {/* Features */}
-      <section className="py-24 bg-gray-900 w-full overflow-y-auto">
+      <section className="py-24 bg-[#092C4C] w-full overflow-y-auto">
         <div className="mx-auto px-8 space-y-12">
           <h2 className="text-4xl font-bold text-white text-center">
             Why invest with us?
@@ -112,6 +113,96 @@ export default function LandingPage() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/*Why Solana*/}
+      <section className="py-24 bg-[#1A1818] w-full overflow-y-auto">
+        <div className="mx-auto px-8 space-y-15">
+          <h2 className="text-4xl font-bold text-white text-center">
+            Why Solana?
+          </h2>
+          <div className="grid grid-cols-2 gap-8">
+            {[
+              {
+                icon: "🔒",
+                desc: "Solana processes thousands of transactions per second with ultra-low fees, making every investment fast and cost-efficient.",
+              },
+              {
+                icon: "🎮",
+                desc: "Unlike other blockchains, Solana’s minimal fees make investing and deploying smart contracts highly affordable.",
+              },
+              {
+                icon: "⚡",
+                desc: "Built with sustainability in mind, Solana operates with one of the lowest environmental footprints among major blockchains.",
+              },
+              {
+                icon: "🤝",
+                desc: "With advanced consensus mechanisms and a growing ecosystem, Solana ensures your transactions and data remain safe and verifiable.",
+              },
+            ].map((feature, idx) => (
+              <div
+                key={idx}
+                className="bg-gray-800 p-6 text-center space-y-4 min-w-2xs"
+              >
+                <div className="text-4xl">{feature.icon}</div>
+                <h3 className="text-lg font-bold text-white">
+                  {feature.title}
+                </h3>
+                <p className="text-gray-400 text-sm">{feature.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/*Meraki's Real Cases*/}
+      <section className="py-24 bg-[#092C4C] w-full overflow-y-auto">
+        <div className="mx-auto px-8 space-y-15">
+          <h2 className="text-4xl font-bold text-white text-center">
+            Meraki's Real Cases
+          </h2>
+          {/* Carrossel de relatos */}
+          <Slider
+            dots={true}
+            infinite={true}
+            speed={500}
+            slidesToShow={1}
+            slidesToScroll={1}
+            className="max-w-2xl mx-auto"
+          >
+            {[
+              {
+                icon: "🔒",
+                title: "Startup A",
+                desc: "Meraki helped us raise funds transparently and our investors receive their share automatically.",
+              },
+              {
+                icon: "🎮",
+                title: "Startup B",
+                desc: "The NFT system gave our supporters confidence and visibility on how their money is used.",
+              },
+              {
+                icon: "⚡",
+                title: "Startup C",
+                desc: "Solana's speed and low fees made our fundraising process smooth and affordable.",
+              },
+              {
+                icon: "🤝",
+                title: "Investor X",
+                desc: "I can track my investments and returns in real time, all on-chain. Total transparency!",
+              },
+            ].map((relato, idx) => (
+              <div
+                key={idx}
+                className="bg-[#BD2EF0] p-8 text-center space-y-4 min-w-2xs"
+              >
+                <div className="text-4xl">{relato.icon}</div>
+                <h3 className="text-lg font-bold text-black">{relato.title}</h3>
+                <p className="text-black text-base">{relato.desc}</p>
+              </div>
+            ))}
+          </Slider>
         </div>
       </section>
     </div>
