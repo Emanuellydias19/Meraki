@@ -1,18 +1,14 @@
 use anchor_lang::prelude::*;
 use anchor_spl::token::{self, Mint, MintTo, Token, TokenAccount, Transfer};
 
-// 🧩 ID PÚBLICO DO PROGRAMA
-// ⚠ Este ID PRECISA ser o mesmo que está no Anchor.toml e no deploy local.
-// Confirme com `anchor keys list` e substitua aqui, se necessário.
+
 declare_id!("51jdU5SpLxidhessiSTiAe3uATxh7sSHn1WKvvVVDK74");
 
 #[program]
 pub mod meraki_contract {
     use super::*;
 
-    // -------------------------------------------------
-    // ⿡ Inicializa o contrato de investimento
-    // -------------------------------------------------
+
     pub fn initialize_contract(
         ctx: Context<InitializeContract>,
         amount: u64,
@@ -35,9 +31,7 @@ pub mod meraki_contract {
         Ok(())
     }
 
-    // -------------------------------------------------
-    // ⿢ Investir — transfere tokens do investidor para o cofre e taxa Meraki
-    // -------------------------------------------------
+    
     pub fn invest(ctx: Context<Invest>) -> Result<()> {
         let total = ctx.accounts.investment_contract.amount;
         let meraki_fee = total / 200; // 0.5%
@@ -50,9 +44,7 @@ pub mod meraki_contract {
         Ok(())
     }
 
-    // -------------------------------------------------
-    // ⿣ Registrar receita — distribui lucros entre as partes
-    // -------------------------------------------------
+
     pub fn record_revenue(ctx: Context<RecordRevenue>, revenue_amount: u64) -> Result<()> {
         let meraki_fee = revenue_amount / 200;
         let investor_share = (revenue_amount
@@ -71,9 +63,7 @@ pub mod meraki_contract {
         Ok(())
     }
 
-    // -------------------------------------------------
-    // ⿤ Mintar NFT do investimento (representa participação)
-    // -------------------------------------------------
+    
     pub fn mint_investment_nft(ctx: Context<MintNFT>) -> Result<()> {
         let cpi_ctx = CpiContext::new(
             ctx.accounts.token_program.to_account_info(),
@@ -88,9 +78,6 @@ pub mod meraki_contract {
     }
 }
 
-// ======================================================
-// 🔹 CONTEXTOS DE EXECUÇÃO (accounts usados em cada fn)
-// ======================================================
 
 #[derive(Accounts)]
 pub struct InitializeContract<'info> {
@@ -100,7 +87,7 @@ pub struct InitializeContract<'info> {
     #[account(mut)]
     pub investor: Signer<'info>,
 
-    /// CHECK: startup é apenas uma referência, não interage com o sistema
+    
     pub startup: AccountInfo<'info>,
 
     pub system_program: Program<'info, System>,
@@ -114,11 +101,11 @@ pub struct Invest<'info> {
     #[account(mut)]
     pub investor: Signer<'info>,
 
-    /// CHECK: vault (conta do contrato) — validada logicamente durante a execução
+    
     #[account(mut)]
     pub vault_account: AccountInfo<'info>,
 
-    /// CHECK: conta SPL Token da Meraki — validada logicamente
+   
     #[account(mut)]
     pub meraki_token_account: AccountInfo<'info>,
 
@@ -133,15 +120,15 @@ pub struct RecordRevenue<'info> {
     #[account(mut)]
     pub payer: Signer<'info>,
 
-    /// CHECK: conta SPL do startup (genérica para teste)
+    
     #[account(mut)]
     pub startup_token_account: AccountInfo<'info>,
 
-    /// CHECK: conta SPL do investidor — validada logicamente
+    
     #[account(mut)]
     pub investor_token_account: AccountInfo<'info>,
 
-    /// CHECK: conta SPL da Meraki — validada logicamente
+    
     #[account(mut)]
     pub meraki_token_account: AccountInfo<'info>,
 
@@ -150,23 +137,21 @@ pub struct RecordRevenue<'info> {
 
 #[derive(Accounts)]
 pub struct MintNFT<'info> {
-    /// CHECK: conta de mint do NFT — validada logicamente
+    
     #[account(mut)]
     pub mint: AccountInfo<'info>,
 
-    /// CHECK: conta de token do investidor — validada logicamente
+    
     #[account(mut)]
     pub investor_token_account: AccountInfo<'info>,
 
-    /// CHECK: autoridade de mint — validada logicamente
+    
     pub mint_authority: AccountInfo<'info>,
 
     pub token_program: Program<'info, Token>,
 }
 
-// ======================================================
-// 🔹 HELPERS — funções CPI de transferência (SPL Token)
-// ======================================================
+
 
 impl<'info> Invest<'info> {
     pub fn transfer_to_meraki_ctx(&self) -> CpiContext<'_, '_, '_, 'info, token::Transfer<'info>> {
@@ -219,9 +204,6 @@ impl<'info> RecordRevenue<'info> {
     }
 }
 
-// ======================================================
-// 🔹 STRUCT DE DADOS — InvestmentContract
-// ======================================================
 
 #[account]
 pub struct InvestmentContract {
