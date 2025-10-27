@@ -3,8 +3,8 @@
 import { useState } from "react";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
-import { StartupGrid } from "@/components/startup/StartupGrid";
 import { useStartups } from "@/lib/hooks";
+import { StartupGrid } from "@/components/startup/StartupGrid";
 
 const CATEGORIES = [
   { id: "all", name: "Todos" },
@@ -56,10 +56,14 @@ export default function ExplorePage() {
         {/* Grid */}
         {loading ? (
           <div className="text-center py-12">
-            <p className="text-gray-400">Carregando...</p>
+            <p className="text-gray-400">Carregando startups...</p>
           </div>
-        ) : (
+        ) : filtered.length > 0 ? (
           <StartupGrid startups={filtered} columns={4} />
+        ) : (
+          <div className="text-center py-12">
+            <p className="text-gray-400">Nenhuma startup encontrada</p>
+          </div>
         )}
       </main>
 
