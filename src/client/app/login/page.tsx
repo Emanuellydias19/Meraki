@@ -56,7 +56,7 @@ export default function LoginPage() {
             fontFamily: 'Inter, sans-serif',
             backgroundColor: COLORS.BACKGROUND,
             // 1. APLICAÇÃO DA IMAGEM DE FUNDO
-            backgroundImage: 'url(assets/login.jpeg)', // Usando o arquivo login.jpeg
+            backgroundImage: 'url(/login.jpeg)', // Usando o arquivo login.jpeg
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             position: 'relative', // Essencial para o overlay funcionar
