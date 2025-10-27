@@ -1,7 +1,12 @@
+<<<<<<< HEAD
 "use client";
 
 import { StartupGrid } from "@/components/startup";
 import { Button } from "@/components/ui";
+=======
+import { Header } from "@/components/layout/Header";
+import { Footer } from "@/components/layout/Footer";
+>>>>>>> eab94a8bec495dbc92177cd3005edd2ecea00618
 import Link from "next/link";
 
 export default function LandingPage() {
@@ -33,11 +38,62 @@ export default function LandingPage() {
         </div>
       </section>
 
+<<<<<<< HEAD
       {/* Startups em destaque */}
       <section className="container mx-auto py-16">
         <h2 className="text-3xl font-bold mb-8">Startups em Destaque</h2>
+<<<<<<< Updated upstream
         <StartupGrid startups={[]} columns={4} />
+=======
+        <StartupGrid startups={[]} />
+=======
+      {/* Features */}
+      <section className="py-24 bg-gray-900">
+        <div className="w-[1440px] mx-auto px-8 space-y-12">
+          <h2 className="text-4xl font-bold text-white text-center">
+            Por que investir conosco?
+          </h2>
+          <div className="grid grid-cols-4 gap-8">
+            {[
+              {
+                icon: "🔒",
+                title: "Segurança",
+                desc: "Todos os investimentos registrados na blockchain",
+              },
+              {
+                icon: "🎮",
+                title: "Gamificação",
+                desc: "NFTs dinâmicos que evoluem com marcos",
+              },
+              {
+                icon: "⚡",
+                title: "Velocidade",
+                desc: "Transações rápidas com taxas mínimas",
+              },
+              {
+                icon: "🤝",
+                title: "Direto",
+                desc: "Sem intermediários, relação direta",
+              },
+            ].map((feature, idx) => (
+              <div
+                key={idx}
+                className="bg-gray-800 rounded-lg p-6 text-center space-y-4"
+              >
+                <div className="text-4xl">{feature.icon}</div>
+                <h3 className="text-lg font-bold text-white">
+                  {feature.title}
+                </h3>
+                <p className="text-gray-400 text-sm">{feature.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+>>>>>>> eab94a8bec495dbc92177cd3005edd2ecea00618
+>>>>>>> Stashed changes
       </section>
+
+      <Footer />
     </div>
   );
 }
