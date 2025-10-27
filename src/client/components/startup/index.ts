@@ -1,3 +1,3 @@
  export { StartupCard } from './StartupCard';
- export { StartupList } from './StartupList'; 
+ export { StartupGrid } from './StartupGrid'; 
  
