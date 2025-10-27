@@ -7,7 +7,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
 import "swiper/css";
-import { title } from "process";
 
 export default function LandingPage() {
   return (
