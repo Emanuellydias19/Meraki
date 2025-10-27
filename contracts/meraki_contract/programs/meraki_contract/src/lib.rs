@@ -41,26 +41,25 @@ use super::*; //essa parte importa tudo do escopo anterior (no caso as dependên
         Ok(()) //realiza as duas transferências e marca que o investimento foi feito
     }
 
-    // 3. Registra receita da startup (modelo trustless)
-    pub fn record_revenue(ctx: Context<RecordRevenue>, revenue_amount: u64) -> Result<()> { //função chamada toda a vez que a startup gera receita
-        let contract = &mut ctx.accounts.investment_contract; //esse modelo faz com que toda a receita que essa startup receba caia nessa lógica.
+   // 3. Registra receita da startup (modelo trustless)
+pub fn record_revenue(ctx: Context<RecordRevenue>, revenue_amount: u64) -> Result<()> {
+    // Cálculo das divisões
+    let meraki_fee = revenue_amount / 200; // 0.5%
+    let investor_share = (revenue_amount * ctx.accounts.investment_contract.investor_return_percent as u64) / 100;
+    let startup_share = revenue_amount - meraki_fee - investor_share;
 
-        // Atualiza total recebido na conta da startup
-        contract.total_revenue += revenue_amount;
+    // Transferências automáticas (antes de pegar o &mut)
+    token::transfer(ctx.accounts.transfer_to_meraki_ctx(), meraki_fee)?;
+    token::transfer(ctx.accounts.transfer_to_investor_ctx(), investor_share)?;
+    token::transfer(ctx.accounts.transfer_to_startup_ctx(), startup_share)?;
 
-        // Cálculo das divisões
-        let meraki_fee = revenue_amount / 200; // 0.5%
-        let investor_share = (revenue_amount * contract.investor_return_percent as u64) / 100;
-        let startup_share = revenue_amount - meraki_fee - investor_share;
+    // Atualiza o contrato depois das transferências
+    let contract = &mut ctx.accounts.investment_contract;
+    contract.total_revenue += revenue_amount;
+    contract.total_distributed += investor_share;
 
-        // Transferências automáticas
-        token::transfer(ctx.accounts.transfer_to_meraki_ctx(), meraki_fee)?;
-        token::transfer(ctx.accounts.transfer_to_investor_ctx(), investor_share)?;
-        token::transfer(ctx.accounts.transfer_to_startup_ctx(), startup_share)?;
-
-        contract.total_distributed += investor_share;
-        Ok(())
-    }
+    Ok(())
+}
 
     // 4. Gera NFT comprovante de investimento 
     pub fn mint_investment_nft(ctx: Context<MintNFT>) -> Result<()> { // (mint: cria um NFT)
@@ -98,9 +97,10 @@ pub struct Invest<'info> {
     #[account(mut)]
     pub investor: Signer<'info>,
     #[account(mut)]
-    pub vault_account: Account<'info, TokenAccount>, // cofre da startup
+    pub vault_account: AccountInfo<'info>,
     #[account(mut)]
-    pub meraki_token_account: Account<'info, TokenAccount>,
+    pub meraki_token_account: AccountInfo<'info>,
+
     pub token_program: Program<'info, Token>,
 }
 
@@ -111,20 +111,20 @@ pub struct RecordRevenue<'info> {
     #[account(mut)]
     pub payer: Signer<'info>, // cliente da startup que gera receita
     #[account(mut)]
-    pub startup_token_account: Account<'info, TokenAccount>,
+    pub startup_token_account: AccountInfo<'info>,
     #[account(mut)]
-    pub investor_token_account: Account<'info, TokenAccount>,
+    pub investor_token_account: AccountInfo<'info>,
     #[account(mut)]
-    pub meraki_token_account: Account<'info, TokenAccount>,
+    pub meraki_token_account: AccountInfo<'info>,
     pub token_program: Program<'info, Token>,
 }
 
 #[derive(Accounts)]
 pub struct MintNFT<'info> {
     #[account(mut)]
-    pub mint: Account<'info, Mint>,
+    pub mint: AccountInfo<'info>,
     #[account(mut)]
-    pub investor_token_account: Account<'info, TokenAccount>,
+    pub investor_token_account: AccountInfo<'info>,
     /// CHECK: autoridade de mint
     pub mint_authority: AccountInfo<'info>,
     pub token_program: Program<'info, Token>,
