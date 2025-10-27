@@ -1,0 +1,76 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        UPDATE startups\n        SET \n            name = COALESCE($1, name),\n            slogan = COALESCE($2, slogan),\n            description = COALESCE($3, description),\n            problem = COALESCE($4, problem),\n            logo_url = COALESCE($5, logo_url),\n            video_pitch_url = COALESCE($6, video_pitch_url)\n        WHERE id = $7\n        RETURNING *\n        ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "user_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 2,
+        "name": "name",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 3,
+        "name": "slogan",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 4,
+        "name": "description",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 5,
+        "name": "problem",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 6,
+        "name": "logo_url",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 7,
+        "name": "video_pitch_url",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 8,
+        "name": "created_at",
+        "type_info": "Timestamptz"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Text",
+        "Text",
+        "Text",
+        "Text",
+        "Text",
+        "Text",
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      false,
+      true,
+      false,
+      true,
+      true,
+      true,
+      true,
+      true,
+      false
+    ]
+  },
+  "hash": "5123050a3c0b63cdeec2dfa97217a583fa3134bce9a5b6bf3f9e0f5076a62833"
+}

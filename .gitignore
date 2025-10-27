@@ -1,0 +1,10 @@
+# System files
+.DS_Store
+
+# Secrets file
+.env
+
+# Rust build folder
+/target
+
+
