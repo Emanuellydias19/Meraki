@@ -3,9 +3,16 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 
 export function Header() {
+  const location = usePathname();
+  
+  if (location.startsWith("/login") || location.startsWith("/register")) {
+    return null; // Não renderiza o Header nessas rotas
+  }
+
   return (
     <header className="bg-gray-900 border-b border-gray-800 sticky top-0 z-40">
       <div className="w-full mx-auto px-8 py-4 flex items-center justify-between">

@@ -1,6 +1,5 @@
 "use client";
 
-import { StartupGrid } from "@/components/startup";
 import { Button } from "@/components/ui";
 import Link from "next/link";
 // Import Swiper React components
@@ -8,7 +7,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
 import "swiper/css";
-import { title } from "process";
 
 export default function LandingPage() {
   return (
