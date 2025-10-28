@@ -1,8 +1,7 @@
 <p align="center">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/Solana_logo.png" width="120" alt="Meraki Logo">
+  <img src="./logo.png" width="120" alt="Meraki Logo">
 </p>
 
-<h1 align="center">Meraki</h1>
 
 <p align="center">
   <strong>Web3 Investment Platform for Startups in the Solana Ecosystem</strong>
@@ -16,7 +15,7 @@
 </p>
 
 <p align="center">
-  <img src="https://github.com/yourusername/meraki/blob/main/assets/preview.png" alt="Meraki Screenshot" width="800">
+  <img src="./merakitela.png" alt="Meraki Screenshot" width="800">
 </p>
 
 ---
