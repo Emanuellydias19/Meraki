@@ -1,5 +1,6 @@
 {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   "name": "meraki",
   "version": "0.1.0",
   "private": true,
@@ -30,12 +31,23 @@
     "lint": "prettier */*.js \"*/**/*{.js,.ts}\" --check"
   },
   "dependencies": {
+=======
+  "license": "ISC",
+  "scripts": {
+    "lint:fix": "prettier */*.js \"*/**/*{.js,.ts}\" -w",
+    "lint": "prettier */*.js \"*/**/*{.js,.ts}\" --check"
+  },
+  "dependencies": {
+>>>>>>> Stashed changes
     "@coral-xyz/anchor": "^0.31.1"
   },
   "devDependencies": {
     "chai": "^4.3.4",
     "mocha": "^9.0.3",
     "prettier": "^2.6.2"
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
   }
 }
