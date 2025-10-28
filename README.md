@@ -1,9 +1,7 @@
-<<<<<<< Updated upstream
 <p align="center">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/Solana_logo.png" width="120" alt="Meraki Logo">
+  <img src="./logo.png" width="120" alt="Meraki Logo">
 </p>
 
-<h1 align="center">Meraki</h1>
 
 <p align="center">
   <strong>Web3 Investment Platform for Startups in the Solana Ecosystem</strong>
@@ -11,21 +9,33 @@
 
 <p align="center">
   <a href="#">Live Demo</a> |
-  <a href="#">Docs</a> |
-  <a href="#">Project Overview</a> |
-  <a href="#">Join our Community</a>
+  <a href="https://docs.google.com/document/d/18PfbyGBLOJOzlAQJlJu0jYHTP6BmepTEQ7SUVY1t0gA/edit?usp=sharing">Docs</a> |
+  <a href="https://github.com/Emanuellydias19/Meraki/tree/main/contracts/meraki_contract">Project Overview</a> |
+  <a href="https://discord.gg/V75mWm2k">Join our Community</a>
+
+
 </p>
 
 <p align="center">
-  <img src="https://github.com/yourusername/meraki/blob/main/assets/preview.png" alt="Meraki Screenshot" width="800">
+  <img src="./tela1.png" alt="Meraki Screenshot" width="800">
 </p>
 
 ---
 
-## Badges
 ![Solana](https://img.shields.io/badge/Solana-0A0A0A?style=flat-square&logo=solana)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Build](https://img.shields.io/badge/build-passing-brightgreen)
+![Next.js](https://img.shields.io/badge/Next.js-black?style=flat-square&logo=next.js)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=flat-square&logo=typescript)
+![Rust](https://img.shields.io/badge/Rust-000000?style=flat-square&logo=rust)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-336791?style=flat-square&logo=postgresql)
+![Anchor](https://img.shields.io/badge/Anchor-512DA8?style=flat-square&logo=solana)
+![VS Code](https://img.shields.io/badge/VS%20Code-0078D4?style=flat-square&logo=visual-studio-code)
+![Git](https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git)
+![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker)
+![Linux](https://img.shields.io/badge/Linux-FCC624?style=flat-square&logo=linux)
+![Vercel](https://img.shields.io/badge/Vercel-000000?style=flat-square&logo=vercel)
 
 ---
 
@@ -37,6 +47,7 @@
 - [Architecture](#architecture)
 - [Setup & Installation](#setup--installation)
 - [Using in Production](#using-in-production)
+- [Video Demo](#video-demo)
 - [Roadmap](#roadmap)
 
 ---
@@ -87,19 +98,17 @@ Meraki provides a transparent, gamified, and secure investment platform built on
 ---
 
 ## Architecture
-Frontend (Next.js + TypeScript)
-│
-▼
-Backend (Node.js + Express + PostgreSQL)
-│
-▼
-Solana Blockchain (Anchor + Rust)
-│
-▼
-Metaplex NFT (dynamic evolution)
+**Frontend** — Next.js + TypeScript  
+│  
+▼  
+**Backend** — Node.js + Express + PostgreSQL  
+│  
+▼  
+**Blockchain Layer** — Solana (Anchor + Rust)  
+│  
+▼  
+**NFT Engine** — Metaplex (Dynamic Evolution)
 
-yaml
-Copiar código
 - Users connect wallets via **Phantom / Solana Wallet Adapter**  
 - Investments trigger **smart contract execution**  
 - Smart contract **mints a tracking NFT**  
@@ -111,8 +120,8 @@ Copiar código
 
 ```bash
 # Clone repository
-git clone https://github.com/yourusername/meraki.git
-cd meraki
+git clone (https://github.com/Emanuellydias19/Meraki)
+cd Meraki
 
 # Install dependencies
 npm install
@@ -131,70 +140,17 @@ Connect your Solana wallet (Phantom, Solflare) to start investing or creating pr
 - Connect frontend to backend API
 - Mint NFTs through Metaplex
 - Track startup milestones and update NFTs dynamically
+
+## Video Demo
+
   
 ## Roadmap
-- Multi-chain support (Ethereum, Polygon)
 - Advanced analytics dashboard for investors
 - Social features for startup communities
 - Gamification enhancements for NFTs
 - Automated milestone verification via oracles
-=======
-# Plataforma de Investimentos Web3 para Startups no Ecossistema Solana
-<img width="395" height="119" alt="Meraki (2)" src="https://github.com/user-attachments/assets/32069a6d-76c1-4020-9a67-564bb90b6171" />
 
 
-## NodeHub
-
-## Integrantes:
-
-- <a href="https://www.linkedin.com/in/ana-cristina-jardim/">Ana Cristina</a>
-- <a href="https://www.linkedin.com/in/ana-júlia-ribeiro/">Ana Julia Ribeiro</a> 
-- <a href="https://www.linkedin.com/in/emanuelly-dias-2a0480305/">Emanuelly Dias</a>
-- <a href="https://www.linkedin.com/in/mirela-bianchi-608601254/">Mirela Bianchi</a>
-- <a href="https://www.linkedin.com/in/nicolezanin/">Nicole Zanin</a>
-
-### Instrutores
-
-- <a href="https://www.linkedin.com/in/vict0rcarvalh0/">Vitor Carvalho</a> <br>
-<br>
-
-## Descrição
-
-O NodeHub é uma plataforma Web3 desenvolvida no ecossistema Solana, criada para conectar startups emergentes com investidores interessados em apoiar projetos inovadores de forma **transparente, rastreável e segura.**
-A solução **nasce da necessidade de eliminar a burocracia dos investimentos iniciais,** oferecendo um ambiente descentralizado e confiável, onde startups podem apresentar suas ideias e investidores podem apoiar com segurança, tudo registrado na blockchain.
-
-No NodeHub, cada investimento é feito por meio de um smart contract (contrato inteligente), e o investidor recebe um NFT de rastreamento, que funciona como prova de investimento e token de confiança. Esse NFT evolui visualmente à medida que a startup alcança suas metas, tornando o processo mais gamificado e transparente.
-
-### Principais Diferenciais
-
--  **Transparência total:** Todos os investimentos e atualizações são registrados na blockchain Solana. <br>
-- **Gamificação:** NFTs dinâmicos evoluem conforme a startup atinge marcos definidos. <br>
-- **Velocidade e baixo custo:** Transações rápidas e com taxas mínimas, graças à infraestrutura da Solana. <br>
-- **Relação direta:** Comunicação sem intermediários entre investidores e empreendedores. <br>
-
-### 🎥 Demonstração
-Vídeo de Demonstração: (link a ser inserido) 
 
 
-## 📁 Estrutura de Pastas
 
-A seguir está a organização geral do repositório Meraki, contendo todos os diretórios e suas respectivas finalidades no desenvolvimento da plataforma.
-
-### Detalhes das Principais Pastas
-
-**docs/** → Contém toda a documentação do projeto, incluindo diagramas, manual técnico e documentação da API.
-
-**src/client/** → Aplicação frontend desenvolvida em Next.js, com integração ao Solana Wallet Adapter.
-
-**src/server/** → Backend em Node.js, responsável pela lógica da API, comunicação com o banco e autenticação.
-
-**src/program/** → Programa on-chain construído com o Anchor Framework, contendo instruções e estados para gerenciamento dos investimentos na blockchain Solana.
-
-## 🗃 Histórico de lançamentos
-
-*0.5.0 - XX/XX/2025* <br>
-*0.4.0 - XX/XX/2025* <br>
-*0.3.0 - XX/XX/2025* <br>
-*0.2.0 - XX/XX/2025* <br>
-*0.1.0 - XX/XX/2025* <br>
->>>>>>> Stashed changes
