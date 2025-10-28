@@ -1,13 +1,3 @@
-# NOTE: .gitignore doesn't untrack files already committed.
-# To stop tracking files already in the repo run (from repo root):
-#   git rm -r --cached node_modules .next
-#   git add .
-#   git commit -m "Apply .gitignore"
-# Or to untrack everything then re-add only non-ignored:
-#   git rm -r --cached .
-#   git add .
-#   git commit -m "Reapply .gitignore"
-
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
