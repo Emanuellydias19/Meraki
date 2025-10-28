@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 
 // Definição das cores solicitadas
 const COLORS = {
@@ -55,7 +55,7 @@ export default function CadastroPage() {
   /**
    * @param {React.FormEvent} e
    */
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     
     // --- Validação ---

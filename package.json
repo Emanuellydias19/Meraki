@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "firebase": "^12.4.0",
+    "lucide-react": "^0.548.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-multi-carousel": "^2.8.6"
