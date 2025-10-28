@@ -1,37 +1,10 @@
 {
-  "name": "client",
-  "version": "0.1.0",
+  "name": "meraki-client-proxy",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "eslint"
-  },
-  "dependencies": {
-    "next": "16.0.0",
-    "postcss": "^8.5.6",
-    "react": "19.2.0",
-    "react-dom": "19.2.0",
-    "react-responsive-carousel": "^3.2.23",
-<<<<<<< HEAD
-    "swiper": "^12.0.3"
-
-=======
-    "swiper": "^12.0.3",
-    "react-slick": "^0.31.0",
-    "slick-carousel": "^1.8.1",
-    "styled-components": "^6.1.19"
->>>>>>> 95b99cd22dc46e4a3b179be13fa28a1ec008ade3
-  },
-  "devDependencies": {
-    "@tailwindcss/postcss": "^4.1.15",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "16.0.0",
-    "tailwindcss": "^4.1.15",
-    "typescript": "5.9.3"
+    "dev": "cd .. && npm run dev",
+    "build": "cd .. && npm run build",
+    "start": "cd .. && npm run start",
+    "lint": "cd .. && npm run lint"
   }
 }

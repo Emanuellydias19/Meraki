@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/components/ui";
+import { Button } from "../components/ui";
 import Link from "next/link";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -38,7 +38,7 @@ export default function LandingPage() {
             {/* Hard-coded demo video (YouTube embed). Troque pela sua URL se desejar. */}
             <iframe
               className="w-full h-64 md:h-80"
-              src="https://www.youtube.com/embed/5t_Lec1VGOE?si=zNlSBgh_hmSHl2IT"
+              src="https://www.youtube.com/embed/5t_Lec1VGOE?si=zNl"
               title="Demo video"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
