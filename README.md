@@ -15,7 +15,7 @@
 </p>
 
 <p align="center">
-  <img src="./merakitela.png" alt="Meraki Screenshot" width="800">
+  <img src="./tela1.png" alt="Meraki Screenshot" width="800">
 </p>
 
 ---
