@@ -1,0 +1,15 @@
+[workspace]
+members = ["src/programs/meraki_contract"]
+
+[programs.localnet]
+meraki_contract = "51jdU5SpLxidhessiSTiAe3uATxh7sSHn1WKvvVVDK74"
+
+[registry]
+url = "https://api.apr.dev"
+
+[provider]
+cluster = "localnet"
+wallet = "~/.config/solana/id.json"
+
+[scripts]
+test = "npx mocha -r ts-node/register 'src/tests/**/*.ts'"

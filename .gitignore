@@ -1,5 +1,6 @@
-# System files
+.anchor
 .DS_Store
+<<<<<<< Updated upstream
 
 # Secrets file
 .env
@@ -13,3 +14,10 @@ src/client/.next/dev/build
 src/client/.next/dev/server/chunks
 src/client/.next/dev/static
 node_modules
+=======
+target
+**/*.rs.bk
+node_modules
+test-ledger
+.yarn
+>>>>>>> Stashed changes

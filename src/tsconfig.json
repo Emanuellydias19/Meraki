@@ -7,19 +7,16 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "strict": true,
-    "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
     "outDir": "dist",
-    "rootDir": "./",
-    "noEmitOnError": false
+    "rootDir": "./"
   },
   "include": [
-    "tests/**/*.ts",
-    "target/types/**/*.ts",
-    "Anchor.toml",
-    "tsconfig.json"
+    "src/tests/**/*.ts",
+    "target/types/**/*.ts"
   ],
-  "exclude": ["node_modules", "app", "pages", "components", ".next"]
+  "exclude": ["node_modules"]
 }

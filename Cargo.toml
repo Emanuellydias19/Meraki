@@ -1,0 +1,7 @@
+[workspace]
+members = [
+  "src/programs/meraki_contract"
+]
+
+[profile.release]
+overflow-checks = true

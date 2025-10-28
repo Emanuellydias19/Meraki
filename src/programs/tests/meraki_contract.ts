@@ -1,6 +1,6 @@
 import * as anchor from "@coral-xyz/anchor";
 import { Program } from "@coral-xyz/anchor";
-import { MerakiContract } from "../target/types/meraki_contract";
+import { MerakiContract } from "../../target/types/meraki_contract";
 import { SystemProgram, Keypair, PublicKey } from "@solana/web3.js";
 import { assert } from "chai";
 import "mocha";
