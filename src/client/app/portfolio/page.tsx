@@ -22,7 +22,7 @@ const COLORS = {
 };
 
 // --- Utility Functions ---
-const simulateNavigation = (path) => {
+const simulateNavigation = (path: string) => {
   console.log(`Simulating navigation to: ${path}`);
 };
 
@@ -162,8 +162,8 @@ export default function StartupRegistrationPage() {
             setLogoPreview(URL.createObjectURL(file));
         }
     };
-    
-    const handleVideoUpload = (event) => {
+
+    const handleVideoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files[0];
         if (file) {
             setPitchVideoFile(file);
@@ -172,7 +172,7 @@ export default function StartupRegistrationPage() {
         }
     };
 
-    const handleMediaUpload = (event) => {
+    const handleMediaUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
         const files = Array.from(event.target.files);
         if (files.length > 0) {
             setMediaFiles(prev => [...prev, ...files]);
