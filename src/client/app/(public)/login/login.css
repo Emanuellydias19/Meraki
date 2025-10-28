@@ -1,0 +1,145 @@
+
+
+/* O container principal que preenche a tela inteira */
+.background-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    
+    /* Cor de Fundo Escura Principal */
+    background-color: #0d1222; 
+    
+    /* SIMULAÇÃO DO FUNDO ABSTRATO COM GRADIENTES */
+    /* Para criar o efeito de ondas/linhas azuis/roxas, usamos múltiplos
+       gradientes de cores escuras e transparentes */
+    background-image: 
+        /* Gradiente principal sutil para a 'névoa' central */
+        radial-gradient(circle at center, rgba(138, 43, 226, 0.05) 0%, transparent 40%),
+        /* Linhas e formas abstratas azuis/roxas nas laterais e fundo */
+        linear-gradient(135deg, rgba(29, 38, 70, 0.7) 0%, rgba(13, 18, 34, 0.5) 50%, rgba(29, 38, 70, 0.7) 100%),
+        /* Adicionando o efeito de "ondas" em ciano/azul para dar o glow */
+        radial-gradient(circle at 10% 80%, rgba(30, 144, 255, 0.15) 0%, transparent 30%),
+        radial-gradient(circle at 90% 20%, rgba(150, 50, 250, 0.15) 0%, transparent 30%);
+
+    background-size: cover;
+    background-attachment: fixed;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.login-box {
+    width: 100%;
+    max-width: 450px; /* Largura ideal para desktop */
+    padding: 50px;
+    
+    /* Cor da caixa: Azul marinho muito escuro com transparência */
+    background-color: rgba(18, 24, 43, 0.95); 
+    
+    border-radius: 10px;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.8); /* Sombra intensa */
+    
+    /* Borda sutil de neon/brilho */
+    border: 1px solid rgba(157, 77, 237, 0.2); 
+    
+    /* Efeito de "vidro" (Glassmorphism) */
+    backdrop-filter: blur(5px);
+}
+
+.title {
+    color: #e0e0e0;
+    font-size: 30px;
+    font-weight: 600;
+    margin-bottom: 40px; 
+}
+
+.input-group {
+    margin-bottom: 25px; 
+}
+
+.input-group label {
+    display: block;
+    color: #a0a0a0; 
+    font-size: 15px;
+    margin-bottom: 8px;
+}
+
+.input-field {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 4px; 
+    
+    /* Cor do campo: Azul esverdeado/ciano escuro, como na imagem */
+    background-color: #2c415e; 
+    
+    color: #ffffff; 
+    font-size: 16px;
+    box-sizing: border-box;
+    outline: none;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+/* Estilo de foco (Focus state) */
+.input-field:focus {
+    background-color: #344a69;
+    /* Efeito de neon/glow azul claro ao focar */
+    box-shadow: 0 0 5px rgba(118, 200, 255, 0.8);
+}
+
+/* Link "Esqueci minha senha" */
+.forgot-password {
+    display: block;
+    text-align: right;
+    color: #9d4edd; 
+    font-size: 14px;
+    text-decoration: none;
+    margin-top: -10px; 
+    margin-bottom: 30px;
+    transition: color 0.3s;
+}
+
+.forgot-password:hover {
+    color: #d19fe8;
+}
+
+/* Botão de Entrar (Principal) */
+.login-button {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 17px;
+    font-weight: bold;
+    color: #ffffff;
+    
+    /* GRADIENTE DO BOTÃO: Roxo para Ciano/Rosa */
+    background: linear-gradient(90deg, #9d4edd 0%, #ff69b4 100%);
+    
+    margin-top: 15px;
+    transition: transform 0.2s, opacity 0.2s, box-shadow 0.2s;
+}
+
+.login-button:hover {
+    transform: translateY(-2px);
+    opacity: 0.95;
+    box-shadow: 0 5px 15px rgba(157, 77, 237, 0.4);
+}
+
+/* Link "Ainda não tenho uma conta" */
+.create-account-link {
+    display: block;
+    text-align: center;
+    color: #b0b0b0; 
+    font-size: 14px;
+    text-decoration: none;
+    margin-top: 40px; 
+    padding-top: 10px;
+    
+    transition: color 0.3s;
+}
+
+.create-account-link:hover {
+    color: #9d4edd; 
+}
