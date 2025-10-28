@@ -43,12 +43,13 @@ export default function CadastroPage() {
   /**
    * @param {React.ChangeEvent<HTMLInputElement>} e
    */
-  const handleChange = (e) => {
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
     setMessage('');
     setIsError(false);
   };
+
 
   // Handler para submissão do formulário
   /**

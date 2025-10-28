@@ -1,5 +1,6 @@
 "use client";
 
+import Image from 'next/image';
 import React, { useState } from 'react';
 
 // Updated Color Definitions
@@ -15,7 +16,7 @@ const COLORS = {
 };
 
 // --- Navigation Simulation Function ---
-const simulateNavigation = (path) => {
+const simulateNavigation = (path: string) => {
   console.log(`Simulating navigation to: ${path}`);
 };
 
@@ -32,6 +33,7 @@ const ContractModal = ({ isOpen, onClose, title }) => {
   const [signature, setSignature] = useState('');
   const [isTermsAccepted, setIsTermsAccepted] = useState(false);
   const [walletAddress, setWalletAddress] = useState('');
+  
 
   // Check if the contract can be accepted (all fields filled and terms checked)
   const isAcceptButtonEnabled = isTermsAccepted && signature.trim() !== '' && walletAddress.trim() !== '';
@@ -302,19 +304,20 @@ const AppHeader = () => (
     <div className="max-w-7xl mx-auto flex justify-between items-center">
       {/* Title/Logo NodeHub in Neon Blue Stroke */}
       <div className="flex items-center space-x-3">
-        <img 
-          src="/files/Group 13.png" 
-          alt="NodeHub Logo" 
-          className="h-10 w-10 object-contain"
-          style={{ filter: `drop-shadow(0 0 5px ${COLORS.STROKE})` }} 
-        />
+       <Image
+        src="/images/perfil.jpg" // Se for local, o caminho é a partir da pasta 'public'
+        alt="Foto de perfil do usuário" // ESSENCIAL para acessibilidade
+        width={500} // Largura em pixels
+        height={300} // Altura em pixels
+        priority // Opcional, para carregamento prioritário
+      />
         <h2 style={{ color: COLORS.TEXT_WHITE, fontSize: '1.5rem', fontWeight: 700 }}>
           NodeHub
         </h2>
       </div>
       
       {/* Navigation Links */}
-      <nav className="flex space-x-6">
+      <nav className=".flex space-x-6">
         <button 
           onClick={() => simulateNavigation('/home')} 
           style={{ color: COLORS.TEXT_WHITE }} 
@@ -463,12 +466,11 @@ export default function NodeHubLandingPage() {
         <section className="py-24 px-8 max-w-7xl mx-auto flex items-center justify-between">
           {/* Left Side: Featured Logo */}
           <div className="flex-1 flex justify-start items-start">
-              <img 
-                src="/files/Group 13.png" 
-                alt="NodeHub Large Logo" 
-                className="h-40 w-40 object-contain"
-                style={{ filter: `drop-shadow(0 0 10px ${COLORS.STROKE})` }}
-              />
+            <image
+            src="/files/Group 13.png"
+            alt="NodeHub Large Logo" 
+            className="h-40 w-40 object-contain"
+            style={{ filter: `drop-shadow(0 0 10px ${COLORS.STROKE})` }}/>
           </div>
 
           {/* Right Side: Title and Subtitle */}
