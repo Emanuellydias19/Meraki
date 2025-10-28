@@ -1,42 +1,25 @@
 {
   "compilerOptions": {
-    "target": "ES2017",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "allowJs": true,
+    "target": "ES2020",
+    "module": "CommonJS",
+    "lib": ["es2020", "dom"],
+    "types": ["mocha", "chai", "node"],
+    "esModuleInterop": true,
     "skipLibCheck": true,
     "strict": true,
-    "noEmit": true,
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "bundler",
+    "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "react-jsx",
-    "incremental": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
-    "paths": {
-      "@/*": [
-        "./*"
-      ]
-    }
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "outDir": "dist",
+    "rootDir": "./",
+    "noEmitOnError": false
   },
   "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts",
-    ".next/dev/types/**/*.ts", // Mantém esta (com /)
-    "**/*.mts"                 // Mantém esta (do seu stash)
+    "tests/**/*.ts",
+    "target/types/**/*.ts",
+    "Anchor.toml",
+    "tsconfig.json"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules", "app", "pages", "components", ".next"]
 }
