@@ -11,7 +11,9 @@
   <a href="#">Live Demo</a> |
   <a href="#">Docs</a> |
   <a href="#">Project Overview</a> |
-  <a href="#">Join our Community</a>
+  <a href="https://discord.gg/V75mWm2k">Join our Community</a>
+
+
 </p>
 
 <p align="center">
