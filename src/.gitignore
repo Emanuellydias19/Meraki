@@ -32,9 +32,24 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+.env.local
+.env.*.local
 
 # vercel
 .vercel
+
+# IDEs / editors
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# lockfiles (ignore if you want to keep them, otherwise remove)
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
 
 # typescript
 *.tsbuildinfo

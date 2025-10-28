@@ -8,3 +8,8 @@
 /target
 
 
+src/client/node_modules
+src/client/.next/dev/build
+src/client/.next/dev/server/chunks
+src/client/.next/dev/static
+node_modules

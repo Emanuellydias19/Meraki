@@ -1,4 +1,13 @@
+"use client";
+import { usePathname } from "next/navigation";
+
 export function Footer() {
+  const location = usePathname();
+    
+  if (location.startsWith("/login") || location.startsWith("/register")) {
+    return null; // Não renderiza o Header nessas rotas
+  }
+  
   return (
     <footer className="bg-gray-900 border-t border-gray-800 py-12">
       <div className="w-full mx-auto px-8">

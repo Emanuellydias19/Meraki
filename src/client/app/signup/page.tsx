@@ -1,10 +1,34 @@
 "use client";
 
-import Link from "next/link";
-import { useState } from "react";
-import { Header } from "@/components/layout/Header";
+import React, { ChangeEvent, useState } from 'react';
 
-export default function SignupPage() {
+// Definição das cores solicitadas
+const COLORS = {
+  BACKGROUND: '#020D19', // Fundo Principal (Dark Blue/Teal)
+  INPUT_BG: '#053752',   // Fundo dos Inputs (Slightly Lighter Blue)
+  ACCENT: '#BD2EF0',     // Cor de Destaque Neon (Roxo)
+  STROKE: '#62C2E8',     // Cor da Borda Neon (Azul)
+  TEXT_WHITE: '#ffffff', // Texto em geral para Branco Puro
+  ERROR: '#FF6347',      // Vermelho para feedback de erro
+};
+
+// --- URL DA IMAGEM DE FUNDO (PONTO DE ALTERAÇÃO) ---
+const BACKGROUND_IMAGE_URL = '/logoMeraki.png'; 
+// --- FIM URL IMAGEM DE FUNDO ---
+
+
+// --- Componente Placeholder Header (Simula a barra superior) ---
+const SimpleHeader = () => (
+  <header style={{ backgroundColor: COLORS.BACKGROUND }} className="py-4 px-6 shadow-lg">
+    <div className="max-w-7xl mx-auto">
+      <h2 style={{ color: COLORS.ACCENT, fontSize: '1.5rem', fontWeight: 700 }}>NodeHub</h2>
+    </div>
+  </header>
+);
+// --- FIM Componente Placeholder Header ---
+
+
+export default function CadastroPage() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -12,112 +36,230 @@ export default function SignupPage() {
     confirmPassword: "",
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const [message, setMessage] = useState('');
+  const [isError, setIsError] = useState(false);
+
+  // Handler para atualizar o estado do formulário
+  /**
+   * @param {React.ChangeEvent<HTMLInputElement>} e
+   */
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+    setMessage('');
+    setIsError(false);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+
+  // Handler para submissão do formulário
+  /**
+   * @param {React.FormEvent} e
+   */
+  const handleSubmit = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
-    if (formData.password !== formData.confirmPassword) {
-      alert("Senhas não conferem!");
-      return;
+    
+    // --- Validação ---
+    if (!formData.name || !formData.email || !formData.password || !formData.confirmPassword) {
+        setMessage('Por favor, preencha todos os campos.');
+        setIsError(true);
+        return;
     }
-    console.log("Signup:", formData);
-    // TODO: Integrar com API
+
+    if (formData.password.length < 6) {
+        setMessage('A senha deve ter no mínimo 6 caracteres.');
+        setIsError(true);
+        return;
+    }
+    
+    if (formData.password !== formData.confirmPassword) {
+        setMessage('A senha e a confirmação de senha não coincidem.');
+        setIsError(true);
+        return;
+    }
+
+    // --- Simulação de Cadastro (Sucesso) ---
+    console.log("Cadastro enviado:", formData);
+    setMessage(`Conta criada com sucesso para: ${formData.email}. Bem-vindo(a), ${formData.name}!`);
+    setIsError(false);
+    // TODO: Integrar com Firebase Auth aqui.
+  };
+
+  // Handler para o botão Connect Wallet
+  const handleConnectWallet = () => {
+    setMessage('Iniciando conexão com a carteira Web3...');
+    setIsError(false);
+    console.log('Connect Wallet clicked');
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      <Header />
+    // Fundo Principal com a IMAGEM e a cor de fallback (BACKGROUND: #020D19)
+    <div 
+        style={{ 
+            minHeight: '100vh', 
+            fontFamily: 'Inter, sans-serif',
+            backgroundColor: COLORS.BACKGROUND,
+            // 1. APLICAÇÃO DA IMAGEM DE FUNDO
+            backgroundImage: `url(${BACKGROUND_IMAGE_URL})`, 
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            position: 'relative', 
+        }}
+    >
+      {/* 2. OVERLAY PARA OPACIDADE */}
+      <div 
+          className="absolute inset-0" 
+          style={{ 
+              backgroundColor: COLORS.BACKGROUND, 
+              opacity: 0.4 
+          }}
+      ></div>
 
-      <div className="min-h-screen flex items-center justify-center py-12">
-        <div className="w-full max-w-md space-y-8">
-          <div className="text-center space-y-2">
-            <h1 className="text-3xl font-bold text-white">Criar Conta</h1>
-            <p className="text-gray-400">Junte-se ao NodeHub hoje</p>
-          </div>
+      {/* Conteúdo Principal (Header e Formulário) */}
+      <div style={{ position: 'relative', zIndex: 10 }}>
+        <SimpleHeader />
 
-          <form onSubmit={handleSubmit} className="space-y-4">
-            {/* Nome */}
-            <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">
-                Nome Completo
-              </label>
-              <input
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-accent transition"
-                placeholder="Seu nome"
-                required
-              />
+        {/* Container que centraliza o formulário no meio da página */}
+        <div className="min-h-[calc(100vh-64px)] flex items-center justify-center py-12">
+          <div 
+              className="w-full max-w-xl space-y-6 p-8 rounded-xl shadow-2xl" 
+              // Card com fundo opaco e borda neon
+              style={{ 
+                  backgroundColor: 'rgba(35, 96, 137, 0.6)', 
+                  border: `1px solid ${COLORS.STROKE}` 
+              }}
+          >
+            <div className="text-center space-y-2">
+              {/* Título de Cadastro */}
+              <h1 className="text-3xl font-bold" style={{ color: COLORS.TEXT_WHITE }}>Crie sua Conta</h1>
+              
+              {/* Subtítulo */}
+              <p style={{ color: COLORS.STROKE }}>Junte-se ao NodeHub e gerencie sua infraestrutura Solana.</p>
             </div>
 
-            {/* Email */}
-            <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">
-                Email
-              </label>
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-accent transition"
-                placeholder="seu@email.com"
-                required
-              />
+            {/* Mensagem de Feedback */}
+            {message && (
+                <div 
+                    className="text-center text-sm p-3 rounded-lg font-medium" 
+                    style={{ 
+                        backgroundColor: isError ? COLORS.ERROR + '20' : COLORS.STROKE + '20', 
+                        color: isError ? COLORS.ERROR : COLORS.STROKE,
+                        border: `1px solid ${isError ? COLORS.ERROR : COLORS.STROKE}`
+                    }}
+                >
+                    {message}
+                </div>
+            )}
+
+
+            <form onSubmit={handleSubmit} className="space-y-4">
+              {/* 1. Nome Completo Input */}
+              <div>
+                <label className="block text-sm font-medium mb-2" style={{ color: COLORS.TEXT_WHITE }}>
+                  Nome Completo
+                </label>
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  style={{ backgroundColor: COLORS.INPUT_BG, borderColor: COLORS.STROKE, color: COLORS.TEXT_WHITE }}
+                  className="w-full px-4 py-3 border rounded-lg placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-opacity-100 transition"
+                  placeholder="Seu nome"
+                  required
+                />
+              </div>
+              
+              {/* 2. Email Input */}
+              <div>
+                <label className="block text-sm font-medium mb-2" style={{ color: COLORS.TEXT_WHITE }}>
+                  Email
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  style={{ backgroundColor: COLORS.INPUT_BG, borderColor: COLORS.STROKE, color: COLORS.TEXT_WHITE }}
+                  className="w-full px-4 py-3 border rounded-lg placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-opacity-100 transition"
+                  placeholder="seu@email.com"
+                  required
+                />
+              </div>
+
+              {/* 3. Senha Input */}
+              <div>
+                <label className="block text-sm font-medium mb-2" style={{ color: COLORS.TEXT_WHITE }}>
+                  Senha
+                </label>
+                <input
+                  type="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  style={{ backgroundColor: COLORS.INPUT_BG, borderColor: COLORS.STROKE, color: COLORS.TEXT_WHITE }}
+                  className="w-full px-4 py-3 border rounded-lg placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-opacity-100 transition"
+                  placeholder="Mínimo 6 caracteres"
+                  required
+                />
+              </div>
+              
+              {/* 4. Confirme Sua Senha Input */}
+              <div>
+                <label className="block text-sm font-medium mb-2" style={{ color: COLORS.TEXT_WHITE }}>
+                  Confirme sua senha
+                </label>
+                <input
+                  type="password"
+                  name="confirmPassword"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                  style={{ backgroundColor: COLORS.INPUT_BG, borderColor: COLORS.STROKE, color: COLORS.TEXT_WHITE }}
+                  className="w-full px-4 py-3 border rounded-lg placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-opacity-100 transition"
+                  placeholder="Repita sua senha"
+                  required
+                />
+              </div>
+
+              {/* Botão CADASTRAR (Roxo Neon - ACCENT) */}
+              <button
+                type="submit"
+                style={{ backgroundColor: COLORS.ACCENT, color: COLORS.BACKGROUND }}
+                className="w-full py-3 font-semibold rounded-lg hover:opacity-85 transition shadow-lg mt-6"
+              >
+                CADASTRAR
+              </button>
+            </form>
+
+            {/* Separador Opcional */}
+            <div className="flex items-center space-x-2">
+                <div className=".flex-grow border-t" style={{ borderColor: COLORS.STROKE + '50' }}></div>
+                <span className="text-sm font-light" style={{ color: COLORS.STROKE }}>OU</span>
+                <div className=".flex-grow border-t" style={{ borderColor: COLORS.STROKE + '50' }}></div>
             </div>
 
-            {/* Senha */}
-            <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">
-                Senha
-              </label>
-              <input
-                type="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-accent transition"
-                placeholder="••••••••"
-                required
-              />
-            </div>
-
-            {/* Confirmar Senha */}
-            <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">
-                Confirmar Senha
-              </label>
-              <input
-                type="password"
-                name="confirmPassword"
-                value={formData.confirmPassword}
-                onChange={handleChange}
-                className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-accent transition"
-                placeholder="••••••••"
-                required
-              />
-            </div>
-
-            {/* Botão */}
+            {/* BOTÃO CONECTAR WALLET */}
             <button
-              type="submit"
-              className="w-full py-3 bg-accent text-white font-semibold rounded-lg hover:opacity-90 transition mt-6"
+                type="button"
+                onClick={handleConnectWallet}
+                style={{ 
+                    backgroundColor: 'transparent',
+                    color: COLORS.ACCENT,
+                    border: `2px solid ${COLORS.ACCENT}`,
+                    boxShadow: `0 0 10px ${COLORS.ACCENT}80`,
+                }}
+                className="w-full py-3 font-semibold rounded-lg hover:opacity-85 transition shadow-lg"
             >
-              Criar Conta
+                CONECTAR WALLET
             </button>
-          </form>
 
-          {/* Link para Login */}
-          <div className="text-center text-gray-400">
-            Já tem uma conta?{" "}
-            <Link href="/login" className="text-accent hover:underline">
-              Faça login
-            </Link>
+
+            {/* Link para Fazer Login */}
+            <div className="text-center pt-2" style={{ color: COLORS.TEXT_WHITE }}>
+              Já tem uma conta?{" "}
+              <a href="/login" style={{ color: COLORS.STROKE }} className="hover:underline">
+                Fazer Login
+              </a>
+            </div>
           </div>
         </div>
       </div>
