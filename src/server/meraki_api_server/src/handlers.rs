@@ -15,9 +15,9 @@ use axum::{
 };
 use sqlx::PgPool;
 use uuid::Uuid;
-use argon2::{
+use argon::{
     password_hash::{PasswordHash, PasswordVerifier},
-    Argon2,
+    Argon,
 };
 
 #[derive(Clone)]
@@ -43,8 +43,8 @@ pub struct LoginResponse {
     path = "/auth/login",
     request_body = LoginPayload,
     responses(
-        (status = 200, description = "Login successful", body = LoginResponse),
-        (status = 401, description = "Invalid credentials")
+        (status = 00, description = "Login successful", body = LoginResponse),
+        (status = 0, description = "Invalid credentials")
     )
 )]
 pub async fn login(
@@ -52,7 +52,7 @@ pub async fn login(
     Json(payload): Json<LoginPayload>,
 ) -> Result<Json<LoginResponse>, AppError> {
     let user = sqlx::query!(
-        "SELECT id, password_hash FROM users WHERE email = $1",
+        "SELECT id, password_hash FROM users WHERE email = $",
         payload.email
     )
     .fetch_optional(&pool)
@@ -63,7 +63,7 @@ pub async fn login(
     let password_hash_str = user.password_hash.ok_or(AppError::Unauthorized)?;
     let parsed_hash = PasswordHash::new(&password_hash_str).map_err(|_| AppError::Unauthorized)?;
 
-    Argon2::default()
+    Argon::default()
         .verify_password(payload.password.as_bytes(), &parsed_hash)
         .map_err(|_| AppError::Unauthorized)?;
 
@@ -80,7 +80,7 @@ pub async fn login(
     path = "/users",
     request_body = CreateUserPayload,
     responses(
-        (status = 201, description = "User created successfully", body = User)
+        (status = 0, description = "User created successfully", body = User)
     )
 )]
 pub async fn create_user(
@@ -93,7 +93,7 @@ pub async fn create_user(
         models::User,
         r#"
         INSERT INTO users (full_name, email, password_hash, wallet_public_key)
-        VALUES ($1, $2, $3, $4)
+        VALUES ($, $, $, $)
         RETURNING id, full_name, email, password_hash, wallet_public_key, created_at, updated_at
         "#,
         payload.full_name,
@@ -112,7 +112,7 @@ pub async fn create_user(
     get,
     path = "/users",
     responses(
-        (status = 200, description = "List of all users", body = [User])
+        (status = 00, description = "List of all users", body = [User])
     )
 )]
 pub async fn get_users(
@@ -135,15 +135,15 @@ pub async fn get_users(
         ("id" = Uuid, Path, description = "User ID")
     ),
     responses(
-        (status = 200, description = "User found", body = User),
-        (status = 404, description = "User not found")
+        (status = 00, description = "User found", body = User),
+        (status = 0, description = "User not found")
     )
 )]
 pub async fn get_user_by_id(
     State(pool): State<PgPool>,
     Path(id): Path<Uuid>,
 ) -> Result<Json<models::User>, AppError> {
-    let user = sqlx::query_as!(models::User, "SELECT id, full_name, email, password_hash, wallet_public_key, created_at, updated_at FROM users WHERE id = $1", id)
+    let user = sqlx::query_as!(models::User, "SELECT id, full_name, email, password_hash, wallet_public_key, created_at, updated_at FROM users WHERE id = $", id)
         .fetch_one(&pool)
         .await
         .map_err(|_| AppError::NotFound("User".to_string()))?;
@@ -156,8 +156,8 @@ pub async fn get_user_by_id(
     path = "/auth/me",
     request_body = UpdateUserPayload,
     responses(
-        (status = 200, description = "User updated successfully", body = User),
-        (status = 401, description = "Unauthorized")
+        (status = 00, description = "User updated successfully", body = User),
+        (status = 0, description = "Unauthorized")
     ),
     security(
         ("bearer_auth" = [])
@@ -172,7 +172,7 @@ pub async fn update_me(
 
     let user = sqlx::query_as!(
         models::User,
-        "UPDATE users SET full_name = COALESCE($1, full_name), wallet_public_key = COALESCE($2, wallet_public_key), updated_at = now() WHERE id = $3 RETURNING id, full_name, email, password_hash, wallet_public_key, created_at, updated_at",
+        "UPDATE users SET full_name = COALESCE($, full_name), wallet_public_key = COALESCE($, wallet_public_key), updated_at = now() WHERE id = $ RETURNING id, full_name, email, password_hash, wallet_public_key, created_at, updated_at",
         payload.full_name,
         payload.wallet_public_key,
         user_id
@@ -188,8 +188,8 @@ pub async fn update_me(
     delete,
     path = "/auth/me",
     responses(
-        (status = 204, description = "User deleted successfully"),
-        (status = 401, description = "Unauthorized")
+        (status = 0, description = "User deleted successfully"),
+        (status = 0, description = "Unauthorized")
     ),
     security(
         ("bearer_auth" = [])
@@ -201,7 +201,7 @@ pub async fn delete_me(
 ) -> Result<StatusCode, AppError> {
     let user_id = claims.sub;
 
-    let result = sqlx::query!("DELETE FROM users WHERE id = $1", user_id)
+    let result = sqlx::query!("DELETE FROM users WHERE id = $", user_id)
         .execute(&pool)
         .await
         .map_err(|e| AppError::InternalServerError(e.to_string()))?;
@@ -220,8 +220,8 @@ pub async fn delete_me(
     path = "/startups",
     request_body = CreateStartupPayload,
     responses(
-        (status = 201, description = "Startup created successfully", body = Startup),
-        (status = 401, description = "Unauthorized")
+        (status = 0, description = "Startup created successfully", body = Startup),
+        (status = 0, description = "Unauthorized")
     ),
     security(
         ("bearer_auth" = [])
@@ -238,7 +238,7 @@ pub async fn create_startup(
         models::Startup,
         r#"
         INSERT INTO startups (user_id, name, slogan, description, problem, logo_url, video_pitch_url)
-        VALUES ($1, $2, $3, $4, $5, $6, $7)
+        VALUES ($, $, $, $, $5, $6, $7)
         RETURNING *
         "#,
         user_id,
@@ -260,7 +260,7 @@ pub async fn create_startup(
     get,
     path = "/startups",
     responses(
-        (status = 200, description = "List of all startups", body = [Startup])
+        (status = 00, description = "List of all startups", body = [Startup])
     )
 )]
 pub async fn get_startups(
@@ -281,10 +281,10 @@ pub async fn get_startups(
         ("id" = Uuid, Path, description = "Startup ID")
     ),
     responses(
-        (status = 200, description = "Startup updated", body = Startup),
-        (status = 401, description = "Unauthorized"),
-        (status = 403, description = "Forbidden"),
-        (status = 404, description = "Startup not found")
+        (status = 00, description = "Startup updated", body = Startup),
+        (status = 0, description = "Unauthorized"),
+        (status = 0, description = "Forbidden"),
+        (status = 0, description = "Startup not found")
     ),
     security(
         ("bearer_auth" = [])
@@ -298,7 +298,7 @@ pub async fn update_startup(
 ) -> Result<Json<models::Startup>, AppError> {
     let user_id = claims.sub;
 
-    let startup_owner: (Option<Uuid>,) = sqlx::query_as("SELECT user_id FROM startups WHERE id = $1")
+    let startup_owner: (Option<Uuid>,) = sqlx::query_as("SELECT user_id FROM startups WHERE id = $")
         .bind(id)
         .fetch_one(&pool)
         .await
@@ -313,10 +313,10 @@ pub async fn update_startup(
         r#"
         UPDATE startups
         SET 
-            name = COALESCE($1, name),
-            slogan = COALESCE($2, slogan),
-            description = COALESCE($3, description),
-            problem = COALESCE($4, problem),
+            name = COALESCE($, name),
+            slogan = COALESCE($, slogan),
+            description = COALESCE($, description),
+            problem = COALESCE($, problem),
             logo_url = COALESCE($5, logo_url),
             video_pitch_url = COALESCE($6, video_pitch_url)
         WHERE id = $7
@@ -344,10 +344,10 @@ pub async fn update_startup(
         ("id" = Uuid, Path, description = "Startup ID")
     ),
     responses(
-        (status = 204, description = "Startup deleted"),
-        (status = 401, description = "Unauthorized"),
-        (status = 403, description = "Forbidden"),
-        (status = 404, description = "Startup not found")
+        (status = 0, description = "Startup deleted"),
+        (status = 0, description = "Unauthorized"),
+        (status = 0, description = "Forbidden"),
+        (status = 0, description = "Startup not found")
     ),
     security(
         ("bearer_auth" = [])
@@ -360,7 +360,7 @@ pub async fn delete_startup(
 ) -> Result<StatusCode, AppError> {
     let user_id = claims.sub;
 
-    let startup_owner: (Option<Uuid>,) = sqlx::query_as("SELECT user_id FROM startups WHERE id = $1")
+    let startup_owner: (Option<Uuid>,) = sqlx::query_as("SELECT user_id FROM startups WHERE id = $")
         .bind(id)
         .fetch_one(&pool)
         .await
@@ -370,7 +370,7 @@ pub async fn delete_startup(
         return Err(AppError::Forbidden);
     }
 
-    sqlx::query!("DELETE FROM startups WHERE id = $1", id)
+    sqlx::query!("DELETE FROM startups WHERE id = $", id)
         .execute(&pool)
         .await
         .map_err(|e| AppError::InternalServerError(e.to_string()))?;
@@ -388,10 +388,10 @@ pub async fn delete_startup(
         ("startup_id" = Uuid, Path, description = "Startup ID to create contract for")
     ),
     responses(
-        (status = 201, description = "Contract created", body = Contract),
-        (status = 401, description = "Unauthorized"),
-        (status = 403, description = "Forbidden"),
-        (status = 404, description = "Startup not found")
+        (status = 0, description = "Contract created", body = Contract),
+        (status = 0, description = "Unauthorized"),
+        (status = 0, description = "Forbidden"),
+        (status = 0, description = "Startup not found")
     ),
     security(
         ("bearer_auth" = [])
@@ -406,7 +406,7 @@ pub async fn create_contract(
     let user_id = claims.sub;
 
     let startup_owner: (Option<Uuid>,) =
-        sqlx::query_as("SELECT user_id FROM startups WHERE id = $1")
+        sqlx::query_as("SELECT user_id FROM startups WHERE id = $")
             .bind(startup_id)
             .fetch_one(&pool)
             .await
@@ -420,7 +420,7 @@ pub async fn create_contract(
         models::Contract,
         r#"
         INSERT INTO contracts (startup_id, requested_amount, equity_offered, smart_contract_address)
-        VALUES ($1, $2, $3, $4)
+        VALUES ($, $, $, $)
         RETURNING id, startup_id, requested_amount, equity_offered, smart_contract_address, status AS "status: _", created_at
         "#,
         startup_id,
@@ -442,7 +442,7 @@ pub async fn create_contract(
         ("startup_id" = Uuid, Path, description = "Startup ID")
     ),
     responses(
-        (status = 200, description = "List of contracts", body = [Contract])
+        (status = 00, description = "List of contracts", body = [Contract])
     )
 )]
 pub async fn get_contracts_for_startup(
@@ -451,7 +451,7 @@ pub async fn get_contracts_for_startup(
 ) -> Result<Json<Vec<models::Contract>>, AppError> {
     let contracts = sqlx::query_as!(
         models::Contract,
-        r#"SELECT id, startup_id, requested_amount, equity_offered, smart_contract_address, status AS "status: _", created_at FROM contracts WHERE startup_id = $1"#,
+        r#"SELECT id, startup_id, requested_amount, equity_offered, smart_contract_address, status AS "status: _", created_at FROM contracts WHERE startup_id = $"#,
         startup_id
     )
     .fetch_all(&pool)
@@ -468,8 +468,8 @@ pub async fn get_contracts_for_startup(
         ("id" = Uuid, Path, description = "Contract ID")
     ),
     responses(
-        (status = 200, description = "Contract found", body = Contract),
-        (status = 404, description = "Contract not found")
+        (status = 00, description = "Contract found", body = Contract),
+        (status = 0, description = "Contract not found")
     )
 )]
 pub async fn get_contract_by_id(
@@ -478,7 +478,7 @@ pub async fn get_contract_by_id(
 ) -> Result<Json<models::Contract>, AppError> {
     let contract = sqlx::query_as!(
         models::Contract,
-        r#"SELECT id, startup_id, requested_amount, equity_offered, smart_contract_address, status AS "status: _", created_at FROM contracts WHERE id = $1"#,
+        r#"SELECT id, startup_id, requested_amount, equity_offered, smart_contract_address, status AS "status: _", created_at FROM contracts WHERE id = $"#,
         id
     )
     .fetch_one(&pool)
@@ -496,10 +496,10 @@ pub async fn get_contract_by_id(
         ("id" = Uuid, Path, description = "Contract ID")
     ),
     responses(
-        (status = 200, description = "Contract updated", body = Contract),
-        (status = 401, description = "Unauthorized"),
-        (status = 403, description = "Forbidden"),
-        (status = 404, description = "Contract not found")
+        (status = 00, description = "Contract updated", body = Contract),
+        (status = 0, description = "Unauthorized"),
+        (status = 0, description = "Forbidden"),
+        (status = 0, description = "Contract not found")
     ),
     security(
         ("bearer_auth" = [])
@@ -514,7 +514,7 @@ pub async fn update_contract(
     let user_id = claims.sub;
 
     let contract_owner: (Option<Uuid>,) = sqlx::query_as(
-        "SELECT s.user_id FROM contracts c JOIN startups s ON c.startup_id = s.id WHERE c.id = $1",
+        "SELECT s.user_id FROM contracts c JOIN startups s ON c.startup_id = s.id WHERE c.id = $",
     )
     .bind(id)
     .fetch_one(&pool)
@@ -530,10 +530,10 @@ pub async fn update_contract(
         r#"
         UPDATE contracts
         SET
-            requested_amount = COALESCE($1, requested_amount),
-            equity_offered = COALESCE($2, equity_offered),
-            smart_contract_address = COALESCE($3, smart_contract_address),
-            status = COALESCE($4, status)
+            requested_amount = COALESCE($, requested_amount),
+            equity_offered = COALESCE($, equity_offered),
+            smart_contract_address = COALESCE($, smart_contract_address),
+            status = COALESCE($, status)
         WHERE id = $5
         RETURNING id, startup_id, requested_amount, equity_offered, smart_contract_address, status AS "status: _", created_at
         "#,
@@ -560,9 +560,9 @@ pub async fn update_contract(
         ("contract_id" = Uuid, Path, description = "Contract ID to invest in")
     ),
     responses(
-        (status = 201, description = "Investment created", body = Investment),
-        (status = 401, description = "Unauthorized"),
-        (status = 404, description = "Contract not found")
+        (status = 0, description = "Investment created", body = Investment),
+        (status = 0, description = "Unauthorized"),
+        (status = 0, description = "Contract not found")
     ),
     security(
         ("bearer_auth" = [])
@@ -580,7 +580,7 @@ pub async fn create_investment(
         models::Investment,
         r#"
         INSERT INTO investments (contract_id, investor_id, amount_invested, nft_token_id, transaction_hash)
-        VALUES ($1, $2, $3, $4, $5)
+        VALUES ($, $, $, $, $5)
         RETURNING *
         "#,
         contract_id,
@@ -603,7 +603,7 @@ pub async fn create_investment(
         ("contract_id" = Uuid, Path, description = "Contract ID")
     ),
     responses(
-        (status = 200, description = "List of investments for a contract", body = [Investment])
+        (status = 00, description = "List of investments for a contract", body = [Investment])
     )
 )]
 pub async fn get_investments_for_contract(
@@ -612,7 +612,7 @@ pub async fn get_investments_for_contract(
 ) -> Result<Json<Vec<models::Investment>>, AppError> {
     let investments = sqlx::query_as!(
         models::Investment,
-        "SELECT * FROM investments WHERE contract_id = $1",
+        "SELECT * FROM investments WHERE contract_id = $",
         contract_id
     )
     .fetch_all(&pool)
@@ -626,8 +626,8 @@ pub async fn get_investments_for_contract(
     get,
     path = "/auth/me/investments",
     responses(
-        (status = 200, description = "List of investments for the logged-in user", body = [Investment]),
-        (status = 401, description = "Unauthorized")
+        (status = 00, description = "List of investments for the logged-in user", body = [Investment]),
+        (status = 0, description = "Unauthorized")
     ),
     security(
         ("bearer_auth" = [])
@@ -640,7 +640,7 @@ pub async fn get_my_investments(
     let user_id = claims.sub;
     let investments = sqlx::query_as!(
         models::Investment,
-        "SELECT * FROM investments WHERE investor_id = $1",
+        "SELECT * FROM investments WHERE investor_id = $",
         user_id
     )
     .fetch_all(&pool)
@@ -660,10 +660,10 @@ pub async fn get_my_investments(
         ("contract_id" = Uuid, Path, description = "Contract ID to add milestone to")
     ),
     responses(
-        (status = 201, description = "Milestone created", body = Milestone),
-        (status = 401, description = "Unauthorized"),
-        (status = 403, description = "Forbidden"),
-        (status = 404, description = "Contract not found")
+        (status = 0, description = "Milestone created", body = Milestone),
+        (status = 0, description = "Unauthorized"),
+        (status = 0, description = "Forbidden"),
+        (status = 0, description = "Contract not found")
     ),
     security(
         ("bearer_auth" = [])
@@ -678,7 +678,7 @@ pub async fn create_milestone(
     let user_id = claims.sub;
 
     let contract_owner: (Option<Uuid>,) = sqlx::query_as(
-        "SELECT s.user_id FROM contracts c JOIN startups s ON c.startup_id = s.id WHERE c.id = $1",
+        "SELECT s.user_id FROM contracts c JOIN startups s ON c.startup_id = s.id WHERE c.id = $",
     )
     .bind(contract_id)
     .fetch_one(&pool)
@@ -691,7 +691,7 @@ pub async fn create_milestone(
 
     let milestone = sqlx::query_as!(
         models::Milestone,
-        "INSERT INTO milestones (contract_id, title, description) VALUES ($1, $2, $3) RETURNING *",
+        "INSERT INTO milestones (contract_id, title, description) VALUES ($, $, $) RETURNING *",
         contract_id,
         payload.title,
         payload.description
@@ -710,7 +710,7 @@ pub async fn create_milestone(
         ("contract_id" = Uuid, Path, description = "Contract ID")
     ),
     responses(
-        (status = 200, description = "List of milestones for a contract", body = [Milestone])
+        (status = 00, description = "List of milestones for a contract", body = [Milestone])
     )
 )]
 pub async fn get_milestones_for_contract(
@@ -719,7 +719,7 @@ pub async fn get_milestones_for_contract(
 ) -> Result<Json<Vec<models::Milestone>>, AppError> {
     let milestones = sqlx::query_as!(
         models::Milestone,
-        "SELECT * FROM milestones WHERE contract_id = $1",
+        "SELECT * FROM milestones WHERE contract_id = $",
         contract_id
     )
     .fetch_all(&pool)
@@ -737,10 +737,10 @@ pub async fn get_milestones_for_contract(
         ("id" = Uuid, Path, description = "Milestone ID")
     ),
     responses(
-        (status = 200, description = "Milestone updated", body = Milestone),
-        (status = 401, description = "Unauthorized"),
-        (status = 403, description = "Forbidden"),
-        (status = 404, description = "Milestone not found")
+        (status = 00, description = "Milestone updated", body = Milestone),
+        (status = 0, description = "Unauthorized"),
+        (status = 0, description = "Forbidden"),
+        (status = 0, description = "Milestone not found")
     ),
     security(
         ("bearer_auth" = [])
@@ -755,7 +755,7 @@ pub async fn update_milestone(
     let user_id = claims.sub;
 
     let milestone_owner: (Option<Uuid>,) = sqlx::query_as(
-        "SELECT s.user_id FROM milestones m JOIN contracts c ON m.contract_id = c.id JOIN startups s ON c.startup_id = s.id WHERE m.id = $1",
+        "SELECT s.user_id FROM milestones m JOIN contracts c ON m.contract_id = c.id JOIN startups s ON c.startup_id = s.id WHERE m.id = $",
     )
     .bind(id)
     .fetch_one(&pool)
@@ -768,7 +768,7 @@ pub async fn update_milestone(
 
     let milestone = sqlx::query_as!(
         models::Milestone,
-        "UPDATE milestones SET title = COALESCE($1, title), description = COALESCE($2, description) WHERE id = $3 RETURNING *",
+        "UPDATE milestones SET title = COALESCE($, title), description = COALESCE($, description) WHERE id = $ RETURNING *",
         payload.title,
         payload.description,
         id
@@ -790,10 +790,10 @@ pub async fn update_milestone(
         ("startup_id" = Uuid, Path, description = "Startup ID to upload file for")
     ),
     responses(
-        (status = 201, description = "File created", body = File),
-        (status = 401, description = "Unauthorized"),
-        (status = 403, description = "Forbidden"),
-        (status = 404, description = "Startup not found")
+        (status = 0, description = "File created", body = File),
+        (status = 0, description = "Unauthorized"),
+        (status = 0, description = "Forbidden"),
+        (status = 0, description = "Startup not found")
     ),
     security(
         ("bearer_auth" = [])
@@ -808,7 +808,7 @@ pub async fn create_file(
     let user_id = claims.sub;
 
     let startup_owner: (Option<Uuid>,) =
-        sqlx::query_as("SELECT user_id FROM startups WHERE id = $1")
+        sqlx::query_as("SELECT user_id FROM startups WHERE id = $")
             .bind(startup_id)
             .fetch_one(&pool)
             .await
@@ -820,7 +820,7 @@ pub async fn create_file(
 
     let file = sqlx::query_as!(
         models::File,
-        "INSERT INTO files (startup_id, file_url, description) VALUES ($1, $2, $3) RETURNING *",
+        "INSERT INTO files (startup_id, file_url, description) VALUES ($, $, $) RETURNING *",
         startup_id,
         payload.file_url,
         payload.description
@@ -839,7 +839,7 @@ pub async fn create_file(
         ("startup_id" = Uuid, Path, description = "Startup ID")
     ),
     responses(
-        (status = 200, description = "List of files for a startup", body = [File])
+        (status = 00, description = "List of files for a startup", body = [File])
     )
 )]
 pub async fn get_files_for_startup(
@@ -848,7 +848,7 @@ pub async fn get_files_for_startup(
 ) -> Result<Json<Vec<models::File>>, AppError> {
     let files = sqlx::query_as!(
         models::File,
-        "SELECT * FROM files WHERE startup_id = $1",
+        "SELECT * FROM files WHERE startup_id = $",
         startup_id
     )
     .fetch_all(&pool)
@@ -865,10 +865,10 @@ pub async fn get_files_for_startup(
         ("id" = Uuid, Path, description = "File ID")
     ),
     responses(
-        (status = 204, description = "File deleted"),
-        (status = 401, description = "Unauthorized"),
-        (status = 403, description = "Forbidden"),
-        (status = 404, description = "File not found")
+        (status = 0, description = "File deleted"),
+        (status = 0, description = "Unauthorized"),
+        (status = 0, description = "Forbidden"),
+        (status = 0, description = "File not found")
     ),
     security(
         ("bearer_auth" = [])
@@ -882,7 +882,7 @@ pub async fn delete_file(
     let user_id = claims.sub;
 
     let file_owner: (Option<Uuid>,) = sqlx::query_as(
-        "SELECT s.user_id FROM files f JOIN startups s ON f.startup_id = s.id WHERE f.id = $1",
+        "SELECT s.user_id FROM files f JOIN startups s ON f.startup_id = s.id WHERE f.id = $",
     )
     .bind(id)
     .fetch_one(&pool)
@@ -893,7 +893,7 @@ pub async fn delete_file(
         return Err(AppError::Forbidden);
     }
 
-    sqlx::query!("DELETE FROM files WHERE id = $1", id)
+    sqlx::query!("DELETE FROM files WHERE id = $", id)
         .execute(&pool)
         .await
         .map_err(|e| AppError::InternalServerError(e.to_string()))?;
@@ -912,10 +912,10 @@ pub async fn delete_file(
         ("milestone_id" = Uuid, Path, description = "Milestone ID")
     ),
     responses(
-        (status = 201, description = "NFT progress upserted", body = NftProgress),
-        (status = 401, description = "Unauthorized"),
-        (status = 403, description = "Forbidden"),
-        (status = 404, description = "Investment or Milestone not found")
+        (status = 0, description = "NFT progress upserted", body = NftProgress),
+        (status = 0, description = "Unauthorized"),
+        (status = 0, description = "Forbidden"),
+        (status = 0, description = "Investment or Milestone not found")
     ),
     security(
         ("bearer_auth" = [])
@@ -929,7 +929,7 @@ pub async fn upsert_nft_progress(
 ) -> Result<(StatusCode, Json<models::NftProgress>), AppError> {
     // Ensure the investment exists and is owned by the logged-in user
     let inv = sqlx::query!(
-        "SELECT investor_id, contract_id FROM investments WHERE id = $1",
+        "SELECT investor_id, contract_id FROM investments WHERE id = $",
         investment_id
     )
     .fetch_one(&pool)
@@ -942,7 +942,7 @@ pub async fn upsert_nft_progress(
 
     // Ensure the milestone exists and belongs to the same contract as the investment
     let mile = sqlx::query!(
-        "SELECT contract_id FROM milestones WHERE id = $1",
+        "SELECT contract_id FROM milestones WHERE id = $",
         milestone_id
     )
     .fetch_one(&pool)
@@ -957,7 +957,7 @@ pub async fn upsert_nft_progress(
         models::NftProgress,
         r#"
         INSERT INTO nft_progress (investment_id, milestone_id, visual_state)
-        VALUES ($1, $2, $3)
+        VALUES ($, $, $)
         ON CONFLICT (investment_id, milestone_id)
         DO UPDATE SET visual_state = EXCLUDED.visual_state, updated_at = now()
         RETURNING id, investment_id, milestone_id, visual_state, updated_at
@@ -980,7 +980,7 @@ pub async fn upsert_nft_progress(
         ("investment_id" = Uuid, Path, description = "Investment ID")
     ),
     responses(
-        (status = 200, description = "List NFT progress entries for an investment", body = [NftProgress])
+        (status = 00, description = "List NFT progress entries for an investment", body = [NftProgress])
     )
 )]
 pub async fn get_nft_progress_for_investment(
@@ -989,7 +989,7 @@ pub async fn get_nft_progress_for_investment(
 ) -> Result<Json<Vec<models::NftProgress>>, AppError> {
     let items = sqlx::query_as!(
         models::NftProgress,
-        r#"SELECT id, investment_id, milestone_id, visual_state, updated_at FROM nft_progress WHERE investment_id = $1 ORDER BY updated_at DESC"#,
+        r#"SELECT id, investment_id, milestone_id, visual_state, updated_at FROM nft_progress WHERE investment_id = $ ORDER BY updated_at DESC"#,
         investment_id
     )
     .fetch_all(&pool)
@@ -1006,8 +1006,8 @@ pub async fn get_nft_progress_for_investment(
     path = "/auth/me/wallet-connections",
     request_body = CreateWalletConnectionPayload,
     responses(
-        (status = 201, description = "Wallet connection created", body = WalletConnection),
-        (status = 401, description = "Unauthorized")
+        (status = 0, description = "Wallet connection created", body = WalletConnection),
+        (status = 0, description = "Unauthorized")
     ),
     security(
         ("bearer_auth" = [])
@@ -1024,7 +1024,7 @@ pub async fn create_wallet_connection(
         models::WalletConnection,
         r#"
         INSERT INTO wallet_connections (user_id, wallet_public_key, network)
-        VALUES ($1, $2, COALESCE($3, 'solana'))
+        VALUES ($, $, COALESCE($, 'solana'))
         RETURNING id, user_id, wallet_public_key, network, connected_at
         "#,
         user_id,
@@ -1045,7 +1045,7 @@ pub async fn create_wallet_connection(
         ("id" = Uuid, Path, description = "User ID")
     ),
     responses(
-        (status = 200, description = "List wallet connections for a user", body = [WalletConnection])
+        (status = 00, description = "List wallet connections for a user", body = [WalletConnection])
     )
 )]
 pub async fn get_wallet_connections_for_user(
@@ -1054,7 +1054,7 @@ pub async fn get_wallet_connections_for_user(
 ) -> Result<Json<Vec<models::WalletConnection>>, AppError> {
     let conns = sqlx::query_as!(
         models::WalletConnection,
-        r#"SELECT id, user_id, wallet_public_key, network, connected_at FROM wallet_connections WHERE user_id = $1 ORDER BY connected_at DESC"#,
+        r#"SELECT id, user_id, wallet_public_key, network, connected_at FROM wallet_connections WHERE user_id = $ ORDER BY connected_at DESC"#,
         id
     )
     .fetch_all(&pool)
@@ -1071,10 +1071,10 @@ pub async fn get_wallet_connections_for_user(
         ("id" = Uuid, Path, description = "Wallet connection ID")
     ),
     responses(
-        (status = 204, description = "Wallet connection deleted"),
-        (status = 401, description = "Unauthorized"),
-        (status = 403, description = "Forbidden"),
-        (status = 404, description = "Wallet connection not found")
+        (status = 0, description = "Wallet connection deleted"),
+        (status = 0, description = "Unauthorized"),
+        (status = 0, description = "Forbidden"),
+        (status = 0, description = "Wallet connection not found")
     ),
     security(
         ("bearer_auth" = [])
@@ -1088,7 +1088,7 @@ pub async fn delete_wallet_connection(
     let user_id = claims.sub;
 
     let owner = sqlx::query!(
-        "SELECT user_id FROM wallet_connections WHERE id = $1",
+        "SELECT user_id FROM wallet_connections WHERE id = $",
         id
     )
     .fetch_one(&pool)
@@ -1099,7 +1099,7 @@ pub async fn delete_wallet_connection(
         return Err(AppError::Forbidden);
     }
 
-    sqlx::query!("DELETE FROM wallet_connections WHERE id = $1", id)
+    sqlx::query!("DELETE FROM wallet_connections WHERE id = $", id)
         .execute(&pool)
         .await
         .map_err(|e| AppError::InternalServerError(e.to_string()))?;

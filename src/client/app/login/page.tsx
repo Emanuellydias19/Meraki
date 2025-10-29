@@ -1,22 +1,23 @@
 "use client";
 
 import React, { useState, ChangeEvent, FormEvent } from 'react';
-// Importações externas como 'Link' e 'Header' foram removidas/substituídas para manter o código autossuficiente e funcional.
+import { useRouter } from 'next/navigation';
+import { authApi } from '../lib/api';
 
 // Definição das cores solicitadas para fácil referência e modificação
 const COLORS = {
-  BACKGROUND: '#092C4C', // Fundo Principal (Dark Blue/Teal)
-  INPUT_BG: '#053752',   // Fundo dos Inputs (Slightly Lighter Blue)
-  ACCENT: '#BD2EF0',     // Cor de Destaque Neon (Roxo)
-  STROKE: '#62C2E8',     // Cor da Borda Neon (Azul)
+  BACKGROUND: '#09CC', // Fundo Principal (Dark Blue/Teal)
+  INPUT_BG: '#0575',   // Fundo dos Inputs (Slightly Lighter Blue)
+  ACCENT: '#BDEF0',     // Cor de Destaque Neon (Roxo)
+  STROKE: '#6CE8',     // Cor da Borda Neon (Azul)
   TEXT_WHITE: '#ffffff', // Texto em geral para Branco Puro
 };
 
 // --- Componente Placeholder Header (Simula a barra superior) ---
 const SimpleHeader = () => (
-  <header style={{ backgroundColor: COLORS.BACKGROUND }} className="py-4 px-6 shadow-lg">
+  <header style={{ backgroundColor: COLORS.BACKGROUND }} className="py- px-6 shadow-lg">
     <div className="max-w-7xl mx-auto">
-      <h2 style={{ color: COLORS.ACCENT, fontSize: '1.5rem', fontWeight: 700 }}>NodeHub</h2>
+      <h style={{ color: COLORS.ACCENT, fontSize: '.5rem', fontWeight: 700 }}>NodeHub</h>
     </div>
   </header>
 );
@@ -24,72 +25,95 @@ const SimpleHeader = () => (
 
 
 export default function LoginPage() {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
 
   const [message, setMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
 
   // Handler para atualizar o estado do formulário
   // Tipagem explícita de 'e' como ChangeEvent<HTMLInputElement>
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+    setError(''); // Limpar erro ao digitar
   };
 
   // Handler para submissão do formulário
   // Tipagem explícita de 'e' como FormEvent
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    // Simulação de login
-    console.log("Login:", formData);
-    setMessage(`Tentativa de Login efetuada para: ${formData.email}. (Integração com API pendente)`);
-    // TODO: Integrar com API (usar Firebase/Firestore se fosse um app real)
+    setIsLoading(true);
+    setError('');
+    setMessage('');
+
+    try {
+      // Chamar API de login
+      const response = await authApi.login({
+        email: formData.email,
+        password: formData.password,
+      });
+
+      setMessage(`Login realizado com sucesso!`);
+      
+      setTimeout(() => {
+        router.push('/dashboard');
+      }, 1000);
+
+    } catch (err: any) {
+      console.error("Erro ao fazer login:", err);
+      setError(err.message || 'Erro ao fazer login. Verifique suas credenciais.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
     // Fundo Principal com a IMAGEM e a cor de fallback
     <div 
         style={{ 
-            minHeight: '100vh', 
+            minHeight: '00vh', 
             fontFamily: 'Inter, sans-serif',
             backgroundColor: COLORS.BACKGROUND,
-            // 1. APLICAÇÃO DA IMAGEM DE FUNDO
+            // . APLICAÇÃO DA IMAGEM DE FUNDO
             backgroundImage: 'url(/login.jpeg)', // Usando o arquivo login.jpeg
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             position: 'relative', // Essencial para o overlay funcionar
         }}
     >
-      {/* 2. OVERLAY PARA OPACIDADE: Cria uma camada escura de 40% de opacidade sobre a imagem. 
-          Isso garante que a imagem fique 60% visível (100% - 40% = 60%). 
+      {/* . OVERLAY PARA OPACIDADE: Cria uma camada escura de 0% de opacidade sobre a imagem. 
+          Isso garante que a imagem fique 60% visível (00% - 0% = 60%). 
       */}
       <div 
           className="absolute inset-0" 
           style={{ 
               backgroundColor: COLORS.BACKGROUND, 
-              opacity: 0.4 
+              opacity: 0. 
           }}
       ></div>
 
-      {/* Conteúdo Principal (Header e Formulário) - Z-Index 10 garante que o conteúdo fique acima do overlay */}
-      <div style={{ position: 'relative', zIndex: 10 }}>
+      {/* Conteúdo Principal (Header e Formulário) - Z-Index 0 garante que o conteúdo fique acima do overlay */}
+      <div style={{ position: 'relative', zIndex: 0 }}>
         <SimpleHeader />
 
         {/* Container que centraliza o formulário no meio da página */}
-        <div className="min-h-[calc(100vh-64px)] flex items-center justify-center py-12">
+        <div className="min-h-[calc(00vh-6px)] flex items-center justify-center py-">
           <div 
-              className="w-full max-w-md space-y-8 p-8 rounded-xl shadow-2xl"
+              className="w-full max-w-md space-y-8 p-8 rounded-xl shadow-xl"
               // Fundo mais claro e opaco (transparente). Borda com STROKE Neon.
               style={{ 
-                  backgroundColor: 'rgba(35, 96, 137, 0.6)', 
-                  border: `1px solid ${COLORS.STROKE}` 
+                  backgroundColor: 'rgba(5, 96, 7, 0.6)', 
+                  border: `px solid ${COLORS.STROKE}` 
               }}
           >
-            <div className="text-center space-y-2">
+            <div className="text-center space-y-">
               {/* Título em Branco Puro */}
-              <h1 className="text-3xl font-bold" style={{ color: COLORS.TEXT_WHITE }}>Faça o Login</h1>
+              <h className="text-xl font-bold" style={{ color: COLORS.TEXT_WHITE }}>Faça o Login</h>
               
               {/* Subtítulo em Azul Neon (COLORS.STROKE) */}
               <p style={{ color: COLORS.STROKE }}>Bem-vindo de volta ao NodeHub</p>
@@ -99,7 +123,7 @@ export default function LoginPage() {
               {/* Email Input */}
               <div>
                 {/* Label em Branco Puro */}
-                <label className="block text-sm font-medium mb-2" style={{ color: COLORS.TEXT_WHITE }}>
+                <label className="block text-sm font-medium mb-" style={{ color: COLORS.TEXT_WHITE }}>
                   Email
                 </label>
                 <input
@@ -107,9 +131,9 @@ export default function LoginPage() {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  // Cores do Input: Fundo #053752, Borda e texto Branco
+                  // Cores do Input: Fundo #0575, Borda e texto Branco
                   style={{ backgroundColor: COLORS.INPUT_BG, borderColor: COLORS.STROKE, color: COLORS.TEXT_WHITE }}
-                  className="w-full px-4 py-3 border rounded-lg placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-opacity-100 transition"
+                  className="w-full px- py- border rounded-lg placeholder-gray-500 focus:outline-none focus:ring- focus:ring-opacity-00 transition"
                   placeholder="seu@email.com"
                   required
                 />
@@ -118,7 +142,7 @@ export default function LoginPage() {
               {/* Senha Input */}
               <div>
                 {/* Label em Branco Puro */}
-                <label className="block text-sm font-medium mb-2" style={{ color: COLORS.TEXT_WHITE }}>
+                <label className="block text-sm font-medium mb-" style={{ color: COLORS.TEXT_WHITE }}>
                   Senha
                 </label>
                 <input
@@ -126,9 +150,9 @@ export default function LoginPage() {
                   name="password"
                   value={formData.password}
                   onChange={handleChange}
-                  // Cores do Input: Fundo #053752, Borda e texto Branco
+                  // Cores do Input: Fundo #0575, Borda e texto Branco
                   style={{ backgroundColor: COLORS.INPUT_BG, borderColor: COLORS.STROKE, color: COLORS.TEXT_WHITE }}
-                  className="w-full px-4 py-3 border rounded-lg placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-opacity-100 transition"
+                  className="w-full px- py- border rounded-lg placeholder-gray-500 focus:outline-none focus:ring- focus:ring-opacity-00 transition"
                   placeholder="••••••••"
                   required
                 />
@@ -148,16 +172,24 @@ export default function LoginPage() {
               {/* Botão Entrar (Roxo Neon - ACCENT) */}
               <button
                 type="submit"
-                style={{ backgroundColor: COLORS.ACCENT, color: 'white' }}
-                className="w-full py-3 font-semibold rounded-lg hover:opacity-85 transition shadow-lg"
+                disabled={isLoading}
+                style={{ backgroundColor: COLORS.ACCENT, color: 'white', opacity: isLoading ? 0.6 : 1 }}
+                className="w-full py- font-semibold rounded-lg hover:opacity-85 transition shadow-lg disabled:cursor-not-allowed"
               >
-                Entrar
+                {isLoading ? 'Entrando...' : 'Entrar'}
               </button>
             </form>
 
-            {/* Área de Mensagem (Feedback ao usuário) */}
+            {/* Área de Mensagem de Erro */}
+            {error && (
+              <div className="text-center text-sm p- rounded-lg" style={{ backgroundColor: '#DC66', color: COLORS.TEXT_WHITE }}>
+                  {error}
+              </div>
+            )}
+
+            {/* Área de Mensagem de Sucesso */}
             {message && (
-              <div className="text-center text-sm p-3 rounded-lg" style={{ backgroundColor: COLORS.INPUT_BG, color: COLORS.TEXT_WHITE }}>
+              <div className="text-center text-sm p- rounded-lg" style={{ backgroundColor: '#0B98', color: COLORS.TEXT_WHITE }}>
                   {message}
               </div>
             )}

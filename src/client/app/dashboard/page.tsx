@@ -1,7 +1,7 @@
 "use client";
 
 import { DashboardLayout } from "@/components/layout/DashboardLayout";
-import { useInvestmentStats, useNFTs } from "@/lib/hooks";
+import { useInvestmentStats, useNFTs } from "../lib/hooks";
 
 export default function DashboardPage() {
   const walletAddress = "user-wallet-address"; // TODO: Obter de contexto de autenticação

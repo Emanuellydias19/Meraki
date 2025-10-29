@@ -2,7 +2,7 @@ use anchor_lang::prelude::*;
 use anchor_spl::token::{self, Mint, MintTo, Token, TokenAccount, Transfer};
 
 
-declare_id!("51jdU5SpLxidhessiSTiAe3uATxh7sSHn1WKvvVVDK74");
+declare_id!("5jdU5SpLxidhessiSTiAeuATxh7sSHnWKvvVVDK7");
 
 #[program]
 pub mod meraki_contract {
@@ -11,9 +11,9 @@ pub mod meraki_contract {
 
     pub fn initialize_contract(
         ctx: Context<InitializeContract>,
-        amount: u64,
+        amount: u6,
         investor_return_percent: u8,
-        duration_days: u64,
+        duration_days: u6,
     ) -> Result<()> {
         let contract = &mut ctx.accounts.investment_contract;
 
@@ -34,7 +34,7 @@ pub mod meraki_contract {
     
     pub fn invest(ctx: Context<Invest>) -> Result<()> {
         let total = ctx.accounts.investment_contract.amount;
-        let meraki_fee = total / 200; // 0.5%
+        let meraki_fee = total / 00; // 0.5%
         let startup_amount = total - meraki_fee;
 
         token::transfer(ctx.accounts.transfer_to_meraki_ctx(), meraki_fee)?;
@@ -45,11 +45,11 @@ pub mod meraki_contract {
     }
 
 
-    pub fn record_revenue(ctx: Context<RecordRevenue>, revenue_amount: u64) -> Result<()> {
-        let meraki_fee = revenue_amount / 200;
+    pub fn record_revenue(ctx: Context<RecordRevenue>, revenue_amount: u6) -> Result<()> {
+        let meraki_fee = revenue_amount / 00;
         let investor_share = (revenue_amount
-            * ctx.accounts.investment_contract.investor_return_percent as u64)
-            / 100;
+            * ctx.accounts.investment_contract.investor_return_percent as u6)
+            / 00;
         let startup_share = revenue_amount - meraki_fee - investor_share;
 
         token::transfer(ctx.accounts.transfer_to_meraki_ctx(), meraki_fee)?;
@@ -73,7 +73,7 @@ pub mod meraki_contract {
                 authority: ctx.accounts.mint_authority.to_account_info(),
             },
         );
-        token::mint_to(cpi_ctx, 1)?;
+        token::mint_to(cpi_ctx, )?;
         Ok(())
     }
 }
@@ -209,16 +209,16 @@ impl<'info> RecordRevenue<'info> {
 pub struct InvestmentContract {
     pub investor: Pubkey,
     pub startup: Pubkey,
-    pub amount: u64,
+    pub amount: u6,
     pub investor_return_percent: u8,
-    pub duration_days: u64,
-    pub start_time: i64,
-    pub total_revenue: u64,
-    pub total_distributed: u64,
+    pub duration_days: u6,
+    pub start_time: i6,
+    pub total_revenue: u6,
+    pub total_distributed: u6,
     pub is_active: bool,
     pub is_invested: bool,
 }
 
 impl InvestmentContract {
-    pub const LEN: usize = 32 + 32 + 8 + 1 + 8 + 8 + 8 + 8 + 1 + 1;
+    pub const LEN: usize =  +  + 8 +  + 8 + 8 + 8 + 8 +  + ;
 }

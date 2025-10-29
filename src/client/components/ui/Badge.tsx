@@ -5,15 +5,15 @@ interface BadgeProps {
 
 export function Badge({ children, variant = "default" }: BadgeProps) {
   const variants = {
-    default: "bg-gray-200 text-gray-900",
-    success: "bg-green-200 text-green-900",
-    warning: "bg-yellow-200 text-yellow-900",
-    error: "bg-red-200 text-red-900",
+    default: "bg-gray-00 text-gray-900",
+    success: "bg-green-00 text-green-900",
+    warning: "bg-yellow-00 text-yellow-900",
+    error: "bg-red-00 text-red-900",
   };
 
   return (
     <span
-      className={`px-3 py-1 rounded-full text-sm font-semibold ${variants[variant]}`}
+      className={`px- py- rounded-full text-sm font-semibold ${variants[variant]}`}
     >
       {children}
     </span>

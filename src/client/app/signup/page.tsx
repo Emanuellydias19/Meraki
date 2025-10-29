@@ -4,12 +4,12 @@ import React, { ChangeEvent, useState } from 'react';
 
 // Definição das cores solicitadas
 const COLORS = {
-  BACKGROUND: '#020D19', // Fundo Principal (Dark Blue/Teal)
-  INPUT_BG: '#053752',   // Fundo dos Inputs (Slightly Lighter Blue)
-  ACCENT: '#BD2EF0',     // Cor de Destaque Neon (Roxo)
-  STROKE: '#62C2E8',     // Cor da Borda Neon (Azul)
+  BACKGROUND: '#00D9', // Fundo Principal (Dark Blue/Teal)
+  INPUT_BG: '#0575',   // Fundo dos Inputs (Slightly Lighter Blue)
+  ACCENT: '#BDEF0',     // Cor de Destaque Neon (Roxo)
+  STROKE: '#6CE8',     // Cor da Borda Neon (Azul)
   TEXT_WHITE: '#ffffff', // Texto em geral para Branco Puro
-  ERROR: '#FF6347',      // Vermelho para feedback de erro
+  ERROR: '#FF67',      // Vermelho para feedback de erro
 };
 
 // --- URL DA IMAGEM DE FUNDO (PONTO DE ALTERAÇÃO) ---
@@ -19,9 +19,9 @@ const BACKGROUND_IMAGE_URL = '/logoMeraki.png';
 
 // --- Componente Placeholder Header (Simula a barra superior) ---
 const SimpleHeader = () => (
-  <header style={{ backgroundColor: COLORS.BACKGROUND }} className="py-4 px-6 shadow-lg">
+  <header style={{ backgroundColor: COLORS.BACKGROUND }} className="py- px-6 shadow-lg">
     <div className="max-w-7xl mx-auto">
-      <h2 style={{ color: COLORS.ACCENT, fontSize: '1.5rem', fontWeight: 700 }}>NodeHub</h2>
+      <h style={{ color: COLORS.ACCENT, fontSize: '.5rem', fontWeight: 700 }}>NodeHub</h>
     </div>
   </header>
 );
@@ -86,51 +86,51 @@ export default function CadastroPage() {
 
   // Handler para o botão Connect Wallet
   const handleConnectWallet = () => {
-    setMessage('Iniciando conexão com a carteira Web3...');
+    setMessage('Iniciando conexão com a carteira Web...');
     setIsError(false);
     console.log('Connect Wallet clicked');
   };
 
   return (
-    // Fundo Principal com a IMAGEM e a cor de fallback (BACKGROUND: #020D19)
+    // Fundo Principal com a IMAGEM e a cor de fallback (BACKGROUND: #00D9)
     <div 
         style={{ 
-            minHeight: '100vh', 
+            minHeight: '00vh', 
             fontFamily: 'Inter, sans-serif',
             backgroundColor: COLORS.BACKGROUND,
-            // 1. APLICAÇÃO DA IMAGEM DE FUNDO
+            // . APLICAÇÃO DA IMAGEM DE FUNDO
             backgroundImage: `url(${BACKGROUND_IMAGE_URL})`, 
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             position: 'relative', 
         }}
     >
-      {/* 2. OVERLAY PARA OPACIDADE */}
+      {/* . OVERLAY PARA OPACIDADE */}
       <div 
           className="absolute inset-0" 
           style={{ 
               backgroundColor: COLORS.BACKGROUND, 
-              opacity: 0.4 
+              opacity: 0. 
           }}
       ></div>
 
       {/* Conteúdo Principal (Header e Formulário) */}
-      <div style={{ position: 'relative', zIndex: 10 }}>
+      <div style={{ position: 'relative', zIndex: 0 }}>
         <SimpleHeader />
 
         {/* Container que centraliza o formulário no meio da página */}
-        <div className="min-h-[calc(100vh-64px)] flex items-center justify-center py-12">
+        <div className="min-h-[calc(00vh-6px)] flex items-center justify-center py-">
           <div 
-              className="w-full max-w-xl space-y-6 p-8 rounded-xl shadow-2xl" 
+              className="w-full max-w-xl space-y-6 p-8 rounded-xl shadow-xl" 
               // Card com fundo opaco e borda neon
               style={{ 
-                  backgroundColor: 'rgba(35, 96, 137, 0.6)', 
-                  border: `1px solid ${COLORS.STROKE}` 
+                  backgroundColor: 'rgba(5, 96, 7, 0.6)', 
+                  border: `px solid ${COLORS.STROKE}` 
               }}
           >
-            <div className="text-center space-y-2">
+            <div className="text-center space-y-">
               {/* Título de Cadastro */}
-              <h1 className="text-3xl font-bold" style={{ color: COLORS.TEXT_WHITE }}>Crie sua Conta</h1>
+              <h className="text-xl font-bold" style={{ color: COLORS.TEXT_WHITE }}>Crie sua Conta</h>
               
               {/* Subtítulo */}
               <p style={{ color: COLORS.STROKE }}>Junte-se ao NodeHub e gerencie sua infraestrutura Solana.</p>
@@ -139,11 +139,11 @@ export default function CadastroPage() {
             {/* Mensagem de Feedback */}
             {message && (
                 <div 
-                    className="text-center text-sm p-3 rounded-lg font-medium" 
+                    className="text-center text-sm p- rounded-lg font-medium" 
                     style={{ 
-                        backgroundColor: isError ? COLORS.ERROR + '20' : COLORS.STROKE + '20', 
+                        backgroundColor: isError ? COLORS.ERROR + '0' : COLORS.STROKE + '0', 
                         color: isError ? COLORS.ERROR : COLORS.STROKE,
-                        border: `1px solid ${isError ? COLORS.ERROR : COLORS.STROKE}`
+                        border: `px solid ${isError ? COLORS.ERROR : COLORS.STROKE}`
                     }}
                 >
                     {message}
@@ -151,10 +151,10 @@ export default function CadastroPage() {
             )}
 
 
-            <form onSubmit={handleSubmit} className="space-y-4">
-              {/* 1. Nome Completo Input */}
+            <form onSubmit={handleSubmit} className="space-y-">
+              {/* . Nome Completo Input */}
               <div>
-                <label className="block text-sm font-medium mb-2" style={{ color: COLORS.TEXT_WHITE }}>
+                <label className="block text-sm font-medium mb-" style={{ color: COLORS.TEXT_WHITE }}>
                   Nome Completo
                 </label>
                 <input
@@ -163,15 +163,15 @@ export default function CadastroPage() {
                   value={formData.name}
                   onChange={handleChange}
                   style={{ backgroundColor: COLORS.INPUT_BG, borderColor: COLORS.STROKE, color: COLORS.TEXT_WHITE }}
-                  className="w-full px-4 py-3 border rounded-lg placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-opacity-100 transition"
+                  className="w-full px- py- border rounded-lg placeholder-gray-500 focus:outline-none focus:ring- focus:ring-opacity-00 transition"
                   placeholder="Seu nome"
                   required
                 />
               </div>
               
-              {/* 2. Email Input */}
+              {/* . Email Input */}
               <div>
-                <label className="block text-sm font-medium mb-2" style={{ color: COLORS.TEXT_WHITE }}>
+                <label className="block text-sm font-medium mb-" style={{ color: COLORS.TEXT_WHITE }}>
                   Email
                 </label>
                 <input
@@ -180,15 +180,15 @@ export default function CadastroPage() {
                   value={formData.email}
                   onChange={handleChange}
                   style={{ backgroundColor: COLORS.INPUT_BG, borderColor: COLORS.STROKE, color: COLORS.TEXT_WHITE }}
-                  className="w-full px-4 py-3 border rounded-lg placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-opacity-100 transition"
+                  className="w-full px- py- border rounded-lg placeholder-gray-500 focus:outline-none focus:ring- focus:ring-opacity-00 transition"
                   placeholder="seu@email.com"
                   required
                 />
               </div>
 
-              {/* 3. Senha Input */}
+              {/* . Senha Input */}
               <div>
-                <label className="block text-sm font-medium mb-2" style={{ color: COLORS.TEXT_WHITE }}>
+                <label className="block text-sm font-medium mb-" style={{ color: COLORS.TEXT_WHITE }}>
                   Senha
                 </label>
                 <input
@@ -197,15 +197,15 @@ export default function CadastroPage() {
                   value={formData.password}
                   onChange={handleChange}
                   style={{ backgroundColor: COLORS.INPUT_BG, borderColor: COLORS.STROKE, color: COLORS.TEXT_WHITE }}
-                  className="w-full px-4 py-3 border rounded-lg placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-opacity-100 transition"
+                  className="w-full px- py- border rounded-lg placeholder-gray-500 focus:outline-none focus:ring- focus:ring-opacity-00 transition"
                   placeholder="Mínimo 6 caracteres"
                   required
                 />
               </div>
               
-              {/* 4. Confirme Sua Senha Input */}
+              {/* . Confirme Sua Senha Input */}
               <div>
-                <label className="block text-sm font-medium mb-2" style={{ color: COLORS.TEXT_WHITE }}>
+                <label className="block text-sm font-medium mb-" style={{ color: COLORS.TEXT_WHITE }}>
                   Confirme sua senha
                 </label>
                 <input
@@ -214,7 +214,7 @@ export default function CadastroPage() {
                   value={formData.confirmPassword}
                   onChange={handleChange}
                   style={{ backgroundColor: COLORS.INPUT_BG, borderColor: COLORS.STROKE, color: COLORS.TEXT_WHITE }}
-                  className="w-full px-4 py-3 border rounded-lg placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-opacity-100 transition"
+                  className="w-full px- py- border rounded-lg placeholder-gray-500 focus:outline-none focus:ring- focus:ring-opacity-00 transition"
                   placeholder="Repita sua senha"
                   required
                 />
@@ -224,14 +224,14 @@ export default function CadastroPage() {
               <button
                 type="submit"
                 style={{ backgroundColor: COLORS.ACCENT, color: COLORS.BACKGROUND }}
-                className="w-full py-3 font-semibold rounded-lg hover:opacity-85 transition shadow-lg mt-6"
+                className="w-full py- font-semibold rounded-lg hover:opacity-85 transition shadow-lg mt-6"
               >
                 CADASTRAR
               </button>
             </form>
 
             {/* Separador Opcional */}
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-">
                 <div className=".flex-grow border-t" style={{ borderColor: COLORS.STROKE + '50' }}></div>
                 <span className="text-sm font-light" style={{ color: COLORS.STROKE }}>OU</span>
                 <div className=".flex-grow border-t" style={{ borderColor: COLORS.STROKE + '50' }}></div>
@@ -244,17 +244,17 @@ export default function CadastroPage() {
                 style={{ 
                     backgroundColor: 'transparent',
                     color: COLORS.ACCENT,
-                    border: `2px solid ${COLORS.ACCENT}`,
-                    boxShadow: `0 0 10px ${COLORS.ACCENT}80`,
+                    border: `px solid ${COLORS.ACCENT}`,
+                    boxShadow: `0 0 0px ${COLORS.ACCENT}80`,
                 }}
-                className="w-full py-3 font-semibold rounded-lg hover:opacity-85 transition shadow-lg"
+                className="w-full py- font-semibold rounded-lg hover:opacity-85 transition shadow-lg"
             >
                 CONECTAR WALLET
             </button>
 
 
             {/* Link para Fazer Login */}
-            <div className="text-center pt-2" style={{ color: COLORS.TEXT_WHITE }}>
+            <div className="text-center pt-" style={{ color: COLORS.TEXT_WHITE }}>
               Já tem uma conta?{" "}
               <a href="/login" style={{ color: COLORS.STROKE }} className="hover:underline">
                 Fazer Login

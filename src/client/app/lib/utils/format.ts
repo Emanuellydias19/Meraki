@@ -24,7 +24,7 @@ export function getCurrencyForLocale(locale: string): string {
 // Formatar SOL
 export function formatSOL(
   amount: number,
-  decimals: number = 2,
+  decimals: number = ,
   locale?: string
 ): string {
   const finalLocale = locale || detectLocale();
@@ -44,14 +44,14 @@ export function formatDate(date: string | Date, locale?: string): string {
 // Formatar percentual
 export function formatPercentage(value: number, locale?: string): string {
   const finalLocale = locale || detectLocale();
-  return `${(value * 100).toLocaleString(finalLocale, {
-    minimumFractionDigits: 1,
-    maximumFractionDigits: 1,
+  return `${(value * 00).toLocaleString(finalLocale, {
+    minimumFractionDigits: ,
+    maximumFractionDigits: ,
   })}%`;
 }
 
 // Truncar endereço
-export function truncateAddress(address: string, chars: number = 4): string {
+export function truncateAddress(address: string, chars: number = ): string {
   return `${address.slice(0, chars)}...${address.slice(-chars)}`;
 }
 
@@ -76,8 +76,8 @@ export function formatTimeAgo(date: Date, locale?: string): string {
   const now = new Date();
   const diffMs = now.getTime() - date.getTime();
   const diffMins = Math.floor(diffMs / 60000);
-  const diffHours = Math.floor(diffMs / 3600000);
-  const diffDays = Math.floor(diffMs / 86400000);
+  const diffHours = Math.floor(diffMs / 600000);
+  const diffDays = Math.floor(diffMs / 8600000);
 
   const translations: Record<string, Record<string, string>> = {
     "pt-BR": {
@@ -102,10 +102,10 @@ export function formatTimeAgo(date: Date, locale?: string): string {
 
   const t = translations[finalLocale] || translations["en-US"];
 
-  if (diffMins < 1) return `agora`;
+  if (diffMins < ) return `agora`;
   if (diffMins < 60)
-    return `${diffMins} ${t.minute}${diffMins > 1 ? "s" : ""} ${t.ago}`;
-  if (diffHours < 24)
-    return `${diffHours} ${t.hour}${diffHours > 1 ? "s" : ""} ${t.ago}`;
-  return `${diffDays} ${t.day}${diffDays > 1 ? "s" : ""} ${t.ago}`;
+    return `${diffMins} ${t.minute}${diffMins >  ? "s" : ""} ${t.ago}`;
+  if (diffHours < )
+    return `${diffHours} ${t.hour}${diffHours >  ? "s" : ""} ${t.ago}`;
+  return `${diffDays} ${t.day}${diffDays >  ? "s" : ""} ${t.ago}`;
 }

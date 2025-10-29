@@ -1,0 +1,206 @@
+{
+  "version": "0.1.0",
+  "name": "meraki_contract",
+  "instructions": [
+    {
+      "name": "initializeContract",
+      "accounts": [
+        {
+          "name": "investmentContract",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "investor",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "startup",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        },
+        {
+          "name": "investorReturnPercent",
+          "type": "u8"
+        },
+        {
+          "name": "durationDays",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "invest",
+      "accounts": [
+        {
+          "name": "investmentContract",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "investor",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "investorTokenAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "contractVault",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "merakiVault",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "recordRevenue",
+      "accounts": [
+        {
+          "name": "investmentContract",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "startup",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "contractVault",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "investorTokenAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "startupTokenAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "merakiVault",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "revenueAmount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "mintInvestmentNft",
+      "accounts": [
+        {
+          "name": "mint",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "investorTokenAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "mintAuthority",
+          "isMut": false,
+          "isSigner": true
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
+    }
+  ],
+  "accounts": [
+    {
+      "name": "InvestmentContract",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "investor",
+            "type": "publicKey"
+          },
+          {
+            "name": "startup",
+            "type": "publicKey"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "investorReturnPercent",
+            "type": "u8"
+          },
+          {
+            "name": "durationDays",
+            "type": "u64"
+          },
+          {
+            "name": "startTime",
+            "type": "i64"
+          },
+          {
+            "name": "isActive",
+            "type": "bool"
+          },
+          {
+            "name": "totalRevenue",
+            "type": "u64"
+          },
+          {
+            "name": "totalDistributed",
+            "type": "u64"
+          },
+          {
+            "name": "isInvested",
+            "type": "bool"
+          }
+        ]
+      }
+    }
+  ],
+  "metadata": {
+    "address": "51jdU5SpLxidhessiSTiAe3uATxh7sSHn1WKvvVVDK74"
+  }
+}

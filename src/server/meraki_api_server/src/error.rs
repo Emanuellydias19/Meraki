@@ -19,7 +19,7 @@ pub enum AppError {
     // Wraps SQLx database errors
     SqlxError(sqlx::Error),
     // Wraps password hashing errors
-    PasswordHashError(argon2::password_hash::Error),
+    PasswordHashError(argon::password_hash::Error),
 }
 
 // Implement how to convert AppError into an HTTP response
@@ -74,9 +74,9 @@ impl From<sqlx::Error> for AppError {
     }
 }
 
-// Allows using the `?` operator with argon2 errors
-impl From<argon2::password_hash::Error> for AppError {
-    fn from(e: argon2::password_hash::Error) -> Self {
+// Allows using the `?` operator with argon errors
+impl From<argon::password_hash::Error> for AppError {
+    fn from(e: argon::password_hash::Error) -> Self {
         AppError::PasswordHashError(e)
     }
 }
