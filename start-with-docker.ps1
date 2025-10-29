@@ -1,4 +1,4 @@
-# start-with-docker.ps1
+# start-with-docker.ps
 # Script para iniciar Meraki com PostgreSQL no Docker
 
 Write-Host "🐳 Iniciando Meraki com Docker..." -ForegroundColor Cyan
@@ -6,16 +6,16 @@ Write-Host ""
 
 # Verificar se Docker está rodando
 try {
-    docker ps > $null 2>&1
+    docker ps > $null >&
     if ($LASTEXITCODE -ne 0) {
         Write-Host "❌ Docker não está rodando!" -ForegroundColor Red
         Write-Host "Abra o Docker Desktop e aguarde inicializar." -ForegroundColor Yellow
-        exit 1
+        exit 
     }
 } catch {
     Write-Host "❌ Docker não encontrado!" -ForegroundColor Red
     Write-Host "Instale o Docker Desktop primeiro." -ForegroundColor Yellow
-    exit 1
+    exit 
 }
 
 Write-Host "✅ Docker está rodando" -ForegroundColor Green
@@ -36,8 +36,8 @@ if ($containerExists -eq "meraki-postgres") {
         -e POSTGRES_PASSWORD=postgres `
         -e POSTGRES_USER=postgres `
         -e POSTGRES_DB=meraki_db `
-        -p 5432:5432 `
-        postgres:14
+        -p 5:5 `
+        postgres:
     
     Write-Host "✅ PostgreSQL criado e iniciado" -ForegroundColor Green
     Write-Host "⏳ Aguardando PostgreSQL inicializar..." -ForegroundColor Yellow
@@ -54,7 +54,7 @@ if (Test-Path $serverPath) {
     Set-Location $serverPath
     
     # Tentar rodar migrations (pode falhar se já rodou antes, ok)
-    sqlx migrate run 2>$null
+    sqlx migrate run >$null
     
     Set-Location $currentDir
     Write-Host "✅ Banco configurado" -ForegroundColor Green
@@ -81,10 +81,10 @@ Write-Host "✅ Meraki iniciado com sucesso!" -ForegroundColor Green
 Write-Host "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" -ForegroundColor Green
 Write-Host ""
 Write-Host "📍 URLs importantes:" -ForegroundColor Yellow
-Write-Host "   🌐 Frontend:       http://localhost:3000" -ForegroundColor White
+Write-Host "   🌐 Frontend:       http://localhost:000" -ForegroundColor White
 Write-Host "   🔌 API Server:     http://localhost:8080" -ForegroundColor White
 Write-Host "   📖 Swagger:        http://localhost:8080/swagger-ui/" -ForegroundColor White
-Write-Host "   🐘 PostgreSQL:     localhost:5432" -ForegroundColor White
+Write-Host "   🐘 PostgreSQL:     localhost:5" -ForegroundColor White
 Write-Host ""
 Write-Host "📊 Status dos containers:" -ForegroundColor Yellow
 docker ps --filter "name=meraki-postgres" --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
@@ -95,11 +95,11 @@ Write-Host "   Parar PostgreSQL:       docker stop meraki-postgres" -ForegroundC
 Write-Host "   Conectar no banco:      docker exec -it meraki-postgres psql -U postgres -d meraki_db" -ForegroundColor White
 Write-Host ""
 Write-Host "🧪 Para testar:" -ForegroundColor Cyan
-Write-Host "   1. Acesse http://localhost:3000/signup" -ForegroundColor White
-Write-Host "   2. Crie uma conta" -ForegroundColor White
-Write-Host "   3. Faça login" -ForegroundColor White
+Write-Host "   . Acesse http://localhost:000/signup" -ForegroundColor White
+Write-Host "   . Crie uma conta" -ForegroundColor White
+Write-Host "   . Faça login" -ForegroundColor White
 Write-Host ""
 Write-Host "💾 Para parar tudo:" -ForegroundColor Yellow
-Write-Host "   1. Feche as janelas do PowerShell (Backend e Frontend)" -ForegroundColor White
-Write-Host "   2. Execute: docker stop meraki-postgres" -ForegroundColor White
+Write-Host "   . Feche as janelas do PowerShell (Backend e Frontend)" -ForegroundColor White
+Write-Host "   . Execute: docker stop meraki-postgres" -ForegroundColor White
 Write-Host ""

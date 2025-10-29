@@ -1,7 +1,7 @@
 use crate::error::AppError;
-use argon2::{
+use argon::{
     password_hash::{rand_core::OsRng, PasswordHasher, SaltString},
-    Argon2,
+    Argon,
 };
 use axum::{
     async_trait,
@@ -17,8 +17,8 @@ use uuid::Uuid;
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TokenClaims {
     pub sub: Uuid, // Subject (the user ID)
-    pub iat: i64, // Issued at
-    pub exp: i64, // Expiration time
+    pub iat: i6, // Issued at
+    pub exp: i6, // Expiration time
 }
 
 // Secret key for signing the JWT.
@@ -31,8 +31,8 @@ pub fn create_jwt(user_id: Uuid) -> Result<String, AppError> {
     let claims = TokenClaims {
         sub: user_id,
         iat: now.unix_timestamp(),
-        // Token expires in 1 day
-        exp: (now + Duration::days(1)).unix_timestamp(),
+        // Token expires in  day
+        exp: (now + Duration::days()).unix_timestamp(),
     };
 
     encode(
@@ -43,13 +43,13 @@ pub fn create_jwt(user_id: Uuid) -> Result<String, AppError> {
     .map_err(|e| AppError::InternalServerError(format!("Failed to create token: {}", e)))
 }
 
-/// Hashes a password using Argon2
+/// Hashes a password using Argon
 pub async fn hash_password(password: String) -> Result<String, AppError> {
     // Run the blocking password hashing operation in a separate thread
     tokio::task::spawn_blocking(move || {
         let salt = SaltString::generate(&mut OsRng);
-        let argon2 = Argon2::default();
-        argon2
+        let argon = Argon::default();
+        argon
             .hash_password(password.as_bytes(), &salt)
             .map(|hash| hash.to_string())
             .map_err(|e| AppError::PasswordHashError(e))

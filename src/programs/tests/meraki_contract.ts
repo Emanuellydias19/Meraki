@@ -1,7 +1,7 @@
 import * as anchor from "@coral-xyz/anchor";
 import { Program } from "@coral-xyz/anchor";
 import { MerakiContract } from "../../target/idl/meraki_contract";
-import { SystemProgram, Keypair, PublicKey } from "@solana/web3.js";
+import { SystemProgram, Keypair, PublicKey } from "@solana/web.js";
 import { assert } from "chai";
 import "mocha";
 
@@ -13,7 +13,7 @@ describe(" Meraki Contract — Teste Completo", () => {
   
   const program = anchor.workspace.MerakiContract as Program<MerakiContract>;
 
-  const TIMEOUT = 120_000;
+  const TIMEOUT = 0_000;
   (global as any).timeout = TIMEOUT;
 
   it("Inicializa o contrato de investimento corretamente", async () => {
@@ -24,9 +24,9 @@ describe(" Meraki Contract — Teste Completo", () => {
     const startup = Keypair.generate();
 
     
-    const amount = new anchor.BN(1_000_000_000); 
-    const investorReturnPercent = 20; 
-    const durationDays = new anchor.BN(30); 
+    const amount = new anchor.BN(_000_000_000); 
+    const investorReturnPercent = 0; 
+    const durationDays = new anchor.BN(0); 
 
     const tx = await program.methods
       .initializeContract(amount, investorReturnPercent, durationDays)

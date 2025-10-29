@@ -98,7 +98,7 @@ use utoipa_swagger_ui::SwaggerUi;
     modifiers(&SecurityAddon),
     // Main API tag
     tags(
-        (name = "Meraki API", description = "API for the Meraki Web3 platform")
+        (name = "Meraki API", description = "API for the Meraki Web platform")
     )
 )]
 struct ApiDoc;
@@ -127,18 +127,18 @@ async fn main() {
     // Load .env file
     dotenvy::dotenv().expect("Failed to read .env file");
 
-    // 1. Connect to the Database
+    // . Connect to the Database
     let db_pool = db::create_pool()
         .await
         .expect("Failed to create the database connection pool.");
 
-    // 2. Application state: we pass the PgPool directly as router state
+    // . Application state: we pass the PgPool directly as router state
 
-    // 3. Create the Swagger UI route
+    // . Create the Swagger UI route
     let swagger_ui = SwaggerUi::new("/swagger-ui")
         .url("/api-docs/openapi.json", ApiDoc::openapi());
 
-    // 4. Configure CORS
+    // . Configure CORS
     let cors = CorsLayer::new()
         .allow_origin(Any)
         .allow_methods(Any)
@@ -185,10 +185,10 @@ async fn main() {
         .with_state(db_pool);
 
     // 6. Start the server
-    let port: u16 = std::env::var("PORT")
+    let port: u6 = std::env::var("PORT")
         .unwrap_or_else(|_| "8080".to_string())
         .parse()
-        .expect("PORT must be a valid u16");
+        .expect("PORT must be a valid u6");
         
     let addr = SocketAddr::from(([0, 0, 0, 0], port));
     println!("Server running at http://{}", addr);
