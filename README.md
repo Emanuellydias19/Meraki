@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./logo.png" width="120" alt="Meraki Logo">
+  <img src="./assets/logo.png" width="120" alt="Meraki Logo">
 </p>
 
 
@@ -17,7 +17,7 @@
 </p>
 
 <p align="center">
-  <img src="./tela1.png" alt="Meraki Screenshot" width="800">
+  <img src="./assets/tela1.png" alt="Meraki Screenshot" width="800">
 </p>
 
 ---
@@ -28,14 +28,12 @@
 ![Next.js](https://img.shields.io/badge/Next.js-black?style=flat-square&logo=next.js)
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=flat-square&logo=typescript)
 ![Rust](https://img.shields.io/badge/Rust-000000?style=flat-square&logo=rust)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-336791?style=flat-square&logo=postgresql)
 ![Anchor](https://img.shields.io/badge/Anchor-512DA8?style=flat-square&logo=solana)
 ![VS Code](https://img.shields.io/badge/VS%20Code-0078D4?style=flat-square&logo=visual-studio-code)
 ![Git](https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git)
 ![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github)
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker)
 ![Linux](https://img.shields.io/badge/Linux-FCC624?style=flat-square&logo=linux)
-![Vercel](https://img.shields.io/badge/Vercel-000000?style=flat-square&logo=vercel)
 
 ---
 
@@ -80,9 +78,6 @@ Meraki provides a transparent, gamified, and secure investment platform built on
 - **Secure Smart Contracts** — Investment logic built using **Anchor Framework** on Solana.  
 - **Tracking NFTs** — Each NFT represents an investment and evolves with milestones.  
 
-<p align="center">
-  <img src="assets/demo.gif" alt="Meraki Demo" width="800">
-</p>
 
 ---
 
@@ -125,6 +120,9 @@ cd Meraki
 
 # Install dependencies
 npm install
+
+# Correct folder
+cd scr/client
 
 # Run frontend
 npm run dev
