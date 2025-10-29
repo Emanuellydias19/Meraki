@@ -1,7 +1,7 @@
 "use client";
 
 import { DashboardLayout } from "@/components/layout/DashboardLayout";
-import { useInvestmentStats, useNFTs } from "@/lib/hooks";
+import { useInvestmentStats, useNFTs } from "../lib/hooks";
 
 export default function DashboardPage() {
   const walletAddress = "user-wallet-address"; // TODO: Obter de contexto de autenticação
@@ -10,16 +10,16 @@ export default function DashboardPage() {
 
   return (
     <DashboardLayout>
-      <div className="w-[60px] mx-auto space-y-8 py-">
+      <div className="w-[1160px] mx-auto space-y-8 py-12">
         {/* Header */}
-        <div className="space-y-">
-          <h className="text-xl font-bold text-white">Dashboard</h>
-          <p className="text-gray-00">Bem-vindo de volta ao NodeHub!</p>
+        <div className="space-y-2">
+          <h1 className="text-3xl font-bold text-white">Dashboard</h1>
+          <p className="text-gray-400">Bem-vindo de volta ao NodeHub!</p>
         </div>
 
         {/* Stats */}
         {!statsLoading && stats ? (
-          <div className="grid grid-cols- gap-6">
+          <div className="grid grid-cols-4 gap-6">
             <StatCard
               title="Total Investido"
               value={`${stats.totalInvested} SOL`}
@@ -38,31 +38,31 @@ export default function DashboardPage() {
             />
           </div>
         ) : (
-          <div className="text-gray-00">Carregando estatísticas...</div>
+          <div className="text-gray-400">Carregando estatísticas...</div>
         )}
 
         {/* NFTs */}
-        <div className="bg-gray-900 rounded-lg p-6 space-y-">
-          <h className="text-xl font-bold text-white">Seus NFTs</h>
+        <div className="bg-gray-900 rounded-lg p-6 space-y-4">
+          <h2 className="text-2xl font-bold text-white">Seus NFTs</h2>
           {nftsLoading ? (
-            <p className="text-gray-00">Carregando NFTs...</p>
+            <p className="text-gray-400">Carregando NFTs...</p>
           ) : nfts && nfts.length > 0 ? (
-            <div className="grid grid-cols- gap-6">
+            <div className="grid grid-cols-4 gap-6">
               {/* NFT Cards aqui - TODO */}
             </div>
           ) : (
-            <p className="text-gray-00">
+            <p className="text-gray-400">
               Você ainda não tem NFTs. Faça seu primeiro investimento!
             </p>
           )}
         </div>
 
         {/* Investimentos Recentes */}
-        <div className="bg-gray-900 rounded-lg p-6 space-y-">
-          <h className="text-xl font-bold text-white">
+        <div className="bg-gray-900 rounded-lg p-6 space-y-4">
+          <h2 className="text-2xl font-bold text-white">
             Investimentos Recentes
-          </h>
-          <p className="text-gray-00">Nenhum investimento ainda</p>
+          </h2>
+          <p className="text-gray-400">Nenhum investimento ainda</p>
         </div>
       </div>
     </DashboardLayout>
@@ -71,9 +71,9 @@ export default function DashboardPage() {
 
 function StatCard({ title, value }: { title: string; value: string }) {
   return (
-    <div className="bg-gray-800 rounded-lg p-6 space-y- hover:bg-gray-700 transition">
-      <p className="text-gray-00 text-sm">{title}</p>
-      <p className="text-xl font-bold text-white">{value}</p>
+    <div className="bg-gray-800 rounded-lg p-6 space-y-2 hover:bg-gray-700 transition">
+      <p className="text-gray-400 text-sm">{title}</p>
+      <p className="text-2xl font-bold text-white">{value}</p>
     </div>
   );
 }

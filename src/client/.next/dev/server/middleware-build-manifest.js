@@ -28,22 +28,9 @@ globalThis.__BUILD_MANIFEST = {
     ]
   },
   "devFiles": [],
-  "polyfillFiles": [
-    "static/chunks/a1651_next_dist_build_polyfills_polyfill-nomodule.js"
-  ],
+  "polyfillFiles": [],
   "lowPriorityFiles": [],
-  "rootMainFiles": [
-    "static/chunks/[turbopack]_browser_dev_hmr-client_hmr-client_ts_f7c55b63._.js",
-    "static/chunks/a1651_next_dist_compiled_react-dom_e117c1a1._.js",
-    "static/chunks/a1651_next_dist_compiled_react-server-dom-turbopack_bacf2070._.js",
-    "static/chunks/a1651_next_dist_compiled_next-devtools_index_62f5d7c6.js",
-    "static/chunks/a1651_next_dist_compiled_e2517112._.js",
-    "static/chunks/a1651_next_dist_client_313bbf8e._.js",
-    "static/chunks/a1651_next_dist_8c4efd42._.js",
-    "static/chunks/a1651_@swc_helpers_cjs_c07fba05._.js",
-    "static/chunks/OneDrive_Documentos_Módulo 2_Meraki_src_client_a0ff3932._.js",
-    "static/chunks/turbopack-OneDrive_Documentos_Módulo 2_Meraki_src_client_b04a6641._.js"
-  ]
+  "rootMainFiles": []
 };
 globalThis.__BUILD_MANIFEST.lowPriorityFiles = [
 "/static/" + process.env.__NEXT_BUILD_ID + "/_buildManifest.js",

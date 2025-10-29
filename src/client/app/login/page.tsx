@@ -60,10 +60,9 @@ export default function LoginPage() {
 
       setMessage(`Login realizado com sucesso!`);
       
-      // Redirecionar para dashboard após  segundo
       setTimeout(() => {
         router.push('/dashboard');
-      }, 000);
+      }, 1000);
 
     } catch (err: any) {
       console.error("Erro ao fazer login:", err);
@@ -174,7 +173,7 @@ export default function LoginPage() {
               <button
                 type="submit"
                 disabled={isLoading}
-                style={{ backgroundColor: COLORS.ACCENT, color: 'white', opacity: isLoading ? 0.6 :  }}
+                style={{ backgroundColor: COLORS.ACCENT, color: 'white', opacity: isLoading ? 0.6 : 1 }}
                 className="w-full py- font-semibold rounded-lg hover:opacity-85 transition shadow-lg disabled:cursor-not-allowed"
               >
                 {isLoading ? 'Entrando...' : 'Entrar'}

@@ -1,6 +1,6 @@
-import { Connection, PublicKey, clusterApiUrl } from "@solana/web.js";
+import { Connection, PublicKey, clusterApiUrl } from "@solana/web3.js";
 import { AnchorProvider, Program, Idl, BN } from "@coral-xyz/anchor";
-import * as web from "@solana/web.js";
+import * as web3 from "@solana/web3.js";
 import { BLOCKCHAIN_CONFIG } from "../config/api";
 import idl from "../idl/meraki_contract.json";
 
@@ -81,7 +81,7 @@ export const contractFunctions = {
     const startup = new PublicKey(startupPublicKey);
     
     // Gerar uma nova keypair para o contrato
-    const contractKeypair = web.Keypair.generate();
+    const contractKeypair = web3.Keypair.generate();
     
     const tx = await program.methods
       .initializeContract(
@@ -93,7 +93,7 @@ export const contractFunctions = {
         investmentContract: contractKeypair.publicKey,
         investor: wallet.publicKey,
         startup: startup,
-        systemProgram: web.SystemProgram.programId,
+        systemProgram: web3.SystemProgram.programId,
       })
       .signers([contractKeypair])
       .rpc();
@@ -184,6 +184,6 @@ export const contractFunctions = {
 };
 
 // Re-exportar tipos úteis
-export { Connection, PublicKey } from "@solana/web.js";
+export { Connection, PublicKey } from "@solana/web3.js";
 export { BN } from "@coral-xyz/anchor";
-export { web };
+export { web3 };

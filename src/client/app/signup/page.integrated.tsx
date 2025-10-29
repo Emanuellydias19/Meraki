@@ -82,7 +82,7 @@ export default function CadastroPage() {
       
       setTimeout(() => {
         router.push('/login');
-      }, 000);
+      }, 1000);
 
     } catch (err: any) {
       console.error('Erro ao criar conta:', err);
@@ -230,7 +230,7 @@ export default function CadastroPage() {
               <button
                 type="submit"
                 disabled={isLoading}
-                style={{ backgroundColor: COLORS.ACCENT, color: 'white', opacity: isLoading ? 0.6 :  }}
+                style={{ backgroundColor: COLORS.ACCENT, color: 'white', opacity: isLoading ? 0.6 : 1 }}
                 className="w-full py- font-semibold rounded-lg hover:opacity-85 transition shadow-lg disabled:cursor-not-allowed"
               >
                 {isLoading ? 'Criando conta...' : 'Criar Conta'}

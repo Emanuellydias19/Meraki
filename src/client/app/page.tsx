@@ -2,44 +2,41 @@
 
 import { Button } from "../components/ui";
 import Link from "next/link";
+import { Footer } from "../components/layout/Footer";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 
-// Import Swiper styles
-import "swiper/css";
 
 export default function LandingPage() {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero */}
-      <section className="h-screen justify-center bg-linear-to-b from-primary/0 to-background flex items-center">
-        <div className="px-8 space-y-8 flex-">
-          <h className="text-6xl font-bold text-white">Meet Meraki</h>
-          <p className="text-xl text-gray-00 max-w-xl">
+      <section className="h-screen justify-center bg-linear-to-b from-primary/20 to-background flex items-center">
+        <div className="px-8 space-y-8 flex-1">
+          <h1 className="text-6xl font-bold text-white">Meet Meraki</h1>
+          <p className="text-xl text-gray-400 max-w-2xl">
             A platform built on Solana that connects startups and investors in a
             transparent and decentralized way.
           </p>
-          <div className="flex gap-">
+          <div className="flex gap-4">
             <Link href="/explore" passHref>
-              <Button className="px-8 py- rounded-lg font-semibold bg-accent text-white hover:opacity-90 transition-opacity">
+              <Button className="px-8 py-3 rounded-lg font-semibold bg-accent text-white hover:opacity-90 transition-opacity">
                 Explorar Startups
               </Button>
             </Link>
             <Link href="/signup" passHref>
-              <Button className="px-8 py- rounded-lg font-semibold border- border-accent text-accent hover:bg-accent/0 transition-colors">
+              <Button className="px-8 py-3 rounded-lg font-semibold border-2 border-accent text-accent hover:bg-accent/10 transition-colors">
                 Publicize your Startup
               </Button>
             </Link>
           </div>
         </div>
 
-        <div className="flex flex- justify-center items-center">
+        <div className="flex flex-1 justify-center items-center">
           <div className="w-full max-w-md rounded-lg overflow-hidden">
-            {/* Hard-coded demo video (YouTube embed). Troque pela sua URL se desejar. */}
             <iframe
-              className="w-full h-6 md:h-80"
-              src="https://www.youtube.com/embed/5t_LecVGOE?si=zNl"
-              title="Demo video"
+              className="w-full h-64 md:h-80"
+              src="https://www.youtube.com/embed/5t_Lec1VGOE?si=zNl"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
@@ -48,8 +45,8 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <section className="h-min-screen p- pb- flex flex-col gap-">
-        <h className="text-xl font-bold mb-8">More about Meraki</h>
+      <section className="h-min-screen p-12 pb-3 flex flex-col gap-4">
+        <h2 className="text-3xl font-bold mb-8">More about Meraki</h2>
         <p>
           Meraki is a decentralized platform built on Solana that connects
           innovative startups with visionary investors through transparent smart
@@ -73,12 +70,12 @@ export default function LandingPage() {
           accountability, and transparency in every transaction.
         </p>
 
-        <div className="flex gap- py-0">
-          <div className="flex- text-xl font-bold mb-8 text-center flex gap- justify-center">
+        <div className="flex gap-4 py-10">
+          <div className="flex-1 text-2xl font-bold mb-8 text-center flex gap-2 justify-center">
             imagem
             <p>Meraki</p>
           </div>
-          <div className="flex- text-xl font-bold mb-8 text-center flex gap- justify-center">
+          <div className="flex-1 text-2xl font-bold mb-8 text-center flex gap-2 justify-center">
             imagem
             <p>SOLANA</p>
           </div>
@@ -86,12 +83,12 @@ export default function LandingPage() {
       </section>
 
       {/* Features */}
-      <section className="py- bg-[#09CC] w-full overflow-y-auto">
-        <div className="mx-auto px-8 space-y-">
-          <h className="text-xl font-bold text-white text-center">
+      <section className="py-24 bg-[#092C4C] w-full overflow-y-auto">
+        <div className="mx-auto px-8 space-y-12">
+          <h2 className="text-4xl font-bold text-white text-center">
             Why invest with us?
-          </h>
-          <div className="grid grid-cols- gap-8">
+          </h2>
+          <div className="grid grid-cols-4 gap-8">
             {[
               {
                 icon: "icon",
@@ -99,7 +96,7 @@ export default function LandingPage() {
               },
               {
                 icon: "icon",
-                desc: "Discover early-stage startups building the future of Web.",
+                desc: "Discover early-stage startups building the future of Web3.",
               },
               {
                 icon: "icon",
@@ -112,13 +109,13 @@ export default function LandingPage() {
             ].map((feature, idx) => (
               <div
                 key={idx}
-                className="bg-gray-800 rounded-lg p-6 text-center space-y- min-w-xs"
+                className="bg-gray-800 rounded-lg p-6 text-center space-y-4 min-w-2xs"
               >
-                <div className="text-xl">{feature.icon}</div>
-                <h className="text-lg font-bold text-white">
+                <div className="text-4xl">{feature.icon}</div>
+                <h3 className="text-lg font-bold text-white">
                   {feature.title}
-                </h>
-                <p className="text-gray-00 text-sm">{feature.desc}</p>
+                </h3>
+                <p className="text-gray-400 text-sm">{feature.desc}</p>
               </div>
             ))}
           </div>
@@ -126,12 +123,12 @@ export default function LandingPage() {
       </section>
 
       {/*Why Solana*/}
-      <section className="py- bg-[#A88] w-full overflow-y-auto">
-        <div className="mx-auto px-8 space-y-5">
-          <h className="text-xl font-bold text-white text-center">
+      <section className="py-24 bg-[#1A1818] w-full overflow-y-auto">
+        <div className="mx-auto px-8 space-y-15">
+          <h2 className="text-4xl font-bold text-white text-center">
             Why Solana?
-          </h>
-          <div className="grid grid-cols- gap-8">
+          </h2>
+          <div className="grid grid-cols-2 gap-8">
             {[
               {
                 icon: "icon",
@@ -152,13 +149,13 @@ export default function LandingPage() {
             ].map((feature, idx) => (
               <div
                 key={idx}
-                className="bg-gray-800 p-6 text-center space-y- min-w-xs"
+                className="bg-gray-800 p-6 text-center space-y-4 min-w-2xs"
               >
-                <div className="text-xl">{feature.icon}</div>
-                <h className="text-lg font-bold text-white">
+                <div className="text-4xl">{feature.icon}</div>
+                <h3 className="text-lg font-bold text-white">
                   {feature.title}
-                </h>
-                <p className="text-gray-00 text-sm">{feature.desc}</p>
+                </h3>
+                <p className="text-gray-400 text-sm">{feature.desc}</p>
               </div>
             ))}
           </div>
@@ -166,16 +163,16 @@ export default function LandingPage() {
       </section>
 
       {/*Meraki's Real Cases*/}
-      <section className="py- bg-[#09CC] w-full overflow-y-auto">
-        <div className="mx-auto px-8 space-y-5">
-          <h className="text-xl font-bold text-white text-center">
+      <section className="py-24 bg-[#092C4C] w-full overflow-y-auto">
+        <div className="mx-auto px-8 space-y-15">
+          <h2 className="text-4xl font-bold text-white text-center">
             Meraki's Real Cases
-          </h>
+          </h2>
           {/* Carrossel de relatos */}
           <Swiper
             loop={true}
             spaceBetween={50}
-            slidesPerView={}
+            slidesPerView={2}
             onSlideChange={() => console.log("slide change")}
             onSwiper={(swiper) => console.log(swiper)}
           >
@@ -203,10 +200,10 @@ export default function LandingPage() {
             ].map((relato, idx) => (
               <SwiperSlide
                 key={idx}
-                className="bg-[#BDEF0] p-8 text-center space-y- min-w-xs"
+                className="bg-[#BD2EF0] p-8 text-center space-y-4 min-w-2xs"
               >
-                <div className="text-xl">{relato.icon}</div>
-                <h className="text-lg font-bold text-black">{relato.title}</h>
+                <div className="text-4xl">{relato.icon}</div>
+                <h3 className="text-lg font-bold text-black">{relato.title}</h3>
                 <p className="text-black text-base">{relato.desc}</p>
               </SwiperSlide>
             ))}
@@ -215,71 +212,71 @@ export default function LandingPage() {
       </section>
 
       {/*Proof that our platform makes a real difference*/}
-      <section className="h-min-screen p- text-center flex flex-col gap-8">
-        <h className="text-xl font-bold text-center">
+      <section className="h-min-screen p-12 text-center flex flex-col gap-8">
+        <h2 className="text-3xl font-bold text-center">
           Proof that our platform makes a real difference
-        </h>
+        </h2>
         <p>
           Real data, real feedback, real progress — early insights proving how
           Meraki bridges innovation and investment.
         </p>
-        <div className="grid grid-cols- gap-8">
+        <div className="grid grid-cols-3 gap-8">
           {[
             {
               title: "Investor Validation",
               desc: "Investors are finding value early on.",
               data: "78%",
-              desc:
+              desc2:
                 "of early testers said Meraki simplifies finding purpose-driven startups.",
               line: true,
-              data: " out of ",
-              desc:
+              data2: "2 out of 3",
+              desc3:
                 "of early testers said Meraki simplifies finding purpose-driven startups.",
             },
             {
               title: "Startup Engagement",
               desc: "Founders trust Meraki to tell their story.",
               data: "60%",
-              desc: "faster connection to interested investor.",
+              desc2: "faster connection to interested investor.",
               line: true,
-              desc: "Transparent profile system rated.",
-              data: ".8/5",
-              desc: "in usability tests.",
+              desc3: "Transparent profile system rated.",
+              data2: "4.8/5",
+              desc4: "in usability tests.",
             },
             {
               title: "Market Opportunity",
               desc: "Data shows the space for innovation is massive.",
               data: "70%",
-              desc: "of early-stage startupsmlack aligned investors.",
+              desc2: "of early-stage startupsmlack aligned investors.",
               line: true,
-              desc: "The global innovation funding market will grow",
-              data: "0%",
-              desc: "by 07",
+              desc3: "The global innovation funding market will grow",
+              data2: "30%",
+              desc4: "by 2027",
             },
           ].map((feature, idx) => (
             <div
               key={idx}
-              className="relative border-gray-600 border p-6 text-center space-y- min-w-xs"
+              className="relative border-gray-600 border p-6 text-center space-y-4 min-w-2xs"
             >
-              {idx ==  && (
-                <span className="bg-background absolute left-/ -top- px- text-xs -translate-x-[5%]">
+              {idx == 1 && (
+                <span className="bg-background absolute left-1/2 -top-2 px-2 text-xs -translate-x-[45%]">
                   Your opportunity starts here
                 </span>
               )}
-              <h className="text-xl font-bold text-white">{feature.title}</h>
-              <p className="text-gray-00 text-xl">{feature.desc}</p>
+              <h3 className="text-3xl font-bold text-white">{feature.title}</h3>
+              <p className="text-gray-400 text-1xl">{feature.desc}</p>
 
               <p className="text-white font-bold text-6xl">{feature.data}</p>
-              <p className="text-white font-bold text-6xl">{feature.data}</p>
-              <p className="text-gray-00 text-sm">{feature.desc}</p>
+              <p className="text-white font-bold text-6xl">{feature.data2}</p>
+              <p className="text-gray-400 text-sm">{feature.desc2}</p>
 
               {/* Divider: rendered only if feature.line is true */}
               {feature.line && (
-                <div className="border-t border-gray-600 my- w-/ mx-auto" />
+                <div className="border-t border-gray-600 my-4 w-3/4 mx-auto" />
               )}
 
-              <p className="text-gray-00 text-sm">{feature.desc}</p>
-              <p className="text-gray-00 text-sm">{feature.desc}</p>
+              <p className="text-gray-400 text-sm">{feature.desc3}</p>
+              <p className="text-gray-400 text-sm">{feature.desc4}</p>
             </div>
           ))}
         </div>

@@ -1,7 +1,8 @@
 [workspace]
 members = [
-  "src/programs/meraki_contract"
+  "src/programs/meraki_contract",
+  "src/server/meraki_api_server"
 ]
-
+TypeScript: Restart TS server
 [profile.release]
 overflow-checks = true

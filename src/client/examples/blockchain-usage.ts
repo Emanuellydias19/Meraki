@@ -20,8 +20,7 @@ export async function exemploInicializarContrato(wallet: WalletContextState) {
   }
 
   try {
-    // . Parâmetros do contrato
-    const amount = 000000000; //  SOL em lamports ( SOL = ,000,000,000 lamports)
+    const amount = 1000000000; // 1 SOL em lamports (1 SOL = 1,000,000,000 lamports)
     const investorReturnPercent = 0; // 0% de retorno para o investidor
     const durationDays = 65; // Duração de  ano
     const startupPublicKey = 'STARTUP_WALLET_ADDRESS_AQUI'; // Substituir pelo endereço real
@@ -239,7 +238,7 @@ export async function exemploVerificarSaldo(wallet: WalletContextState) {
     const connection = getConnection();
     const balance = await connection.getBalance(wallet.publicKey);
     
-    console.log('💰 Saldo da wallet:', balance / 000000000, 'SOL');
+    console.log('💰 Saldo da wallet:', balance / 1000000000, 'SOL');
     return balance;
 
   } catch (error) {

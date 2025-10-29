@@ -6,5 +6,9 @@
     "build": "cd .. && npm run build",
     "start": "cd .. && npm run start",
     "lint": "cd .. && npm run lint"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2"
   }
 }
