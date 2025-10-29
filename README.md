@@ -10,7 +10,7 @@
 <p align="center">
   <a href="#">Live Demo</a> |
   <a href="https://docs.google.com/document/d/18PfbyGBLOJOzlAQJlJu0jYHTP6BmepTEQ7SUVY1t0gA/edit?usp=sharing">Docs</a> |
-  <a href="https://github.com/Emanuellydias19/Meraki/tree/main/contracts/meraki_contract">Project Overview</a> |
+  <a href="">DevNET</a> |
   <a href="https://discord.gg/V75mWm2k">Join our Community</a>
 
 
