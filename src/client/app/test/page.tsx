@@ -8,16 +8,16 @@ import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 
 const mockStartup = {
-  id: "1",
+  id: "",
   name: "TechStartup Inc.",
   description: "Plataforma de IA",
-  image: "https://via.placeholder.com/300x200",
+  image: "https://via.placeholder.com/00x00",
   category: "tech",
   status: "active",
   raisedAmount: 50,
-  targetAmount: 100,
+  targetAmount: 00,
   createdAt: new Date(),
-  owner: "11111111111111111111111111111111",
+  owner: "",
   verified: true,
 };
 
@@ -28,25 +28,25 @@ export default function TestPage() {
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
       <div className="bg-white border-b p-6">
-        <h1 className="text-3xl font-bold">Teste de Componentes</h1>
+        <h className="text-xl font-bold">Teste de Componentes</h>
       </div>
 
       <div className="flex">
         {/* Sidebar */}
-        <div className="w-64 bg-white border-r p-6">
-          <h2 className="font-bold mb-4">Componentes</h2>
+        <div className="w-6 bg-white border-r p-6">
+          <h className="font-bold mb-">Componentes</h>
           <button
             onClick={() => setSelected("startup-card")}
-            className={`w-full text-left px-4 py-2 rounded ${
-              selected === "startup-card" ? "bg-blue-100" : "hover:bg-gray-100"
+            className={`w-full text-left px- py- rounded ${
+              selected === "startup-card" ? "bg-blue-00" : "hover:bg-gray-00"
             }`}
           >
             StartupCard
           </button>
           <button
             onClick={() => setSelected("badge")}
-            className={`w-full text-left px-4 py-2 rounded ${
-              selected === "badge" ? "bg-blue-100" : "hover:bg-gray-100"
+            className={`w-full text-left px- py- rounded ${
+              selected === "badge" ? "bg-blue-00" : "hover:bg-gray-00"
             }`}
           >
             Badge
@@ -54,11 +54,11 @@ export default function TestPage() {
         </div>
 
         {/* Main */}
-        <div className="flex-1 p-12">
+        <div className="flex- p-">
           {selected === "startup-card" && (
             <div>
-              <h2 className="text-2xl font-bold mb-6">StartupCard</h2>
-              <div className="grid grid-cols-3 gap-6">
+              <h className="text-xl font-bold mb-6">StartupCard</h>
+              <div className="grid grid-cols- gap-6">
                 <StartupCard startup={mockStartup} />
                 <StartupCard startup={mockStartup} isNew={true} />
                 <StartupCard
@@ -70,8 +70,8 @@ export default function TestPage() {
 
           {selected === "badge" && (
             <div>
-              <h2 className="text-2xl font-bold mb-6">Badge</h2>
-              <div className="flex gap-4">
+              <h className="text-xl font-bold mb-6">Badge</h>
+              <div className="flex gap-">
                 <Badge>Default</Badge>
                 <Badge variant="secondary">Secondary</Badge>
               </div>

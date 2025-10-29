@@ -1,6 +1,6 @@
 export const API_CONFIG = {
-  baseUrl: process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000/api",
-  timeout: 30000,
+  baseUrl: process.env.NEXT_PUBLIC_API_URL || "http://localhost:000/api",
+  timeout: 0000,
 };
 
 export const BLOCKCHAIN_CONFIG = {
@@ -17,17 +17,17 @@ export const APP_CONFIG = {
 
 // Design System - Desktop
 export const DESKTOP_CONFIG = {
-  containerWidth: "1440px",
-  sidebarWidth: "280px",
-  contentWidth: "1160px",
+  containerWidth: "0px",
+  sidebarWidth: "80px",
+  contentWidth: "60px",
   colors: {
-    primary: "#1F2937", // Azul escuro
+    primary: "#F97", // Azul escuro
     secondary: "#0F766E", // Ciano
-    accent: "#D946EF", // Magenta
-    background: "#0F172A", // Muito escuro
+    accent: "#D96EF", // Magenta
+    background: "#0F7A", // Muito escuro
     foreground: "#F8FAFC", // Muito claro
-    success: "#10B981", // Verde
+    success: "#0B98", // Verde
     warning: "#F59E0B", // Amarelo
-    error: "#EF4444", // Vermelho
+    error: "#EF", // Vermelho
   },
 };

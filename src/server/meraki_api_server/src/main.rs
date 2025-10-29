@@ -12,6 +12,7 @@ use axum::{
     Router,
 };
 use std::net::SocketAddr;
+use tower_http::cors::{CorsLayer, Any};
 use utoipa::{
     openapi::security::{HttpAuthScheme, HttpBuilder, SecurityScheme},
     Modify, OpenApi,
@@ -137,7 +138,13 @@ async fn main() {
     let swagger_ui = SwaggerUi::new("/swagger-ui")
         .url("/api-docs/openapi.json", ApiDoc::openapi());
 
-    // 4. Create the Main Router
+    // 4. Configure CORS
+    let cors = CorsLayer::new()
+        .allow_origin(Any)
+        .allow_methods(Any)
+        .allow_headers(Any);
+
+    // 5. Create the Main Router
     let app = Router::new()
         // Merge Swagger UI routes into the router
         .merge(swagger_ui)
@@ -172,13 +179,20 @@ async fn main() {
     .route("/wallet-connections/:id", delete(handlers::delete_wallet_connection))
         // ------------------
 
+        // Add CORS middleware
+        .layer(cors)
         // Provide `app_state` (with the pool) to all handlers
         .with_state(db_pool);
 
-    // 5. Start the server
-    let addr = SocketAddr::from(([0, 0, 0, 0], 3000));
-    println!("🚀 Server running at http://{}", addr);
-    println!("📖 Swagger documentation available at http://localhost:3000/swagger-ui/");
+    // 6. Start the server
+    let port: u16 = std::env::var("PORT")
+        .unwrap_or_else(|_| "8080".to_string())
+        .parse()
+        .expect("PORT must be a valid u16");
+        
+    let addr = SocketAddr::from(([0, 0, 0, 0], port));
+    println!("Server running at http://{}", addr);
+    println!("Swagger documentation available at http://localhost:{}/swagger-ui/", port);
 
     let listener = tokio::net::TcpListener::bind(addr).await.unwrap();
     axum::serve(listener, app.into_make_service())

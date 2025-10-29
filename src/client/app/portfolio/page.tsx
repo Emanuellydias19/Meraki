@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { ChevronDown, AlertCircle } from 'lucide-react'; // Importando ícone para o select e alertas
 
-// 1. Definição da Interface de Dados para Type Safety
+// . Definição da Interface de Dados para Type Safety
 interface StartupFormData {
   name: string;
   slogan: string;
@@ -18,13 +18,13 @@ interface StartupFormData {
 // 6. Tipagem do Placeholder DashboardLayout
 const DashboardLayout: React.FC<React.PropsWithChildren<object>> = ({ children }) => (
   // 8. Refatoração do Placeholder para usar classes Tailwind
-  <div className="min-h-screen bg-[#121A21] text-white font-inter">
-    <header className="py-4 px-6 shadow-xl bg-[#092C4C]">
+  <div className="min-h-screen bg-[#A] text-white font-inter">
+    <header className="py- px-6 shadow-xl bg-[#09CC]">
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-2xl font-extrabold text-[#BD2EF0]">NodeHub Dashboard</h2>
+        <h className="text-xl font-extrabold text-[#BDEF0]">NodeHub Dashboard</h>
       </div>
     </header>
-    <main className="pt-8 pb-12">
+    <main className="pt-8 pb-">
       {children}
     </main>
   </div>
@@ -43,12 +43,12 @@ const CustomInput: React.FC<{
   isTextArea?: boolean;
 }> = ({ label, name, value, onChange, placeholder, type = 'text', required = false, inputMode = 'text', isTextArea = false }) => {
 
-  const inputClasses = "w-full px-4 py-3 rounded-lg text-white text-lg bg-[#053752] border border-[#62C2E8] focus:outline-none focus:ring-2 focus:ring-[#62C2E8] placeholder-gray-500 transition duration-150";
+  const inputClasses = "w-full px- py- rounded-lg text-white text-lg bg-[#0575] border border-[#6CE8] focus:outline-none focus:ring- focus:ring-[#6CE8] placeholder-gray-500 transition duration-50";
 
   return (
     <div>
-      <label className="block text-xl font-medium mb-2 text-white">
-        {label} {required && <span className="text-[#BD2EF0]">*</span>}
+      <label className="block text-xl font-medium mb- text-white">
+        {label} {required && <span className="text-[#BDEF0]">*</span>}
       </label>
       {isTextArea ? (
         <textarea
@@ -56,7 +56,7 @@ const CustomInput: React.FC<{
           value={value}
           onChange={onChange}
           placeholder={placeholder}
-          className={`${inputClasses} h-40 resize-none`}
+          className={`${inputClasses} h-0 resize-none`}
           required={required}
         />
       ) : (
@@ -85,42 +85,42 @@ const CustomSelect: React.FC<{
   options: { value: string, label: string }[];
 }> = ({ label, name, value, onChange, required = false, options }) => (
   <div className="relative">
-    <label className="block text-xl font-medium mb-2 text-white">
-      {label} {required && <span className="text-[#BD2EF0]">*</span>}
+    <label className="block text-xl font-medium mb- text-white">
+      {label} {required && <span className="text-[#BDEF0]">*</span>}
     </label>
     <select
       name={name}
       value={value}
       
       // 7. Adição de appearance-none para corrigir o estilo do seletor
-      className="w-full px-4 py-3 rounded-lg text-white text-lg bg-[#053752] border border-[#62C2E8] focus:outline-none focus:ring-2 focus:ring-[#62C2E8] appearance-none cursor-pointer transition duration-150"
+      className="w-full px- py- rounded-lg text-white text-lg bg-[#0575] border border-[#6CE8] focus:outline-none focus:ring- focus:ring-[#6CE8] appearance-none cursor-pointer transition duration-50"
       onChange={onChange} // Tipagem simplificada no onChange
       required={required}
       style={{
         // Estilo inline para o ícone customizado do seletor (arrow down)
-        backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23ffffff'%3E%3Cpath fill-rule='evenodd' d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z' clip-rule='evenodd' /%3E%3C/svg%3E")`,
+        backgroundImage: `url("data:image/svg+xml,%Csvg xmlns='http://www.w.org/000/svg' viewBox='0 0 0 0' fill='%ffffff'%E%Cpath fill-rule='evenodd' d='M5.9 7.9a  0 0. 0L0 0.586l.9-.9a  0 . .l- a  0 0-. 0l--a  0 00-.z' clip-rule='evenodd' /%E%C/svg%E")`,
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'right 0.75rem center',
-        paddingRight: '2.5rem',
+        paddingRight: '.5rem',
       }}
     >
-      <option value="" disabled className="text-gray-500 bg-[#092C4C]">Select a category</option>
+      <option value="" disabled className="text-gray-500 bg-[#09CC]">Select a category</option>
       {options.map(option => (
-        <option key={option.value} value={option.value} className="bg-[#092C4C] text-white">
+        <option key={option.value} value={option.value} className="bg-[#09CC] text-white">
           {option.label}
         </option>
       ))}
     </select>
-    <ChevronDown className="absolute right-3 top-1/2 mt-3 pointer-events-none w-5 h-5 text-white" />
+    <ChevronDown className="absolute right- top-/ mt- pointer-events-none w-5 h-5 text-white" />
   </div>
 );
 
 
 export default function CreateStartupPage() {
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState();
   const [error, setError] = useState("");
   
-  // 2. Adição de 'slogan' ao estado inicial e 16. Uso de tipagem explícita
+  // . Adição de 'slogan' ao estado inicial e 6. Uso de tipagem explícita
   const [formData, setFormData] = useState<StartupFormData>({
     name: "",
     slogan: "",
@@ -132,7 +132,7 @@ export default function CreateStartupPage() {
     twitter: "",
   });
 
-  // 10. Tipagem clara do handleChange
+  // 0. Tipagem clara do handleChange
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
@@ -143,8 +143,8 @@ export default function CreateStartupPage() {
   const handleNextStep = (nextStep: number) => {
     setError(""); // Limpa erros ao tentar avançar
 
-    // 5. Validação de Etapa 1
-    if (step === 1) {
+    // 5. Validação de Etapa 
+    if (step === ) {
       if (!formData.name.trim()) {
         setError("The Startup Name is mandatory to proceed.");
         return;
@@ -160,9 +160,9 @@ export default function CreateStartupPage() {
     alert("Startup Profile Submitted! Check console for data."); // Usando alert apenas para debug
   };
   
-  const stepContainerClasses = "rounded-xl p-8 space-y-8 border-2 bg-slate-800 border-[#62C2E8] shadow-xl shadow-blue-500/30 transition-all duration-500 ease-in-out";
-  const buttonPrimaryClasses = "px-8 py-4 bg-[#BD2EF0] text-white font-bold rounded-lg hover:bg-purple-700 transition duration-300 transform hover:scale-[1.02] text-xl shadow-lg shadow-[#BD2EF0]/50";
-  const buttonSecondaryClasses = "px-8 py-4 bg-gray-700 text-white font-semibold rounded-lg hover:bg-gray-600 transition duration-300 transform hover:scale-[1.02] text-xl";
+  const stepContainerClasses = "rounded-xl p-8 space-y-8 border- bg-slate-800 border-[#6CE8] shadow-xl shadow-blue-500/0 transition-all duration-500 ease-in-out";
+  const buttonPrimaryClasses = "px-8 py- bg-[#BDEF0] text-white font-bold rounded-lg hover:bg-purple-700 transition duration-00 transform hover:scale-[.0] text-xl shadow-lg shadow-[#BDEF0]/50";
+  const buttonSecondaryClasses = "px-8 py- bg-gray-700 text-white font-semibold rounded-lg hover:bg-gray-600 transition duration-00 transform hover:scale-[.0] text-xl";
 
   const categoryOptions = [
     { value: "tech", label: "Tech" },
@@ -175,20 +175,20 @@ export default function CreateStartupPage() {
 
   return (
     <DashboardLayout>
-      {/* 11. Melhoria da Responsividade */}
-      <div className="max-w-4xl mx-auto space-y-10 px-4 sm:px-6 lg:px-8">
-        <h1 className="text-4xl sm:text-5xl font-extrabold text-white text-center">
-          <span className="text-[#BD2EF0]">Create</span> Your Startup Profile
-        </h1>
+      {/* . Melhoria da Responsividade */}
+      <div className="max-w-xl mx-auto space-y-0 px- sm:px-6 lg:px-8">
+        <h className="text-xl sm:text-5xl font-extrabold text-white text-center">
+          <span className="text-[#BDEF0]">Create</span> Your Startup Profile
+        </h>
 
         {/* Progress Indicator */}
-        <div className="flex gap-4 max-w-lg mx-auto">
-          {[1, 2, 3].map((s) => (
+        <div className="flex gap- max-w-lg mx-auto">
+          {[, , ].map((s) => (
             <div
               key={s}
-              className={`flex-1 h-3 rounded-full transition-all duration-500 ${
+              className={`flex- h- rounded-full transition-all duration-500 ${
                 s <= step 
-                  ? 'bg-[#BD2EF0] shadow-md shadow-[#BD2EF0]/50' 
+                  ? 'bg-[#BDEF0] shadow-md shadow-[#BDEF0]/50' 
                   : 'bg-gray-800'
               }`}
             />
@@ -197,18 +197,18 @@ export default function CreateStartupPage() {
 
         {/* Error Message */}
         {error && (
-          <div className="flex items-center p-4 bg-red-900/50 border border-red-500 text-red-300 rounded-lg text-lg">
-            <AlertCircle className="w-6 h-6 mr-3" />
+          <div className="flex items-center p- bg-red-900/50 border border-red-500 text-red-00 rounded-lg text-lg">
+            <AlertCircle className="w-6 h-6 mr-" />
             {error}
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Step 1: Idea Title */}
-          {step === 1 && (
+          {/* Step : Idea Title */}
+          {step ===  && (
             <div className={stepContainerClasses}>
-              <h2 className="text-3xl font-bold text-white">Your Startup&apos;s Name & Slogan</h2>
-              <p className="text-lg text-gray-400">Start by giving your project a captivating title.</p>
+              <h className="text-xl font-bold text-white">Your Startup&apos;s Name & Slogan</h>
+              <p className="text-lg text-gray-00">Start by giving your project a captivating title.</p>
               
               <CustomInput
                 label="Startup Name"
@@ -230,7 +230,7 @@ export default function CreateStartupPage() {
               <div className="flex justify-end">
                 <button
                   type="button"
-                  onClick={() => handleNextStep(2)}
+                  onClick={() => handleNextStep()}
                   className={buttonPrimaryClasses}
                 >
                   Next Step
@@ -239,11 +239,11 @@ export default function CreateStartupPage() {
             </div>
           )}
 
-          {/* Step 2: Details */}
-          {step === 2 && (
+          {/* Step : Details */}
+          {step ===  && (
             <div className={stepContainerClasses}>
-              <h2 className="text-3xl font-bold text-white">Detailed Information</h2>
-              <p className="text-lg text-gray-400">Tell us more about your vision and how it impacts the world.</p>
+              <h className="text-xl font-bold text-white">Detailed Information</h>
+              <p className="text-lg text-gray-00">Tell us more about your vision and how it impacts the world.</p>
 
               <CustomInput
                 label="Description"
@@ -264,17 +264,17 @@ export default function CreateStartupPage() {
                 options={categoryOptions}
               />
 
-              <div className="flex gap-4 justify-between">
+              <div className="flex gap- justify-between">
                 <button
                   type="button"
-                  onClick={() => setStep(1)}
+                  onClick={() => setStep()}
                   className={buttonSecondaryClasses}
                 >
                   Back
                 </button>
                 <button
                   type="button"
-                  onClick={() => handleNextStep(3)}
+                  onClick={() => handleNextStep()}
                   className={buttonPrimaryClasses}
                 >
                   Next Step
@@ -283,13 +283,13 @@ export default function CreateStartupPage() {
             </div>
           )}
 
-          {/* Step 3: Contract Information */}
-          {step === 3 && (
+          {/* Step : Contract Information */}
+          {step ===  && (
             <div className={stepContainerClasses}>
-              <h2 className="text-3xl font-bold text-white">
+              <h className="text-xl font-bold text-white">
                 Funding & Contact Information
-              </h2>
-              <p className="text-lg text-gray-400">Specify your funding needs and provide contact details.</p>
+              </h>
+              <p className="text-lg text-gray-00">Specify your funding needs and provide contact details.</p>
 
               {/* 9. Input de Valor Monetário (type=text e inputMode=numeric) */}
               <CustomInput
@@ -297,7 +297,7 @@ export default function CreateStartupPage() {
                 name="targetAmount"
                 value={formData.targetAmount}
                 onChange={handleChange}
-                placeholder="e.g., 100000"
+                placeholder="e.g., 00000"
                 type="text"
                 inputMode="numeric"
                 required
@@ -331,10 +331,10 @@ export default function CreateStartupPage() {
                 required={false}
               />
 
-              <div className="flex gap-4 justify-between">
+              <div className="flex gap- justify-between">
                 <button
                   type="button"
-                  onClick={() => setStep(2)}
+                  onClick={() => setStep()}
                   className={buttonSecondaryClasses}
                 >
                   Back

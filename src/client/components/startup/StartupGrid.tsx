@@ -3,14 +3,14 @@ import { StartupCard } from './StartupCard';
 
 interface StartupGridProps {
   startups: Startup[];
-  columns?: 4 | 3 | 2; // Desktop-only
+  columns?:  |  | ; // Desktop-only
 }
 
-export function StartupGrid({ startups, columns = 4 }: StartupGridProps) {
+export function StartupGrid({ startups, columns =  }: StartupGridProps) {
   const gridClass = {
-    4: 'grid-cols-4',
-    3: 'grid-cols-3',
-    2: 'grid-cols-2',
+    : 'grid-cols-',
+    : 'grid-cols-',
+    : 'grid-cols-',
   }[columns];
 
   return (

@@ -4,7 +4,7 @@ export interface NFT {
   investmentId: string;
   investorWallet: string;
   startupId: string;
-  currentLevel: number; // 1-5 (evolui com marcos)
+  currentLevel: number; // -5 (evolui com marcos)
   maxLevel: number;
   metadata: NFTMetadata;
   createdAt: string;

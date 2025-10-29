@@ -2,21 +2,22 @@
   "compilerOptions": {
     "target": "ES2020",
     "module": "CommonJS",
-    "lib": ["es2020", "dom"],
+    "lib": ["es2020"],
     "types": ["mocha", "chai", "node"],
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "strict": true,
+    "strict": false,
     "resolveJsonModule": true,
-    "moduleResolution": "node",
+    "moduleResolution": "node10",
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "outDir": "dist",
-    "rootDir": "./"
+    "rootDir": "./",
+    "ignoreDeprecations": "6.0"
   },
   "include": [
-    "src/tests/**/*.ts",
-    "target/types/**/*.ts"
+    "programs/tests/**/*.ts",
+    "next.config.ts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "client", "dist"]
 }

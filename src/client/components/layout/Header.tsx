@@ -14,10 +14,10 @@ export function Header() {
   }
 
   return (
-    <header className="bg-gray-900 border-b border-gray-800 sticky top-0 z-40">
-      <div className="w-full mx-auto px-8 py-4 flex items-center justify-between">
+    <header className="bg-gray-900 border-b border-gray-800 sticky top-0 z-0">
+      <div className="w-full mx-auto px-8 py- flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2">
+        <Link href="/" className="flex items-center gap-">
           <div className="w-8 h-8 bg-accent rounded-lg flex items-center justify-center">
             <span className="text-white font-bold text-sm">NH</span>
           </div>
@@ -28,21 +28,21 @@ export function Header() {
         <nav className="flex items-center gap-8">
           <Link
             href="/explore"
-            className="text-gray-400 hover:text-white transition"
+            className="text-gray-00 hover:text-white transition"
           >
             Explorar
           </Link>
           <Link
             href="/dashboard"
-            className="text-gray-400 hover:text-white transition"
+            className="text-gray-00 hover:text-white transition"
           >
             Dashboard
           </Link>
         </nav>
 
         {/* CTA */}
-        <div className="flex items-center gap-4">
-          <button className="px-6 py-2 rounded-lg font-semibold bg-accent text-white hover:opacity-90 transition">
+        <div className="flex items-center gap-">
+          <button className="px-6 py- rounded-lg font-semibold bg-accent text-white hover:opacity-90 transition">
             Conectar Wallet
           </button>
         </div>

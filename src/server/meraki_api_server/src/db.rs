@@ -14,6 +14,6 @@ pub async fn create_pool() -> Result<PgPool, Error> {
     // Creates the connection pool
     let pool = PgPool::connect(&database_url).await?;
 
-    println!("✅ Connection to the database established.");
+    println!("Connection to the database established.");
     Ok(pool)
 }

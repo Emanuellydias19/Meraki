@@ -4,7 +4,7 @@ import { DashboardLayout } from "@/components/layout/DashboardLayout";
 import { useState } from "react";
 
 export default function CreateStartupPage() {
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState();
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -32,15 +32,15 @@ export default function CreateStartupPage() {
 
   return (
     <DashboardLayout>
-      <div className="w-[1160px] mx-auto space-y-8 py-12">
-        <h1 className="text-3xl font-bold text-white">Criar Startup</h1>
+      <div className="w-[60px] mx-auto space-y-8 py-">
+        <h className="text-xl font-bold text-white">Criar Startup</h>
 
         {/* Progress */}
-        <div className="flex gap-4">
-          {[1, 2, 3].map((s) => (
+        <div className="flex gap-">
+          {[, , ].map((s) => (
             <div
               key={s}
-              className={`flex-1 h-2 rounded-full ${
+              className={`flex- h- rounded-full ${
                 s <= step ? "bg-accent" : "bg-gray-800"
               }`}
             />
@@ -48,36 +48,36 @@ export default function CreateStartupPage() {
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Step 1: Título */}
-          {step === 1 && (
+          {/* Step : Título */}
+          {step ===  && (
             <div className="bg-gray-900 rounded-lg p-8 space-y-6">
-              <h2 className="text-2xl font-bold text-white">Título da Ideia</h2>
+              <h className="text-xl font-bold text-white">Título da Ideia</h>
               <input
                 type="text"
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
                 placeholder="Nome da sua startup"
-                className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white"
+                className="w-full px- py- bg-gray-800 border border-gray-700 rounded-lg text-white"
                 required
               />
               <button
                 type="button"
-                onClick={() => setStep(2)}
-                className="px-6 py-2 bg-accent text-white font-semibold rounded-lg hover:opacity-90"
+                onClick={() => setStep()}
+                className="px-6 py- bg-accent text-white font-semibold rounded-lg hover:opacity-90"
               >
                 Próximo
               </button>
             </div>
           )}
 
-          {/* Step 2: Detalhes */}
-          {step === 2 && (
+          {/* Step : Detalhes */}
+          {step ===  && (
             <div className="bg-gray-900 rounded-lg p-8 space-y-6">
-              <h2 className="text-2xl font-bold text-white">Detalhes</h2>
+              <h className="text-xl font-bold text-white">Detalhes</h>
 
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-gray-00 mb-">
                   Descrição
                 </label>
                 <textarea
@@ -85,20 +85,20 @@ export default function CreateStartupPage() {
                   value={formData.description}
                   onChange={handleChange}
                   placeholder="Descreva sua startup"
-                  className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white h-32"
+                  className="w-full px- py- bg-gray-800 border border-gray-700 rounded-lg text-white h-"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-gray-00 mb-">
                   Categoria
                 </label>
                 <select
                   name="category"
                   value={formData.category}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white"
+                  className="w-full px- py- bg-gray-800 border border-gray-700 rounded-lg text-white"
                   required
                 >
                   <option value="">Selecione uma categoria</option>
@@ -109,18 +109,18 @@ export default function CreateStartupPage() {
                 </select>
               </div>
 
-              <div className="flex gap-4">
+              <div className="flex gap-">
                 <button
                   type="button"
-                  onClick={() => setStep(1)}
-                  className="px-6 py-2 bg-gray-800 text-white font-semibold rounded-lg hover:bg-gray-700"
+                  onClick={() => setStep()}
+                  className="px-6 py- bg-gray-800 text-white font-semibold rounded-lg hover:bg-gray-700"
                 >
                   Voltar
                 </button>
                 <button
                   type="button"
-                  onClick={() => setStep(3)}
-                  className="px-6 py-2 bg-accent text-white font-semibold rounded-lg hover:opacity-90"
+                  onClick={() => setStep()}
+                  className="px-6 py- bg-accent text-white font-semibold rounded-lg hover:opacity-90"
                 >
                   Próximo
                 </button>
@@ -128,15 +128,15 @@ export default function CreateStartupPage() {
             </div>
           )}
 
-          {/* Step 3: Contrato */}
-          {step === 3 && (
+          {/* Step : Contrato */}
+          {step ===  && (
             <div className="bg-gray-900 rounded-lg p-8 space-y-6">
-              <h2 className="text-2xl font-bold text-white">
+              <h className="text-xl font-bold text-white">
                 Informações de Contrato
-              </h2>
+              </h>
 
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-gray-00 mb-">
                   Valor Alvo (SOL)
                 </label>
                 <input
@@ -144,14 +144,14 @@ export default function CreateStartupPage() {
                   name="targetAmount"
                   value={formData.targetAmount}
                   onChange={handleChange}
-                  placeholder="1000"
-                  className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white"
+                  placeholder="000"
+                  className="w-full px- py- bg-gray-800 border border-gray-700 rounded-lg text-white"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-gray-00 mb-">
                   Data Limite
                 </label>
                 <input
@@ -159,22 +159,22 @@ export default function CreateStartupPage() {
                   name="deadline"
                   value={formData.deadline}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white"
+                  className="w-full px- py- bg-gray-800 border border-gray-700 rounded-lg text-white"
                   required
                 />
               </div>
 
-              <div className="flex gap-4">
+              <div className="flex gap-">
                 <button
                   type="button"
-                  onClick={() => setStep(2)}
-                  className="px-6 py-2 bg-gray-800 text-white font-semibold rounded-lg hover:bg-gray-700"
+                  onClick={() => setStep()}
+                  className="px-6 py- bg-gray-800 text-white font-semibold rounded-lg hover:bg-gray-700"
                 >
                   Voltar
                 </button>
                 <button
                   type="submit"
-                  className="px-6 py-2 bg-accent text-white font-semibold rounded-lg hover:opacity-90"
+                  className="px-6 py- bg-accent text-white font-semibold rounded-lg hover:opacity-90"
                 >
                   Publicar Startup
                 </button>
