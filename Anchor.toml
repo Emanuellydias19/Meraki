@@ -1,14 +1,16 @@
+# FF4rqctdxDoMuLFh2ZiVchi8ToYx9MyfmJGbPALkbvA7
+
 [workspace]
 members = ["src/programs/meraki_contract"]
 
-[programs.localnet]
+[programs.devnet]
 meraki_contract = "51jdU5SpLxidhessiSTiAe3uATxh7sSHn1WKvvVVDK74"
 
 [registry]
 url = "https://api.apr.dev"
 
 [provider]
-cluster = "localnet"
+cluster = "devnet"
 wallet = "~/.config/solana/id.json"
 
 [scripts]
