@@ -139,7 +139,7 @@ Connect your Solana wallet (Phantom, Solflare) to start investing or creating pr
 - Track startup milestones and update NFTs dynamically
 
 ## Video Demo
-
+https://youtu.be/2hc4sl49Smg
   
 ## Roadmap
 - Advanced analytics dashboard for investors
